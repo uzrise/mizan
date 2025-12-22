@@ -20,22 +20,22 @@ export default function ProjectShowcase() {
   const projects = [
     {
       id: 1,
-      titleKey: 'projects.airport',
+      titleKey: 'projects.airport.title',
       image: '/images/projects/1.jpg',
     },
     {
       id: 2,
-      titleKey: 'projects.businessCenter',
+      titleKey: 'projects.businessCenter.title',
       image: '/images/projects/2.jpg',
     },
     {
       id: 3,
-      titleKey: 'projects.skyscraper',
+      titleKey: 'projects.skyscraper.title',
       image: '/images/projects/3.jpg',
     },
     {
       id: 4,
-      titleKey: 'projects.freedomTower',
+      titleKey: 'projects.freedomTower.title',
       image: '/images/projects/4.jpg',
     },
   ];
