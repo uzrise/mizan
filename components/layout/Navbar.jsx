@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import Image from 'next/image';
+import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import { useTranslation } from '@/contexts/TranslationContext';
 
@@ -151,7 +152,7 @@ export default function Navbar() {
               <button
                 key={lang}
                 onClick={() => changeLanguage(lang)}
-                className={`px-1.5 sm:px-2 py-1 text-xs sm:text-sm font-medium transition-colors ${
+                className={`px-1.5 sm:px-2 py-1 text-xs sm:text-sm font-medium transition-colors cursor-pointer ${
                   language === lang
                     ? 'text-white underline'
                     : 'text-white/60 hover:text-white'
@@ -210,38 +211,38 @@ export default function Navbar() {
 
             {/* Navigation Links - Chap tomonda vertical */}
             <nav className="flex flex-col gap-6 flex-1 pt-20">
-              <a
+              <Link
                 href="/"
                 onClick={() => setIsMenuOpen(false)}
-                className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2"
+                className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2 cursor-pointer"
               >
                 {t('nav.home')}
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/portfolio"
                 onClick={() => setIsMenuOpen(false)}
-                className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2"
+                className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2 cursor-pointer"
               >
                 {t('nav.portfolio')}
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/durability"
                 onClick={() => setIsMenuOpen(false)}
-                className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2"
+                className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2 cursor-pointer"
               >
                 {t('nav.durability')}
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/about"
                 onClick={() => setIsMenuOpen(false)}
-                className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2"
+                className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2 cursor-pointer"
               >
                 {t('nav.about')}
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/contact"
                 onClick={() => setIsMenuOpen(false)}
-                className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2 flex items-center gap-2"
+                className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2 flex items-center gap-2 cursor-pointer"
               >
                 {t('nav.contact')}
                 <svg
@@ -255,7 +256,7 @@ export default function Navbar() {
                 >
                   <path d="M7 17L17 7M7 7h10v10" />
                 </svg>
-              </a>
+              </Link>
             </nav>
 
             {/* Language Selector - Pastda o'ng tomonda */}
@@ -264,7 +265,7 @@ export default function Navbar() {
                 <button
                   key={lang}
                   onClick={() => changeLanguage(lang)}
-                  className={`px-2 py-1 text-sm font-medium transition-colors ${
+                  className={`px-2 py-1 text-sm font-medium transition-colors cursor-pointer ${
                     language === lang
                       ? 'text-white underline'
                       : 'text-white/60 hover:text-white'

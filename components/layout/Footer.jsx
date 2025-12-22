@@ -2,6 +2,7 @@
 
 import { useTranslation } from '@/contexts/TranslationContext';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Footer() {
   const { language, changeLanguage, t } = useTranslation();
@@ -25,38 +26,38 @@ export default function Footer() {
                 />
               </div>
               <nav className="flex flex-col gap-3">
-                <a
+                <Link
                   href="/"
-                  className="text-[#1a3a2a] hover:underline font-medium text-base"
+                  className="text-[#1a3a2a] hover:underline font-medium text-base cursor-pointer"
                 >
                   {t('nav.home')}
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/portfolio"
-                  className="text-[#1a3a2a] hover:underline font-medium text-base"
+                  className="text-[#1a3a2a] hover:underline font-medium text-base cursor-pointer"
                 >
                   {t('nav.portfolio')}
-                </a>
-                <a
-                  href="#sustainability"
-                  className="text-[#1a3a2a] hover:underline font-medium text-base"
+                </Link>
+                <Link
+                  href="/durability"
+                  className="text-[#1a3a2a] hover:underline font-medium text-base cursor-pointer"
                 >
-                  {t('nav.sustainability')}
-                </a>
-                <a
-                  href="#about"
-                  className="text-[#1a3a2a] hover:underline font-medium text-base"
+                  {t('nav.durability')}
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-[#1a3a2a] hover:underline font-medium text-base cursor-pointer"
                 >
                   {t('nav.about')}
-                </a>
+                </Link>
               </nav>
             </div>
 
             {/* Right Side - Contact and Language */}
             <div className="flex flex-col items-start md:items-end">
-              <a
-                href="#contact"
-                className="text-[#1a3a2a] font-medium text-base mb-6 hover:underline flex items-center gap-2"
+              <Link
+                href="/contact"
+                className="text-[#1a3a2a] font-medium text-base mb-6 hover:underline flex items-center gap-2 cursor-pointer"
               >
                 {t('nav.contact')}
                 <svg
@@ -70,13 +71,13 @@ export default function Footer() {
                 >
                   <path d="M7 17L17 7M7 7h10v10" />
                 </svg>
-              </a>
+              </Link>
               <div className="flex items-center gap-2">
                 {languages.map((lang) => (
                   <button
                     key={lang}
                     onClick={() => changeLanguage(lang)}
-                    className={`px-2 py-1 text-sm font-medium transition-colors ${
+                    className={`px-2 py-1 text-sm font-medium transition-colors cursor-pointer ${
                       language === lang
                         ? 'text-[#1a3a2a] underline'
                         : 'text-[#1a3a2a]/60 hover:text-[#1a3a2a]'

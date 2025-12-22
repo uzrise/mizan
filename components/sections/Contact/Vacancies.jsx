@@ -83,7 +83,7 @@ export default function Vacancies() {
       </div>
 
       {/* Button - 44px height, bg #F3F3F3 */}
-      <button className="h-[44px] px-4 py-3 bg-[#F3F3F3] group-hover:bg-[#e5e5e5] transition-colors flex items-center justify-end text-sm font-medium text-gray-900">
+      <button className="h-[44px] px-4 py-3 bg-[#F3F3F3] group-hover:bg-[#e5e5e5] transition-colors flex items-center justify-end text-sm font-medium text-gray-900 cursor-pointer">
         <span className="flex items-center gap-1 group-hover:underline decoration-[#00382F] underline-offset-2">
           {t("contact.vacancies.apply")}
           <svg
@@ -150,7 +150,7 @@ export default function Vacancies() {
                 <button
                   onClick={goToPrevious}
                   disabled={isAnimating || currentIndex === 0}
-                  className="w-12 h-12 rounded-full bg-[#00382F] hover:bg-[#1a4a3a] flex items-center justify-center transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-12 h-12 rounded-full bg-[#00382F] hover:bg-[#1a4a3a] flex items-center justify-center transition-all duration-200 disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed"
                   aria-label="Previous"
                 >
                   <svg
@@ -168,7 +168,7 @@ export default function Vacancies() {
                 <button
                   onClick={goToNext}
                   disabled={isAnimating || currentIndex >= maxIndex}
-                  className="w-12 h-12 rounded-full bg-[#00382F] hover:bg-[#1a4a3a] flex items-center justify-center transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-12 h-12 rounded-full bg-[#00382F] hover:bg-[#1a4a3a] flex items-center justify-center transition-all duration-200 disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed"
                   aria-label="Next"
                 >
                   <svg
@@ -209,7 +209,7 @@ export default function Vacancies() {
                   </div>
 
                   {/* Button - 44px height, bg #F3F3F3 */}
-                  <button className="h-[44px] px-4 py-3 bg-[#F3F3F3] group-hover:bg-[#e5e5e5] transition-colors flex items-center justify-end text-sm font-medium text-gray-900">
+                  <button className="h-[44px] px-4 py-3 bg-[#F3F3F3] group-hover:bg-[#e5e5e5] transition-colors flex items-center justify-end text-sm font-medium text-gray-900 cursor-pointer">
                     <span className="flex items-center gap-1 group-hover:underline decoration-[#00382F] underline-offset-2">
                       {t("contact.vacancies.apply")}
                       <svg

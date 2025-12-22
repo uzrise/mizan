@@ -10,10 +10,7 @@ export default function Grid({ containerRef, filteredProjects }) {
   return (
     <div
       ref={containerRef}
-      className="grid gap-y-8 gap-x-2"
-      style={{
-        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 457px), 457px))'
-      }}
+      className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-8 gap-x-6"
     >
       {filteredProjects.map((project, index) => (
         <div
@@ -26,7 +23,7 @@ export default function Grid({ containerRef, filteredProjects }) {
             href={`/portfolio/${project.slug}`}
             className="relative block overflow-hidden"
           >
-            <div className="relative overflow-hidden w-full aspect-[457/427]">
+            <div className="relative overflow-hidden w-full aspect-457/427">
               <Image
                 src={project.image}
                 alt={t(project.titleKey)}
@@ -70,7 +67,7 @@ export default function Grid({ containerRef, filteredProjects }) {
                 {project.category && project.category.length > 0 && (
                   <div className="px-2 flex items-center gap-1 py-1 rounded-2xl bg-white border border-[#DADADA] text-xs font-medium text-[#161616]">
                     <span
-                      className={`block w-[6px] h-[6px] m-[1px] rounded-full shrink-0  bg-[#DADADA]  `}
+                      className="block w-[6px] h-[6px] m-px rounded-full shrink-0 bg-[#DADADA]"
                     />
                     {project.category[0] === "exterior"
                       ? t("portfolio.exterior")

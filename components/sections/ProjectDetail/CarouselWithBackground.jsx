@@ -141,7 +141,7 @@ export default function CarouselWithBackground({ project }) {
             <button
               onClick={goToPrevious}
               disabled={isAnimating}
-              className="w-12 h-12 rounded-full bg-white/40 hover:bg-white/50 backdrop-blur-sm flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg border-2 border-white/20 disabled:opacity-50"
+              className="w-12 h-12 rounded-full bg-white/40 hover:bg-white/50 backdrop-blur-sm flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg border-2 border-white/20 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
               aria-label="Previous image"
             >
               <svg
@@ -159,7 +159,7 @@ export default function CarouselWithBackground({ project }) {
             <button
               onClick={goToNext}
               disabled={isAnimating}
-              className="w-12 h-12 rounded-full bg-white/40 hover:bg-white/50 backdrop-blur-sm flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg border-2 border-white/20 disabled:opacity-50"
+              className="w-12 h-12 rounded-full bg-white/40 hover:bg-white/50 backdrop-blur-sm flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg border-2 border-white/20 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
               aria-label="Next image"
             >
               <svg
