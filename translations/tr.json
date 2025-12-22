@@ -1,0 +1,330 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "portfolio": "Portföy",
+    "durability": "Dayanıklılık",
+    "about": "Hakkımızda",
+    "contact": "İletişim"
+  },
+  "hero": {
+    "title": "Yenilikçi Mimarinin Sınırlarını Genişletmek",
+    "description": "Mizan Architecture modern, estetik ve işlevsel mekanlar yaratır. Fikirlerinizi düşünceli ve sürdürülebilir çözümlere dönüştürüyoruz.",
+    "cta": "Daha Fazla Bilgi"
+  },
+  "portfolio": {
+    "title": "Portföy",
+    "description": "Mizan Architecture'da modern ve yenilikçi mimari çözümler yaratıyoruz. Her proje teknoloji, sürdürülebilirlik ve estetiği birleştirerek müşterilerimize yüksek kalite ve güvenilir sonuçlar sunuyor. Bütçeyi sıkı bir şekilde takip ediyor ve işin tüm aşamalarında giderleri etkili bir şekilde yönetiyoruz.",
+    "all": "Tümü",
+    "exterior": "Dış Cephe",
+    "interior": "İç Mekan",
+    "backToPortfolio": "Portföye Dön",
+    "viewProject": "Projeyi Görüntüle"
+  },
+  "projects": {
+    "details": "Proje Detayları",
+    "gallery": "Galeri",
+    "category": "Kategori",
+    "client": "Müşteri",
+    "architecture": "Mimari",
+    "status": "Durum",
+    "team": "Proje Ekibi",
+    "location": "Konum",
+    "year": "Yıl",
+    "area": "Alan",
+    "typeOfWork": "İş türü",
+    "generalPlan": "Genel Plan - İnşaat",
+    "generalPlanSubtitle": "Genel Plan",
+    "generalPlanDescription": "Projenin genel planını ve inşaat sürecini gösteren detaylar.",
+    "sketch": "Eskiz",
+    "projectDescription": "Proje Açıklaması",
+    "approachAndConcept": "Proje Yaklaşımı ve Konsepti",
+    "technicalParameters": "Teknik Parametreler",
+    "defaultTeam": "MIZAN Architecture Team",
+    "specifications": {
+      "externalFacadeInspiration": "Dış cephe ilhamı",
+      "arkFortressSilhouette": "Ark kalesi silueti",
+      "visualSymbols": "Görsel semboller",
+      "crescentMoonAndStars": "Hilal ve 12 yıldız (Özbekistan bayrağına dayalı)",
+      "numberOfFloors": "Kat sayısı",
+      "threeFloors": "3 (1, 2, -1 teknik kat)",
+      "functions": "Fonksiyonlar",
+      "departureArrivalTechnicalZones": "Kalkış / varış / teknik bölgeler",
+      "services": "Hizmetler",
+      "servicesList": "Duty Free, Dinlenme alanı, Tuvaletler, Pasaport kontrolü",
+      "internalZoneAllocation": "İç bölge tahsisi",
+      "fullFunctionalPlanning": "Tam fonksiyonel planlamaya dayalı"
+    },
+    "defaultDescription": "Proje açıklaması yakında eklenecek.",
+    "defaultApproach": "Proje yaklaşımı ve konsepti yakında eklenecek.",
+    "defaultTechnicalParams": "Teknik parametreler yakında eklenecek.",
+    "airport": {
+      "title": "BUKHARA HAVALİMANI",
+      "location": "Bukhara",
+      "description": "İşlevselliği mimari zarafetle birleştiren modern havalimanı terminal tasarımı.",
+      "details": "Sürdürülebilir tasarım ilkeleri ve gelişmiş yolcu akışı optimizasyonu içeren son teknoloji havalimanı terminali.",
+      "category": "Havalimanı, Ticari nesne",
+      "client": "Jamoat Ishlari, Aeroport",
+      "status": "Devam ediyor",
+      "area": "211, 2, -1 m²",
+      "typeOfWork": "Tam fonksiyonel tasarım"
+    },
+    "businessCenter": {
+      "title": "İŞ MERKEZİ",
+      "location": "Taşkent",
+      "description": "Modern kurumsal ihtiyaçlar için tasarlanmış çağdaş iş merkezi.",
+      "details": "Esnek alanlar ve son teknoloji entegrasyonu içeren çok fonksiyonlu iş merkezi.",
+      "category": "Ticari",
+      "client": "Özel yatırımcı",
+      "status": "Tamamlandı",
+      "area": "5,000 m²",
+      "typeOfWork": "Tam fonksiyonel tasarım"
+    },
+    "skyscraper": {
+      "title": "AYNALI GÖKDELEN",
+      "location": "Taşkent",
+      "description": "Gökyüzünü ve çevredeki kentsel manzarayı yansıtan ikonik cam gökdelen.",
+      "details": "Yenilikçi ayna cam cephe ve sürdürülebilir bina sistemleri içeren bir dönüm noktası gökdelen.",
+      "category": "Konut, Ticari",
+      "client": "İnşaat şirketi",
+      "status": "Devam ediyor",
+      "area": "15,000 m²",
+      "typeOfWork": "Tam fonksiyonel tasarım"
+    },
+    "freedomTower": {
+      "title": "ÖZGÜRLÜK KULESİ",
+      "location": "Taşkent",
+      "description": "Özgürlüğü ve ilerlemeyi simgeleyen anıtsal kule.",
+      "details": "Kültürel önem ve modern mühendislikle tasarlanmış özgürlüğü temsil eden mimari başyapıt.",
+      "category": "Kültürel, Anıt",
+      "client": "Hükümet",
+      "status": "Tamamlandı",
+      "area": "3,000 m²",
+      "typeOfWork": "Tam fonksiyonel tasarım"
+    },
+    "luxuryResidence": {
+      "title": "LÜKS REZİDANS",
+      "location": "Taşkent",
+      "description": "Zarif iç ve dış tasarım içeren özel konut kompleksi.",
+      "details": "Lüks yaşam alanlarını dünya standartlarında olanaklarla birleştiren premium konut geliştirme.",
+      "category": "Konut",
+      "client": "Özel geliştirici",
+      "status": "Tamamlandı",
+      "area": "8,500 m²",
+      "typeOfWork": "Tam fonksiyonel tasarım"
+    },
+    "modernOffice": {
+      "title": "MODERN OFİS KOMPLEKSİ",
+      "location": "Taşkent",
+      "description": "İşbirlikçi çalışma ortamları için tasarlanmış yenilikçi ofis kompleksi.",
+      "details": "Açık çalışma alanları, sürdürülebilir malzemeler ve akıllı bina teknolojisi içeren çağdaş ofis binası.",
+      "category": "Ticari, Ofis",
+      "client": "Kurumsal müşteri",
+      "status": "Tamamlandı",
+      "area": "6,200 m²",
+      "typeOfWork": "Tam fonksiyonel tasarım"
+    },
+    "residentialInterior": {
+      "title": "KONUT İÇ MEKANI",
+      "location": "Taşkent",
+      "description": "Konfor ve stile vurgu yapan zarif konut iç mekan tasarımı.",
+      "details": "Modern estetiği işlevsel tasarım öğeleriyle birleştiren güzelce işlenmiş iç mekan.",
+      "category": "İç mekan, Konut",
+      "client": "Özel müşteri",
+      "status": "Tamamlandı",
+      "area": "350 m²",
+      "typeOfWork": "İç mekan tasarımı"
+    },
+    "culturalCenter": {
+      "title": "KÜLTÜR MERKEZİ",
+      "location": "Semerkant",
+      "description": "Sanatı ve toplumu kutlamak için tasarlanmış kültür merkezi.",
+      "details": "Sergi alanları, performans salonları ve topluluk alanları içeren canlı kültür merkezi.",
+      "category": "Kültürel",
+      "client": "Kültür Bakanlığı",
+      "status": "Devam ediyor",
+      "area": "4,500 m²",
+      "typeOfWork": "Tam fonksiyonel tasarım"
+    },
+    "commercialInterior": {
+      "title": "TİCARİ İÇ MEKAN",
+      "location": "Taşkent",
+      "description": "Perakende ve iş faaliyetleri için tasarlanmış modern ticari alan.",
+      "details": "Esnek yerleşimler ve modern tasarım estetiği içeren çağdaş ticari iç mekan.",
+      "category": "İç mekan, Ticari",
+      "client": "Perakende zinciri",
+      "status": "Tamamlandı",
+      "area": "1,200 m²",
+      "typeOfWork": "İç mekan tasarımı"
+    }
+  },
+  "stats": {
+    "completed": "TAMAMLANAN",
+    "currentProjects": "DEVAM EDEN PROJELER",
+    "builtKm2": "İNŞA EDİLEN KM²",
+    "yearsExperience": "YILLIK DENEYİM"
+  },
+  "values": {
+    "innovative": {
+      "title": "Yenilikçi",
+      "description": "Mimarlık firmaları estetik ve işlevselliği birleştiren benzersiz ve yaratıcı projeler oluşturur. Her projeye ayrı ayrı yaklaşıyor, modern ve yenilikçi çözümler sunuyoruz."
+    },
+    "economical": {
+      "title": "Ekonomik",
+      "description": "Bütçe yürütmesini sağlamak ve maliyetleri etkili bir şekilde yönetmek, başarılı bir mimarlık firmasının en önemli yönlerinden biridir. Doğru planlama, kalite ve maliyet arasındaki dengeyi korur."
+    },
+    "sustainability": {
+      "title": "Sürdürülebilirlik",
+      "description": "Çevresel sorumluluk ve sürdürülebilirlik, modern mimarlık firmalarının temel faaliyet alanlarıdır. Enerji verimli projelere ve dayanıklı malzemelerin kullanımına özel önem verilmektedir."
+    },
+    "clientOriented": {
+      "title": "Müşteri Odaklı",
+      "description": "Müşteri memnuniyeti, mimari projelerin başarısının temel faktörüdür. Firmalar müşteri ihtiyaçlarını anlar ve hem bireysel hem de kurumsal beklentilere uygun bireysel çözümler sunar."
+    }
+  },
+  "sections": {
+    "awards": "Ödüller",
+    "partners": "Ortaklarımız",
+    "team": "Ekip"
+  },
+  "awards": {
+    "internationalAwards": "Uluslararası Ödüller"
+  },
+  "footer": {
+    "copyright": "© 2025 Mizan Architecture. Tüm hakları saklıdır."
+  },
+  "team": {
+    "chiefArchitect": "Baş Mimar",
+    "leadDesigner": "Baş Tasarımcı",
+    "architectVisualizer": "Mimar-Görselleştirici",
+    "constructionEngineer": "İnşaat Mühendisi",
+    "interiorDesigner": "İç Mimari Tasarımcı",
+    "role": "Rol",
+    "experience": "Deneyim",
+    "years": "yıl",
+    "specialization": "Uzmanlık"
+  },
+  "contact": {
+    "hero": {
+      "title": "Bizimle İletişime Geçin",
+      "description": "Sorularınızı yanıtlamaya ve projelerinizi tartışmaya her zaman hazırız. Bize uygun bir şekilde ulaşın: formu doldurun, arayın veya ofisimizi ziyaret edin. İşbirliğine açığız ve fikirlerinizi hayata geçirmenize yardımcı olmaya hazırız."
+    },
+    "info": {
+      "title": "İletişim Bilgileri",
+      "office": {
+        "title": "Ofis",
+        "address": "Taşkent, Şayhantahur bölgesi, Zülfiyahanım caddesi, 62",
+        "phone": "+998 71 200-00-00",
+        "imageAlt": "Mizan Architecture Ofisi"
+      },
+      "contact": {
+        "title": "İletişim",
+        "phone": "+998 77 004-07-70",
+        "email": "arch.mizan@gmail.com"
+      },
+      "social": {
+        "title": "Sosyal Ağlar",
+        "telegram": {
+          "label": "Telegram",
+          "url": "https://t.me/mizanarch"
+        },
+        "instagram": {
+          "label": "Instagram",
+          "url": "https://instagram.com/mizanarch"
+        }
+      }
+    },
+    "form": {
+      "title": "Talep Gönder",
+      "description": "Aşağıdaki formu doldurun ve en kısa sürede sizinle iletişime geçeceğiz.",
+      "name": "Ad",
+      "surname": "Soyad",
+      "email": "E-posta",
+      "phone": "Telefon Numarası",
+      "message": "Mesaj",
+      "disclaimer": "1 iş günü içinde yanıt vereceğiz",
+      "submit": "Talep Gönder"
+    },
+    "vacancies": {
+      "title": "İş İlanları",
+      "subtitle": "Şu Anda Mevcut Yeni İlanlar",
+      "apply": "Başvur",
+      "salaryFrom": "dan",
+      "salaryPerMonth": "sum aylık",
+      "job1": {
+        "title": "Keşifçi",
+        "location": "Taşkent, Şayhantahur bölgesi"
+      },
+      "job2": {
+        "title": "Ofis Müdürü",
+        "location": "Taşkent, Şayhantahur bölgesi"
+      },
+      "job3": {
+        "title": "Resepsiyonist/Yönetici",
+        "location": "Taşkent, Şayhantahur bölgesi"
+      },
+      "job4": {
+        "title": "UI/UX Tasarımcı",
+        "location": "Taşkent, Şayhantahur bölgesi"
+      }
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Her mekan toplumun gelişimine bir katkıdır.",
+      "paragraph1": "Her mekan toplumun gelişimine bir katkıdır.",
+      "paragraph2": "Yaratıcılık ve teknik hassasiyeti birleştirerek mimariye bakıyoruz, her projede detaylara dikkat ediyoruz ve gerçekten işe yarayan çözümler yaratıyoruz.",
+      "paragraph3": "Sürdürülebilir ve estetik projeler yaratan uluslararası bir mimarlık bürosu olmaya çalışıyoruz. Amacımız, bugün insanlara hizmet edecek ve gelecek nesiller için bir miras olacak yapılar inşa etmektir.",
+      "imageAlt": "Hakkımızda - Mizan Architecture"
+    },
+    "content": {
+      "leftColumn": "Mimarlık dünyasını değiştirmeye çalışıyoruz. Yaratıcılık ve teknik bilgiyi birleştirerek, her projeye taze, yenilikçi bakış açıları getiriyoruz. Projelerimizin tüm aşamalarında uyguladığımız detaylara dikkat ve titizlik, bizi sektörde güvenilir bir ortak yapar.",
+      "rightColumn": "Sürdürülebilirliğe odaklanmış ofis tasarımı, konut inşaatı alanında gelişiyoruz. Doğal ve teknolojik mükemmelliği koruyarak, gelecek nesillerin somutlaşması olarak hizmet edecek yapılar yaratmaya çalışıyoruz."
+    },
+    "team": {
+      "title": "Ekip",
+      "description": "Ekibimiz çeşitli mimari disiplinlerde uzmanlaşmış yaratıcı ve deneyimli mimarlar, mühendisler ve tasarımcılardan oluşmaktadır. Her ekip üyesi, bireysel çözümlerle müşteri beklentilerini aşmamıza yardımcı olarak projelerimize benzersiz katkılar sağlar.",
+      "values": {
+        "innovation": {
+          "title": "YENİLİK",
+          "description": "Benzersiz ve işlevsel mekanlar yaratmak için sürekli yeni yaklaşımlar arıyor, ileri teknolojiler ve malzemeler kullanıyoruz."
+        },
+        "quality": {
+          "title": "KALİTE",
+          "description": "Tüm standart ve normlara uyarak her projenin en yüksek kalitede uygulanmasını garanti ediyoruz."
+        },
+        "sustainability": {
+          "title": "SÜRDÜRÜLEBİLİRLİK",
+          "description": "Sürdürülebilir kalkınma ilkelerini entegre ederek çözümlerimizin çevresel sorumluluğunu ve dayanıklılığını sağlıyoruz."
+        },
+        "clientFocus": {
+          "title": "MÜŞTERİ ODAKLI",
+          "description": "Müşteri ihtiyaçlarını dinliyor, bireysel çözümler sunuyor ve uzun vadeli ortaklıklar kuruyoruz."
+        }
+      }
+    }
+  },
+  "durability": {
+    "hero": {
+      "title": "Mizan ve Dayanıklılık",
+      "description": "Mizan'da dayanıklılığı çalışmalarımızın merkezine koyuyoruz. Ekolojik, sosyal ve ekonomik dayanıklılık ilkelerine bağlı kalıyor, çevresel ayak izimizi en aza indirmeye ve topluma fayda sağlayan projeler yaratmaya çalışıyoruz."
+    },
+    "content": {
+      "block1": {
+        "title": "Dayanıklı Tasarıma Yaklaşımımız",
+        "description": "Her projede dayanıklı malzemeler, enerji verimli çözümler ve çevre dostu inşaat süreçleri kullanmaya çalışıyoruz. Dayanıklı tasarıma yaklaşımımız, bina yaşam döngülerinin dikkatli analizini ve yenilenebilir enerji kaynaklarının entegrasyonunu içerir.",
+        "imageAlt": "Dayanıklı Tasarım"
+      },
+      "block2": {
+        "title": "Topluma Katkı",
+        "description": "Dayanıklı çözümlerimiz topluluklara fayda sağlar, sağlıklı yaşam ortamlarını teşvik eder ve yerel kalkınmaya katkıda bulunur. Sadece işlevsel değil, aynı zamanda insanların yaşam kalitesini artıran binalar tasarlıyoruz.",
+        "imageAlt": "Topluma Katkı"
+      },
+      "block3": {
+        "title": "Müşterilerimiz İçin Dayanıklı Çözümler",
+        "description": "Müşterilerimize uzun vadeli faydalar sunan enerji verimli, dayanıklı ve çevresel olarak sorumlu binalar sağlamaya odaklanıyoruz. Çözümlerimiz işletme maliyetlerini düşürmeye ve çevresel etkiyi en aza indirmeye yardımcı olur.",
+        "imageAlt": "Müşteriler İçin Dayanıklı Çözümler"
+      }
+    }
+  }
+}
+

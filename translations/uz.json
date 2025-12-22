@@ -1,0 +1,331 @@
+{
+  "nav": {
+    "home": "Bosh sahifa",
+    "portfolio": "Portfolio",
+    "durability": "Chidamlilik",
+    "about": "Biz haqimizda",
+    "contact": "Bog'lanish"
+  },
+  "hero": {
+    "title": "Innovatsion arxitektura chegaralarini kengaytirish",
+    "description": "Mizan Architecture zamonaviy, estetik va funksional makonlar yaratadi. Biz sizning g'oyalaringizni o'ylangan va barqaror yechimlarga aylantiramiz.",
+    "cta": "Ko'proq bilish"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "description": "Mizan Architecture'da biz zamonaviy va innovatsion arxitektura yechimlarini yaratamiz. Har bir loyiha texnologiya, barqarorlik va estetikani birlashtiradi, mijozlarimizga yuqori sifat va ishonchli natijalarni ta'minlaydi. Biz byudjetni qat'iy nazorat qilamiz va ishning barcha bosqichlarida xarajatlarni samarali boshqaramiz.",
+    "all": "Hammasi",
+    "exterior": "Eksterer",
+    "interior": "Interyer",
+    "backToPortfolio": "Portfolioga qaytish",
+    "viewProject": "Loyihani ko'rish"
+  },
+  "projects": {
+    "details": "Loyiha tafsilotlari",
+    "gallery": "Galereya",
+    "category": "Kategoriya",
+    "client": "Mijoz",
+    "architecture": "Arxitektura",
+    "status": "Holat",
+    "team": "Loyiha Jamoasi",
+    "location": "Joylashuv",
+    "year": "Yil",
+    "area": "Maydon",
+    "typeOfWork": "Ish turi",
+    "generalPlan": "General reja - Qurilish",
+    "generalPlanSubtitle": "General Plan",
+    "generalPlanDescription": "Loyihaning umumiy rejasi va qurilish jarayonini ko'rsatuvchi detallar.",
+    "sketch": "Eskiz",
+    "projectDescription": "Loyiha tavsifi",
+    "approachAndConcept": "Loyiha yondashuvi va g'oyasi",
+    "technicalParameters": "Texnik parametrlar",
+    "defaultTeam": "MIZAN Architecture Team",
+    "specifications": {
+      "externalFacadeInspiration": "Tashqi fasad ilhomi",
+      "arkFortressSilhouette": "Ark qal'asi silueti",
+      "visualSymbols": "Vizual ramzlar",
+      "crescentMoonAndStars": "Yarim oy va 12 yulduz (O'zbekiston bayrog'i asosida)",
+      "numberOfFloors": "Qavatlar soni",
+      "threeFloors": "3 (1, 2, -1 texnik qavat)",
+      "functions": "Funktsiyalar",
+      "departureArrivalTechnicalZones": "Ketish / kelish / texnik zonalar",
+      "services": "Servislar",
+      "servicesList": "Duty Free, Dam olish zonasi, Hojatxonalar, Pasport nazorati",
+      "internalZoneAllocation": "Ichki zona ajratilishi",
+      "fullFunctionalPlanning": "To'liq funktsional rejalashtirish asosida"
+    },
+    "defaultDescription": "Loyiha tavsifi tez orada qo'shiladi.",
+    "defaultApproach": "Buxoro shahrining tarixiy o‘rnini eslatuvchi bu inshoot zamonaviy aeroport bo‘lish bilan birga, turizm, madaniyat va islomiy me’rosni namoyish etuvchi muhim obyekt sifatida shakllantirilgan. Konsepsiyada orzu, ezgulik, milliy g‘urur va islomiy qadriyatlar bilan uyg‘unlashgan zamonaviy uslub mujassam.",
+    "defaultTechnicalParams": "Eslatma: ushbu loyiha kontseptual bo‘lgani uchun ba’zi maydon o‘lchamlari alohida ko‘rsatilmagan.",
+    "airport": {
+      "title": "BUXORO AEROPORTI",
+      "location": "Buxoro",
+      "description": "Yangi Buxoro xalqaro aeroporti konsepsiyasi Buxoroning diniy, madaniy va tarixiy merosini zamonaviy me’morchilik orqali aks ettirishga qaratilgan. Loyiha vizual va kontseptual jihatdan O‘zbekiston Respublikasi davlat bayrog‘idagi yarim oy va 12 yulduz ramzlaridan, shuningdek, Buxoroning “Qubbatu-l-Islom” — “Islom gumbazi” degan tarixiy unvonidan ilhom olgan.</br> </br> Binoning fasadi qadimiy Ark qal’asi obrazidan zamonaviy shaklda ilhomlangan bo‘lib, mintaqaviy identitetni ifodalaydi. Aeroport binosi funksional jihatdan aniqlik bilan zonalangan: terminalning har bir qavati yo‘lovchilarning oqimini qulay boshqarish uchun puxta ishlab chiqilgan.",
+      "details": "Barqaror dizayn tamoyillari va ilg'or yo'lovchi oqimini optimallashtirish bilan jihozlangan zamonaviy aeroport terminali.",
+      "category": "Aeroport, Tijorat ob'ekti",
+      "client": "Jamoat Ishlari, Aeroport",
+      "status": "Jarayonda",
+      "area": "211, 2, -1 kv.m",
+      "typeOfWork": "To'liq funksional dizayn"
+    },
+    "businessCenter": {
+      "title": "BIZNES MARKAZI",
+      "location": "Toshkent",
+      "description": "Zamonaviy korporativ ehtiyojlar uchun ishlab chiqilgan zamonaviy biznes markazi.",
+      "details": "Moslashuvchan makonlar va eng ilg'or texnologiyalar bilan jihozlangan ko'p funksiyali biznes markazi.",
+      "category": "Tijorat",
+      "client": "Xususiy investor",
+      "status": "Yakunlangan",
+      "area": "5,000 kv.m",
+      "typeOfWork": "To'liq funksional dizayn"
+    },
+    "skyscraper": {
+      "title": "KO'ZGU OSMONOSOR",
+      "location": "Toshkent",
+      "description": "Osmon va atrofdagi shahar manzarasini aks ettiruvchi ramziy shisha osmonosor.",
+      "details": "Innovatsion ko'zgu fasad va barqaror qurilish tizimlari bilan jihozlangan diqqatga sazovor osmonosor.",
+      "category": "Turar-joy, Tijorat",
+      "client": "Qurilish kompaniyasi",
+      "status": "Jarayonda",
+      "area": "15,000 kv.m",
+      "typeOfWork": "To'liq funksional dizayn"
+    },
+    "freedomTower": {
+      "title": "ERKINLIK MINORASI",
+      "location": "Toshkent",
+      "description": "Erkinlik va taraqqiyotni ramziylashtiruvchi monumental minora.",
+      "details": "Madaniy ahamiyat va zamonaviy muhandislik bilan ishlab chiqilgan erkinlikni ifodalovchi arxitektura durdonasi.",
+      "category": "Madaniy, Yodgorlik",
+      "client": "Hukumat",
+      "status": "Yakunlangan",
+      "area": "3,000 kv.m",
+      "typeOfWork": "To'liq funksional dizayn"
+    },
+    "luxuryResidence": {
+      "title": "HASHAMATLI TURAR-JOY",
+      "location": "Toshkent",
+      "description": "Rafineriya interyer va eksterer dizayni bilan eksklyuziv turar-joy majmuasi.",
+      "details": "Hashamatli yashash makonlarini dunyo darajasidagi qulayliklar bilan birlashtirgan premium turar-joy majmuasi.",
+      "category": "Turar-joy",
+      "client": "Xususiy quruvchi",
+      "status": "Yakunlangan",
+      "area": "8,500 kv.m",
+      "typeOfWork": "To'liq funksional dizayn"
+    },
+    "modernOffice": {
+      "title": "ZAMONAVIY OFIS MAJMUASI",
+      "location": "Toshkent",
+      "description": "Hamkorlik ish muhiti uchun ishlab chiqilgan innovatsion ofis majmuasi.",
+      "details": "Ochiq ish maydonlari, barqaror materiallar va aqlli bino texnologiyalari bilan jihozlangan zamonaviy ofis binosi.",
+      "category": "Tijorat, Ofis",
+      "client": "Korporativ mijoz",
+      "status": "Yakunlangan",
+      "area": "6,200 kv.m",
+      "typeOfWork": "To'liq funksional dizayn"
+    },
+    "residentialInterior": {
+      "title": "TURAR-JOY INTERYERI",
+      "location": "Toshkent",
+      "description": "Qulaylik va uslubni ta'kidlaydigan nafis turar-joy interyer dizayni.",
+      "details": "Zamonaviy estetikani funksional dizayn elementlari bilan birlashtirgan chiroyli yaratilgan ichki makon.",
+      "category": "Interyer, Turar-joy",
+      "client": "Xususiy mijoz",
+      "status": "Yakunlangan",
+      "area": "350 kv.m",
+      "typeOfWork": "Interyer dizayni"
+    },
+    "culturalCenter": {
+      "title": "MADANIY MARKAZ",
+      "location": "Samarqand",
+      "description": "San'at va jamiyatni nishonlash uchun ishlab chiqilgan madaniy markaz.",
+      "details": "Ko'rgazma maydonlari, spektakl zallari va jamoaviy joylar bilan jihozlangan jonli madaniy markaz.",
+      "category": "Madaniy",
+      "client": "Madaniyat vazirligi",
+      "status": "Jarayonda",
+      "area": "4,500 kv.m",
+      "typeOfWork": "To'liq funksional dizayn"
+    },
+    "commercialInterior": {
+      "title": "SOTUV INTERYERI",
+      "location": "Toshkent",
+      "description": "Chakana savdo va biznes faoliyati uchun ishlab chiqilgan zamonaviy tijorat makoni.",
+      "details": "Moslashuvchan joylashtirish va zamonaviy dizayn estetikasi bilan jihozlangan zamonaviy tijorat interyeri.",
+      "category": "Interyer, Tijorat",
+      "client": "Chakana savdo tarmog'i",
+      "status": "Yakunlangan",
+      "area": "1,200 kv.m",
+      "typeOfWork": "Interyer dizayni"
+    }
+  },
+  "stats": {
+    "completed": "YAKUNLANGAN",
+    "currentProjects": "JORIY LOYIHALAR",
+    "builtKm2": "QURILGAN KM²",
+    "yearsExperience": "YILLIK TAJRIBA"
+  },
+  "values": {
+    "innovative": {
+      "title": "Innovatsion",
+      "description": "Arxitektura firmalari estetika va funksionallikni birlashtirgan noyob va ijodiy loyihalar yaratadi. Biz har bir loyihaga alohida yondashamiz, zamonaviy va innovatsion yechimlarni taklif qilamiz."
+    },
+    "economical": {
+      "title": "Iqtisodiy",
+      "description": "Byudjetni bajarish va xarajatlarni samarali boshqarish muvaffaqiyatli arxitektura firmasining eng muhim jihatlaridan biridir. To'g'ri rejalashtirish sifat va narx o'rtasidagi muvozanatni saqlaydi."
+    },
+    "sustainability": {
+      "title": "Barqarorlik",
+      "description": "Ekologik mas'uliyat va barqarorlik zamonaviy arxitektura firmalarining asosiy faoliyat yo'nalishlaridir. Energiya samaradorligi yuqori bo'lgan loyihalar va loyihalarda barqaror materiallardan foydalanishga alohida e'tibor qaratiladi."
+    },
+    "clientOriented": {
+      "title": "Mijozga yo'naltirilgan",
+      "description": "Mijozlarning qoniqishi arxitektura loyihalarining muvaffaqiyatining asosiy omilidir. Firmalar mijozlarning ehtiyojlarini tushunadi va ham individual, ham korporativ kutishlarga javob beradigan individual yechimlarni taklif qiladi."
+    }
+  },
+  "sections": {
+    "awards": "Mukofotlar",
+    "partners": "Bizning hamkorlarimiz",
+    "team": "Jamoa"
+  },
+  "awards": {
+    "internationalAwards": "Xalqaro mukofotlar"
+  },
+  "footer": {
+    "copyright": "© 2025 Mizan Architecture. Barcha huquqlar himoyalangan."
+  },
+  "team": {
+    "chiefArchitect": "Bosh arxitektor",
+    "leadDesigner": "Bosh loyihalashtiruvchi",
+    "architectVisualizer": "Arxitektor-vizualizator",
+    "constructionEngineer": "Qurilish muhandisi",
+    "interiorDesigner": "Interyer dizayneri",
+    "role": "Rol",
+    "experience": "Tajriba",
+    "years": "yil",
+    "specialization": "Mutaxassislik"
+  },
+  "contact": {
+    "hero": {
+      "title": "Biz bilan bog'lanish",
+      "description": "Biz har doim savollaringizga javob berishga va loyihalaringizni muhokama qilishga tayyormiz. Biz bilan qulay usulda bog'laning: formani to'ldiring, qo'ng'iroq qiling yoki ofisimizga tashrif buyuring. Biz hamkorlikka ochiqmiz va g'oyalaringizni amalga oshirishda yordam berishga tayyormiz."
+    },
+    "info": {
+      "title": "Kontakt ma'lumotlari",
+      "description": "Biz har doim savollaringizga javob berishga va loyihalaringizni muhokama qilishga tayyormiz. Biz bilan qulay usulda bog'laning.",
+      "office": {
+        "title": "Ofis",
+        "address": "Toshkent, Shayxontohur tumani, Zulfiyaxonim ko'chasi, 62",
+        "phone": "+998 71 200-00-00",
+        "imageAlt": "Mizan Architecture ofisi"
+      },
+      "contact": {
+        "title": "Aloqa",
+        "phone": "+998 77 004-07-70",
+        "email": "arch.mizan@gmail.com"
+      },
+      "social": {
+        "title": "Ijtimoiy tarmoqlar",
+        "telegram": {
+          "label": "Telegram",
+          "url": "https://t.me/mizanarch"
+        },
+        "instagram": {
+          "label": "Instagram",
+          "url": "https://instagram.com/mizanarch"
+        }
+      }
+    },
+    "form": {
+      "title": "So'rov yuborish",
+      "description": "Quyidagi formani to'ldiring va biz tez orada siz bilan bog'lanamiz.",
+      "name": "Ism",
+      "surname": "Familiya",
+      "email": "Email",
+      "phone": "Telefon raqami",
+      "message": "Xabar",
+      "disclaimer": "Biz 1 ish kunida javob beramiz",
+      "submit": "So'rov yuborish"
+    },
+    "vacancies": {
+      "title": "Vakansiyalar",
+      "subtitle": "Hozir mavjud yangilar",
+      "apply": "Ariza berish",
+      "salaryFrom": "dan",
+      "salaryPerMonth": "so'm oyiga",
+      "job1": {
+        "title": "Smeta",
+        "location": "Toshkent, Shayxontohur tumani"
+      },
+      "job2": {
+        "title": "Ofis menejeri",
+        "location": "Toshkent, Shayxontohur tumani"
+      },
+      "job3": {
+        "title": "Registrator/administrator",
+        "location": "Toshkent, Shayxontohur tumani"
+      },
+      "job4": {
+        "title": "UI/UX dizayner",
+        "location": "Toshkent, Shayxontohur tumani"
+      }
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Har bir makon - jamiyat rivojiga hissa.",
+      "paragraph1": "Har bir makon - jamiyat rivojiga hissa.",
+      "paragraph2": "Biz ijodkorlik va texnik aniqlikni birlashtirib, arxitekturaga qaraymiz, har bir loyihada biz tafsilotlarga e'tibor qaratamiz va haqiqatan ham ishlaydigan yechimlar yaratamiz.",
+      "paragraph3": "Biz barqaror va estetik loyihalar yaratadigan xalqaro arxitektura byurosiga aylanishga intilamiz. Bizning maqsadimiz - bugun odamlarga xizmat qiladigan va kelajak avlodlar uchun meros bo'ladigan ob'ektlarni qurish.",
+      "imageAlt": "Biz haqimizda - Mizan Architecture"
+    },
+    "content": {
+      "leftColumn": "Biz arxitektura dunyosini o'zgartirishga intilamiz. Ijodkorlik va texnik bilimlarni birlashtirib, biz har bir loyihaga yangi, innovatsion qarashlarni kiritamiz. Biz loyihalarimizning barcha bosqichlarida qo'llaydigan tafsilotlarga e'tibor va puxtalik bizni sanoatda ishonchli hamkor qiladi.",
+      "rightColumn": "Biz barqarorlikka yo'naltirilgan ofislarni loyihalash, turar-joy qurilishi sohasida rivojlanmoqdamiz. Tabiiy va texnologik mukammallikni saqlab, kelajak avlodlarining timsoli bo'ladigan konstruksiyalarni yaratishga intilamiz."
+    },
+    "team": {
+      "title": "Jamoa",
+      "description": "Bizning jamoamiz turli arxitektura sohalarida ixtisoslashgan ijodkor va tajribali arxitektorlar, muhandislar va dizaynerlardan iborat. Har bir jamoa a'zosi individual yechimlar bilan mijozlar kutishlaridan oshib ketishimizga yordam berib, loyihalarimizga noyob hissa qo'shadi.",
+      "values": {
+        "innovation": {
+          "title": "INNOVATSIYA",
+          "description": "Biz doimiy ravishda yangi yondashuvlarni qidiramiz, noyob va funksional makonlar yaratish uchun zamonaviy texnologiyalar va materiallardan foydalanamiz."
+        },
+        "quality": {
+          "title": "SIFAT",
+          "description": "Biz har bir loyihaning eng yuqori sifatli bajarilishini kafolatlaymiz, barcha standartlar va me'yorlarga rioya qilamiz."
+        },
+        "sustainability": {
+          "title": "BARQARORLIK",
+          "description": "Biz barqaror rivojlanish tamoyillarini integratsiya qilib, ekologik mas'uliyat va yechimlarimizning barqarorligini ta'minlaymiz."
+        },
+        "clientFocus": {
+          "title": "MIJOZGA YO'NALTIRILGAN",
+          "description": "Biz mijozlar ehtiyojlariga quloq solamiz, individual yechimlar taklif qilamiz va uzoq muddatli hamkorlik munosabatlarini quramiz."
+        }
+      }
+    }
+  },
+  "durability": {
+    "hero": {
+      "title": "Mizan va Chidamlilik",
+      "description": "Mizanda biz chidamlilikni ishimizning markaziga qo'yamiz. Biz ekologik, ijtimoiy va iqtisodiy chidamlilik tamoyillariga rioya qilamiz, atrof-muhitga ta'sirimizni minimallashtirishga va jamiyatga foyda keltiradigan loyihalar yaratishga intilamiz."
+    },
+    "content": {
+      "block1": {
+        "title": "Chidamli dizaynga yondashuvimiz",
+        "description": "Biz har bir loyihada chidamli materiallar, energiya samaradorligi yuqori bo'lgan yechimlar va ekologik toza qurilish jarayonlaridan foydalanishga intilamiz. Chidamli dizaynga yondashuvimiz binolarning hayotiy tsikllarini diqqat bilan tahlil qilish va qayta tiklanadigan energiya manbalarini integratsiya qilishni o'z ichiga oladi.",
+        "imageAlt": "Chidamli dizayn"
+      },
+      "block2": {
+        "title": "Jamiyatga hissa",
+        "description": "Bizning chidamli yechimlarimiz jamoalarga foyda keltiradi, sog'lom yashash muhitini rag'batlantiradi va mahalliy rivojlanishga hissa qo'shadi. Biz nafaqat funksional, balki odamlarning hayot sifatini yaxshilaydigan binolarni loyihalashtiramiz.",
+        "imageAlt": "Jamiyatga hissa"
+      },
+      "block3": {
+        "title": "Mijozlarimiz uchun chidamli yechimlar",
+        "description": "Biz mijozlarimizga uzoq muddatli foyda keltiradigan energiya samaradorligi yuqori, chidamli va ekologik mas'uliyatli binolarni taqdim etishga e'tibor qaratamiz. Bizning yechimlarimiz operatsion xarajatlarni kamaytirishga va atrof-muhitga ta'sirni minimallashtirishga yordam beradi.",
+        "imageAlt": "Mijozlar uchun chidamli yechimlar"
+      }
+    }
+  }
+}
+
