@@ -5,6 +5,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslation } from '@/contexts/TranslationContext';
 import Image from 'next/image';
+import Link from 'next/link';
+import { projects as allProjects } from '@/constants/projects';
 
 // Register ScrollTrigger plugin
 if (typeof window !== 'undefined') {
@@ -17,28 +19,8 @@ export default function ProjectShowcase() {
   const containerRef = useRef(null);
   const projectRefs = useRef([]);
 
-  const projects = [
-    {
-      id: 1,
-      titleKey: 'projects.airport.title',
-      image: '/images/projects/1.jpg',
-    },
-    {
-      id: 2,
-      titleKey: 'projects.businessCenter.title',
-      image: '/images/projects/2.jpg',
-    },
-    {
-      id: 3,
-      titleKey: 'projects.skyscraper.title',
-      image: '/images/projects/3.jpg',
-    },
-    {
-      id: 4,
-      titleKey: 'projects.freedomTower.title',
-      image: '/images/projects/4.jpg',
-    },
-  ];
+  // First 4 projects for showcase
+  const projects = allProjects.slice(0, 4);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -321,57 +303,60 @@ export default function ProjectShowcase() {
               ref={(el) => {
                 projectRefs.current[index] = el;
               }}
-              className="group relative shrink-0 cursor-pointer"
+              className="group relative shrink-0"
             >
-              <div
-                data-project-image
-                className="relative rounded-lg overflow-hidden bg-gray-200 shadow-lg"
-                style={{
-                  width: 'clamp(280px, 80vw, 548px)',
-                  height: 'clamp(200px, 50vw, 466px)',
-                }}
-              >
-                {/* Project image */}
-                <Image
-                  src={project.image}
-                  alt={t(project.titleKey)}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 256px, (max-width: 1024px) 256px, 548px"
-                />
-                
-                {/* Gradient overlay for text readability */}
-                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
-                
-                {/* Title text - positioned at bottom */}
-                <h3 
-                  className="absolute bottom-0 left-0 right-0 px-3 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6 text-white uppercase text-sm sm:text-base md:text-xl lg:text-2xl"
+              <Link href={`/portfolio/${project.slug}`}>
+                <div
+                  data-project-image
+                  className="relative rounded-lg overflow-hidden bg-gray-200 shadow-lg cursor-pointer"
                   style={{
-                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                    fontWeight: 500,
-                    lineHeight: '1.15',
-                    letterSpacing: '-0.02em',
-                    textTransform: 'uppercase',
-                    color: '#FFFFFF',
+                    width: 'clamp(280px, 80vw, 548px)',
+                    height: 'clamp(200px, 50vw, 466px)',
                   }}
                 >
-                  {t(project.titleKey)}
-                </h3>
-                
-                <div className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg z-10">
-                  <svg
-                    className="w-6 h-6 text-[#1a3a2a]"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  {/* Project image */}
+                  <Image
+                    src={project.image}
+                    alt={t(project.titleKey)}
+                    fill
+                    unoptimized
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 256px, (max-width: 1024px) 256px, 548px"
+                  />
+                  
+                  {/* Gradient overlay for text readability */}
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
+                  
+                  {/* Title text - positioned at bottom */}
+                  <h3 
+                    className="absolute bottom-0 left-0 right-0 px-3 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6 text-white uppercase text-sm sm:text-base md:text-xl lg:text-2xl"
+                    style={{
+                      fontFamily: 'var(--font-inter), Inter, sans-serif',
+                      fontWeight: 500,
+                      lineHeight: '1.15',
+                      letterSpacing: '-0.02em',
+                      textTransform: 'uppercase',
+                      color: '#FFFFFF',
+                    }}
                   >
-                    <path d="M9 5l7 7-7 7" />
-                  </svg>
+                    {t(project.titleKey)}
+                  </h3>
+                  
+                  <div className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg z-10">
+                    <svg
+                      className="w-6 h-6 text-[#1a3a2a]"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>

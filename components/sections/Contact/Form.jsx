@@ -28,7 +28,7 @@ export default function Form() {
   };
 
   // Input styles
-  const inputClassName = "w-full px-4 py-3 border border-[#D2D6DB] rounded-lg focus:ring-2 focus:ring-[#00382F] outline-none transition-all text-base leading-6 placeholder:text-[#D2D6DB] placeholder:font-normal";
+  const inputClassName = "w-full px-4 py-3 border border-[#D2D6DB] bg-[#fff] rounded-lg focus:ring-2 focus:ring-[#00382F] outline-none transition-all text-base leading-6 placeholder:text-[#D2D6DB] placeholder:font-normal";
   const inputStyle = { boxShadow: '0px 1px 2px 0px #1018280D' };
 
   return (

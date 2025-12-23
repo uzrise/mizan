@@ -37,7 +37,7 @@ export default function Content() {
   ];
 
   return (
-    <section className="relative w-full bg-transparent py-16 md:py-24 overflow-visible mb-[-200px] pb-[200px]">
+    <section className="relative w-full bg-transparent py-16 overflow-visible">
       {/* Background Long Vector - extends into Hero (260px) and Footer (200px) */}
       {/* <div 
         className="absolute left-0 right-0 w-full pointer-events-none z-0"
@@ -52,16 +52,16 @@ export default function Content() {
         />
       </div> */}
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-[96px] relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-10 sm:gap-16 md:gap-20 lg:gap-[96px] relative z-10">
         {contentBlocks.map((block, index) => (
           <div
             key={block.id}
-            className={`flex flex-col md:flex-row items-center gap-8 md:gap-12 ${index === 1 ? 'justify-center' : ''}`}
+            className={`flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-12 ${index === 1 ? 'justify-center' : ''}`}
           >
             {/* Image */}
             <div 
-              className="relative"
-              style={{ width: block.width, height: block.height, maxWidth: '100%' }}
+              className="relative w-full md:w-auto"
+              style={{ maxWidth: block.width, height: 'auto' }}
             >
               <Image
                 src={block.image}
@@ -73,11 +73,11 @@ export default function Content() {
             </div>
 
             {/* Text Content */}
-            <div className="w-[240px] text-[#161616]">
-              <h2 className="font-semibold text-[16px] leading-[115%] tracking-[-0.02em] mb-4">
+            <div className="w-full md:w-[240px] text-[#161616]">
+              <h2 className="font-semibold text-[16px] leading-[115%] tracking-[-0.02em] mb-2 sm:mb-4">
                 {t(block.titleKey)}
               </h2>
-              <p className="font-inter font-normal text-[14px] leading-[115%] tracking-[-0.02em]">
+              <p className="font-inter font-normal text-[14px] leading-[130%] sm:leading-[115%] text-justify tracking-[-0.02em]">
                 {t(block.descriptionKey)}
               </p>
             </div>

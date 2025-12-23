@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "@/contexts/TranslationContext";
 import Image from "next/image";
 
@@ -8,6 +8,7 @@ export default function Vacancies() {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
 
   const vacancies = [
     {
@@ -42,15 +43,54 @@ export default function Vacancies() {
     },
   ];
 
+  // Handle responsive items per page
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setItemsPerPage(1); // Mobile: 1 item
+      } else if (width < 1280) {
+        setItemsPerPage(2); // Tablet: 2 items
+      } else {
+        setItemsPerPage(4); // Desktop: 4 items
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Reset currentIndex when itemsPerPage changes
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [itemsPerPage]);
+
   // Format salary number with spaces
   const formatSalary = (amount) => {
     return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
 
-  const itemsPerPage = 4;
   const totalItems = vacancies.length;
   const showCarousel = totalItems > itemsPerPage;
   const maxIndex = Math.max(0, totalItems - itemsPerPage);
+
+  // Calculate item width percentage based on items per page
+  const getItemWidth = () => {
+    if (itemsPerPage === 1) return '100%';
+    if (itemsPerPage === 2) return 'calc(50% - 8px)';
+    return 'calc(25% - 12px)';
+  };
+
+  // Calculate transform based on items per page
+  const getTransform = () => {
+    if (itemsPerPage === 1) {
+      return `translateX(calc(-${currentIndex} * (100% + 16px)))`;
+    } else if (itemsPerPage === 2) {
+      return `translateX(calc(-${currentIndex} * (50% + 8px)))`;
+    }
+    return `translateX(calc(-${currentIndex} * (25% + 4px)))`;
+  };
 
   const goToPrevious = () => {
     if (isAnimating || currentIndex === 0) return;
@@ -68,7 +108,10 @@ export default function Vacancies() {
 
   // VacancyCard component
   const VacancyCard = ({ vacancy }) => (
-    <div className="flex flex-col group cursor-pointer shrink-0 w-full sm:w-[calc(50%-8px)] xl:w-[calc(25%-12px)]">
+    <div 
+      className="flex flex-col group cursor-pointer shrink-0"
+      style={{ width: getItemWidth() }}
+    >
       {/* Card - 120px height */}
       <div className="bg-white p-4 h-[120px] flex flex-col justify-between">
         <div>
@@ -136,7 +179,7 @@ export default function Vacancies() {
                 <div
                   className="flex gap-4 transition-transform duration-300 ease-out"
                   style={{
-                    transform: `translateX(calc(-${currentIndex} * (25% + 4px)))`,
+                    transform: getTransform(),
                   }}
                 >
                   {vacancies.map((vacancy) => (

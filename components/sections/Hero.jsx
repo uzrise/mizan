@@ -2,6 +2,7 @@
 
 import { useTranslation } from '@/contexts/TranslationContext';
 import Button from '@/components/ui/Button';
+import Link from 'next/link';
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -42,9 +43,11 @@ export default function Hero() {
             <p className="text-base sm:text-lg md:text-xl text-white/95 mb-4 sm:mb-0 max-w-full sm:max-w-[860px]">
               {t('hero.description')}
             </p>
-            <Button className="w-full sm:w-auto shrink-0">
-              {t('hero.cta')}
-            </Button>
+            <Link href="/portfolio">
+              <Button className="w-full sm:w-auto shrink-0">
+                {t('hero.cta')}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

@@ -105,7 +105,7 @@ export default function Statistics() {
             {statistics.slice(0, 2).map((stat, index) => (
               <div
                 key={index}
-                className="relative w-[256px] h-[412px] rounded-b-lg overflow-hidden group"
+                className="relative w-[256px] h-[412px] overflow-hidden group"
                 style={{
                   borderTopLeftRadius: '200px',
                   borderTopRightRadius: '200px',
@@ -194,7 +194,7 @@ export default function Statistics() {
             {statistics.slice(2, 4).map((stat, index) => (
               <div
                 key={index + 2}
-                className="relative w-[256px] h-[412px] rounded-b-lg overflow-hidden group"
+                className="relative w-[256px] h-[412px] overflow-hidden group"
                 style={{
                   borderTopLeftRadius: '200px',
                   borderTopRightRadius: '200px',
@@ -206,7 +206,7 @@ export default function Statistics() {
                     src={stat.image}
                     alt={t(stat.labelKey)}
                     fill
-                    className="object-cover"
+                    className="object-cover align-middle"
                     sizes="256px"
                   />
                 </div>

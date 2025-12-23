@@ -128,7 +128,7 @@ export default function Navbar() {
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           >
             {showLogo ? (
-              <div className="w-[160px] sm:w-[190px] md:w-[220px] h-[24px] sm:h-[28px] md:h-[32px]">
+              <Link href="/" className="block w-[160px] sm:w-[190px] md:w-[220px] h-[24px] sm:h-[28px] md:h-[32px]">
                 <Image
                   src="/images/logo.svg"
                   alt="Mizan Logo"
@@ -137,7 +137,7 @@ export default function Navbar() {
                   priority
                   className="w-full h-full object-contain"
                 />
-              </div>
+              </Link>
             ) : (
               <div className="w-[160px] sm:w-[190px] md:w-[220px] h-[24px] sm:h-[28px] md:h-[32px] opacity-0 pointer-events-none">
                 {/* Placeholder for layout - same size as final logo */}
@@ -187,7 +187,7 @@ export default function Navbar() {
           {/* Container for content */}
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col relative">
             {/* Menu Button - Navbar bilan bir xil joyda */}
-            <div className="absolute top-4 left-4 sm:left-6 lg:left-8">
+            <div className="absolute top-4 left-4 sm:left-6 lg:left-0">
               <Button
                 onClick={() => setIsMenuOpen(false)}
                 icon={

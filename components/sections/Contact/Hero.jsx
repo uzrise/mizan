@@ -13,8 +13,8 @@ export default function Hero() {
         src="/images/bg-durability.png"
         alt="Contact background"
         fill
-        className="object-cover"
-        priority
+        className="object-cover object-top"
+priority
       />
       
       {/* Overlay for better text readability */}
@@ -22,10 +22,10 @@ export default function Hero() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl">
-          <h1 className="text-white mb-6 font-bold text-[36px] leading-[115%] tracking-[-0.02em]">
+          <h1 className="text-white mb-3 sm:mb-4 md:mb-6 font-bold text-xl sm:text-2xl md:text-3xl lg:text-[36px] leading-[115%] tracking-[-0.02em]">
             {t('contact.hero.title')}
           </h1>
-          <p className="font-normal text-[20px] leading-[115%] tracking-normal text-[#DADADA]">
+          <p className="font-normal text-sm sm:text-base md:text-lg lg:text-[20px] leading-[130%] sm:leading-[115%] tracking-normal text-[#DADADA]">
             {t('contact.hero.description')}
           </p>
         </div>

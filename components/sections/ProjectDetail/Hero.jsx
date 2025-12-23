@@ -14,6 +14,7 @@ export default function Hero({ project }) {
             src={project.image}
             alt={t(project.titleKey)}
             fill
+            unoptimized
             className="object-cover"
             sizes="100vw"
             priority

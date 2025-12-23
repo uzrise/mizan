@@ -58,7 +58,7 @@ export default function CompanyValues() {
               </div>
 
               {/* Text Content - White Background */}
-              <div className="bg-white py-4 sm:py-5 md:py-6 border-l border-r border-gray-200">
+              <div className="bg-white py-4 sm:py-5 md:py-6">
                 {/* Title */}
                 <h3 
                   className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-2 sm:mb-3"
@@ -71,7 +71,7 @@ export default function CompanyValues() {
                 
                 {/* Description */}
                 <p 
-                  className="text-xs sm:text-sm text-gray-600 leading-relaxed"
+                  className="text-xs sm:text-sm text-justify text-gray-600 leading-relaxed"
                   style={{
                     fontFamily: 'var(--font-inter), Inter, sans-serif',
                   }}

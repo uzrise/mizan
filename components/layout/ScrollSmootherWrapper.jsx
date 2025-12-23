@@ -58,7 +58,7 @@ export default function ScrollSmootherWrapper({ children }) {
       smoother = ScrollSmoother.create({
         wrapper: wrapper,
         content: content,
-        smooth: 1.5, // Smooth scroll speed (1-3 recommended)
+        smooth: 1, // Smooth scroll speed (1-3 recommended)
         effects: true, // Enable data-speed and data-lag effects
         smoothTouch: 0.1, // Smooth scrolling on touch devices (0 = disabled)
       });

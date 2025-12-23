@@ -17,13 +17,15 @@ export default function Footer() {
             {/* Left Side - Logo and Navigation */}
             <div>
               <div className="mb-8">
-                <Image
-                  src="/images/logo_green.png"
-                  alt="Mizan Logo"
-                  width={158.95}
-                  height={32}
-                  className="h-8"
-                />
+                <Link href="/">
+                  <Image
+                    src="/images/logo_green.png"
+                    alt="Mizan Logo"
+                    width={158.95}
+                    height={32}
+                    className="h-8"
+                  />
+                </Link>
               </div>
               <nav className="flex flex-col gap-3">
                 <Link
