@@ -9,7 +9,7 @@ export default function About() {
     <div className="w-full">
       <Hero />
       <Content />
-      {/* <TeamSection /> */}
+      <TeamSection />
     </div>
   );
 }

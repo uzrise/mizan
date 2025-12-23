@@ -109,73 +109,7 @@ export default function TeamSection() {
         />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Glass Card Wrapper - removed expensive backdrop-filter */}
-        <div 
-          className="mx-auto p-8 md:p-12"
-          style={{
-            background: 'rgba(255, 246, 0, 0.12)',
-            border: '1px solid #F3F3F3',
-          }}
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            {t('about.team.title')}
-          </h2>
-          <p className="text-base sm:text-lg text-gray-700 mb-12 max-w-3xl">
-            {t('about.team.description')}
-          </p>
-
-          {/* Values Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            {values.map((value) => {
-              const isActive = activeCard === value.id;
-              const IconComponent = iconComponents[value.id];
-              
-              return (
-                <div
-                  key={value.id}
-                  onMouseEnter={() => setActiveCard(value.id)}
-                  className="relative overflow-hidden cursor-pointer transition-colors duration-300 ease-out"
-                  style={{
-                    width: '100%',
-                    maxWidth: '314px',
-                    height: '418px',
-                    padding: '32px',
-                    background: isActive ? '#02352D' : '#FFFFFF',
-                    contain: 'layout style paint',
-                  }}
-                >
-                  {/* Title */}
-                  <h3 
-                    className="text-lg font-bold mb-3 transition-colors duration-300"
-                    style={{ color: isActive ? '#FFFFFF' : '#02352D' }}
-                  >
-                    {t(value.titleKey)}
-                  </h3>
-
-                  {/* Description */}
-                  <p 
-                    className="text-sm leading-relaxed transition-colors duration-300"
-                    style={{ color: isActive ? 'rgba(255,255,255,0.8)' : '#02352D' }}
-                  >
-                    {t(value.descriptionKey)}
-                  </p>
-
-                  {/* SVG Icon - Bottom Right */}
-                  <div 
-                    className="absolute bottom-4 right-4 w-[200px] h-[200px] transition-transform duration-500 ease-out will-change-transform"
-                    style={{
-                      transform: isActive ? `rotate(${value.rotateDeg}deg)` : 'rotate(0deg)',
-                    }}
-                  >
-                    <IconComponent color={isActive ? '#FFFFFF' : '#02352D'} />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+     
     </section>
   );
 }
