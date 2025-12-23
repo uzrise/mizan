@@ -32,30 +32,8 @@ export default function Grid({ containerRef, filteredProjects }) {
                 className="object-cover h-full"
                 sizes="(max-width: 768px) 100vw, 457px"
               />
-              {/* Gradient Overlay */}
-              <div
-                data-gradient-overlay
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background: `
-                    linear-gradient(180deg, rgba(0, 0, 0, 0) 72.64%, rgba(0, 0, 0, 0.64) 85.77%),
-                    linear-gradient(0deg, rgba(0, 0, 0, 0) 75.97%, rgba(0, 0, 0, 0.64) 100%)
-                  `,
-                  opacity: 0,
-                }}
-              />
-              {/* M-Vector Logo - Centered */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <Image
-                  data-vector-logo
-                  src="/images/m-vector.png"
-                  alt="M-Vector"
-                  width={202}
-                  height={130}
-                  className="object-contain"
-                  style={{ opacity: 0, transform: "scale(0.5) rotate(-180deg)" }}
-                />
-              </div>
+            
+            
             </div>
 
             {/* Project Title */}
