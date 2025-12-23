@@ -60,7 +60,7 @@ export default function Content() {
           >
             {/* Image */}
             <div 
-              className="relative w-full md:w-auto"
+              className="relative  md:w-auto"
               style={{ maxWidth: block.width, height: 'auto' }}
             >
               <Image
@@ -68,7 +68,7 @@ export default function Content() {
                 alt={t(block.imageAltKey)}
                 width={block.width}
                 height={block.height}
-                className="object-cover w-full h-auto"
+                className="object-cover h-auto"
               />
             </div>
 

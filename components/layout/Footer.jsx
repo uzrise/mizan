@@ -103,7 +103,7 @@ export default function Footer() {
       {/* Yellow Footer Section - Copyright */}
       <footer
         id="contact"
-        className="bg-[#fbbf24] py-6 md:py-8"
+        className="bg-[#fbbf24] h-[42px] flex items-center justify-center"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center">
