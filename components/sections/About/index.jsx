@@ -8,8 +8,8 @@ export default function About() {
   return (
     <div className="w-full">
       <Hero />
-      <Content />
-      <TeamSection />
+      {/* <Content />
+      <TeamSection /> */}
     </div>
   );
 }
