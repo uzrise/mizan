@@ -8,13 +8,15 @@ export default function Content() {
 
   return (
     <section className="relative w-full py-16 md:py-24 overflow-hidden">
-      {/* Background Image */}
+      {/* Background Image - lazy loaded for performance */}
       <div className="absolute inset-0 w-full h-full">
         <Image
           src="/images/bg-about-content.png"
           alt=""
           fill
           className="object-cover"
+          loading="lazy"
+          quality={75}
         />
       </div>
 
