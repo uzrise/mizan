@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, memo } from 'react';
+import { useState, memo, useMemo } from 'react';
 import { useTranslation } from '@/contexts/TranslationContext';
+import Image from 'next/image';
 
 // Memoized Icon components to prevent unnecessary re-renders
 // Icon 1 - Innovation (triangular shapes)
@@ -95,15 +96,19 @@ export default function TeamSection() {
   ];
 
   return (
-    <section 
-      className="relative w-full py-16 md:py-24 overflow-hidden"
-      style={{
-        backgroundImage: 'url(/images/bg-about-team.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
+    <section className="relative w-full py-16 md:py-24 overflow-hidden">
+      {/* Background Image - lazy loaded for performance */}
+      <div className="absolute inset-0 w-full h-full">
+        <Image
+          src="/images/bg-about-team.png"
+          alt=""
+          fill
+          className="object-cover"
+          loading="lazy"
+          quality={75}
+        />
+      </div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Glass Card Wrapper - removed expensive backdrop-filter */}
         <div 
