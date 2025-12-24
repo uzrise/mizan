@@ -40,8 +40,8 @@ export default function RootLayout({ children }) {
       >
         <TranslationProvider>
           <IntroAnimation />
+          <Navbar />
           <ScrollSmootherWrapper>
-            <Navbar />
             {children}
             <Footer />
           </ScrollSmootherWrapper>

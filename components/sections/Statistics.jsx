@@ -3,6 +3,13 @@
 import { useTranslation } from '@/contexts/TranslationContext';
 import Image from 'next/image';
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Register ScrollTrigger plugin
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const STATISTICS_DATA = [
   {
@@ -96,8 +103,113 @@ export default function Statistics() {
     };
   }, [hasAnimated, statistics]);
 
+  // ScrollTrigger for positioning Statistics over ProjectShowcase
+  // Bu faqat ProjectShowcase scroll masofasiga qadar ishlaydi va boshqa sectionlarga ta'sir qilmaydi
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    let scrollTrigger = null;
+
+    const checkAndInit = () => {
+      if (window.__introComplete) {
+        const projectShowcaseSection = document.getElementById('portfolio');
+        if (!projectShowcaseSection) {
+          setTimeout(checkAndInit, 100);
+          return;
+        }
+
+        const viewportHeight = window.innerHeight;
+        const totalProjects = 4; // ProjectShowcase-dagi projectlar soni
+        const scrollMultiplier = 0.3;
+        const projectShowcaseScrollDistance = viewportHeight * totalProjects * scrollMultiplier;
+
+        // Calculate ProjectShowcase section end position
+        const projectShowcaseStart = projectShowcaseSection.offsetTop;
+        const projectShowcaseEnd = projectShowcaseStart + projectShowcaseScrollDistance;
+
+        scrollTrigger = ScrollTrigger.create({
+          trigger: projectShowcaseSection,
+          start: 'top top',
+          end: () => `+=${projectShowcaseScrollDistance}`,
+          scrub: true,
+          invalidateOnRefresh: true,
+          refreshPriority: 1, // Higher priority - refresh before AwardsAndPartners
+          onUpdate: (self) => {
+            const progress = self.progress;
+            // ProjectShowcase scroll davomida Statistics-ni ustiga chiqaradi
+            // Scroll tugagandan keyin normal holatga qaytadi
+            const negativeMargin = -projectShowcaseScrollDistance * (1 - progress);
+            gsap.set(section, {
+              marginTop: `${negativeMargin}px`,
+            });
+          },
+          onLeave: () => {
+            // ProjectShowcase scroll tugagandan keyin Statistics normal holatga qaytadi
+            // Va keyingi sectionlarga ta'sir qilmasligi uchun marginTop 0 qilamiz
+            gsap.set(section, {
+              marginTop: '0px',
+              clearProps: 'marginTop', // Clear props to prevent conflicts
+            });
+            // Ensure AwardsAndPartners is not affected by refreshing its ScrollTrigger
+            setTimeout(() => {
+              ScrollTrigger.refresh();
+            }, 0);
+          },
+          onEnterBack: () => {
+            // Orqaga scroll qilganda yana negative margin qo'llanadi
+            gsap.set(section, {
+              marginTop: `-${projectShowcaseScrollDistance}px`,
+            });
+          },
+        });
+
+        // Initial positioning - faqat ProjectShowcase scroll masofasiga qadar
+        gsap.set(section, {
+          marginTop: `-${projectShowcaseScrollDistance}px`,
+          zIndex: 20,
+        });
+      } else {
+        setTimeout(checkAndInit, 100);
+      }
+    };
+
+    const timer = setTimeout(checkAndInit, 200);
+
+    // Handle window resize
+    const handleResize = () => {
+      if (scrollTrigger) {
+        ScrollTrigger.refresh();
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', handleResize);
+      if (scrollTrigger) {
+        scrollTrigger.kill();
+      }
+      // Cleanup - marginTop-ni tozalash
+      if (section) {
+        gsap.set(section, {
+          marginTop: '0px',
+          clearProps: 'marginTop',
+        });
+      }
+    };
+  }, []);
+
   return (
-    <section ref={sectionRef} className="bg-white relative overflow-hidden">
+    <section 
+      ref={sectionRef} 
+      className="bg-white relative overflow-hidden"
+      style={{
+        position: 'relative',
+        zIndex: 20,
+      }}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-4">
           {/* Left side - 2 cards side by side */}

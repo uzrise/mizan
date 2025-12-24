@@ -106,8 +106,8 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
       const itemWidth = items[0].offsetWidth || 600;
       const gap = 24; // gap-6 = 24px
       const totalWidth = (itemWidth + gap) * items.length - gap;
-      const scrollDistance = totalWidth - window.innerWidth + (itemWidth * 0.5);
-
+      const scrollSpeedMultiplier = 0.5; 
+      const scrollDistance = (totalWidth - window.innerWidth + (itemWidth * 0.2)) * scrollSpeedMultiplier
       // Set initial states
       gsap.set(container, {
         x: 0,
@@ -121,7 +121,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
         pin: container,
         pinSpacing: true,
         anticipatePin: 1,
-        scrub: 1,
+        scrub: 0.5,
         invalidateOnRefresh: true,
         onEnter: () => {
           gsap.set(container, { willChange: 'transform' });

@@ -217,10 +217,34 @@ export default function AwardsAndPartners() {
           gsap.set(awardsContainer, { x: 0 });
           gsap.set(partnersContainer, { x: 0 });
           
-          // Enable native horizontal scroll
-          awardsContainer.style.overflowX = 'auto';
-          partnersContainer.style.overflowX = 'auto';
+          // Check if scrolling is needed on mobile
+          const awardsMaxScrollMobile = awardsContainer.scrollWidth - awardsContainer.clientWidth;
+          const partnersMaxScrollMobile = partnersContainer.scrollWidth - partnersContainer.clientWidth;
+          
+          // Center containers that don't need scrolling
+          if (awardsMaxScrollMobile <= 0) {
+            awardsContainer.style.justifyContent = 'center';
+          } else {
+            awardsContainer.style.justifyContent = 'flex-start';
+            awardsContainer.style.overflowX = 'auto';
+          }
+          
+          if (partnersMaxScrollMobile <= 0) {
+            partnersContainer.style.justifyContent = 'center';
+          } else {
+            partnersContainer.style.justifyContent = 'flex-start';
+            partnersContainer.style.overflowX = 'auto';
+          }
+          
+          // Remove any borders/outlines that might cause lines
+          awardsContainer.style.outline = 'none';
+          awardsContainer.style.border = 'none';
+          awardsContainer.style.boxShadow = 'none';
           awardsContainer.style.overflowY = 'hidden';
+          
+          partnersContainer.style.outline = 'none';
+          partnersContainer.style.border = 'none';
+          partnersContainer.style.boxShadow = 'none';
           partnersContainer.style.overflowY = 'hidden';
           
           return; // Don't create ScrollTrigger on mobile
@@ -235,7 +259,7 @@ export default function AwardsAndPartners() {
 
         ctx = gsap.context(() => {
           const viewportHeight = window.innerHeight;
-          const scrollDistancePerItem = viewportHeight * 0.2;
+          const scrollDistancePerItem = viewportHeight * 0.05;
 
           // Calculate scroll distances
           const getAwardsMaxScroll = () => {
@@ -248,17 +272,69 @@ export default function AwardsAndPartners() {
             return partnersContainer.scrollWidth - partnersContainer.clientWidth;
           };
 
-          const awardsScrollDistance = awards.length * scrollDistancePerItem;
-          const gapScrollDistance = viewportHeight * 0.3; // Gap uchun scroll masofa (Partners ko'rinishi uchun)
-          const partnersScrollDistance = partners.length * scrollDistancePerItem;
-          const totalScrollDistance = awardsScrollDistance + gapScrollDistance + partnersScrollDistance;
-
           const awardsMaxScroll = getAwardsMaxScroll();
           const partnersMaxScroll = getPartnersMaxScroll();
 
+          // Check if scrolling is needed
+          const awardsNeedsScroll = awardsMaxScroll > 0;
+          const partnersNeedsScroll = partnersMaxScroll > 0;
+
+          // If neither needs scrolling, don't create pin and center the containers
+          if (!awardsNeedsScroll && !partnersNeedsScroll) {
+            // Reset transforms and center containers
+            gsap.set(awardsContainer, { x: 0 });
+            gsap.set(partnersContainer, { x: 0 });
+            awardsContainer.style.justifyContent = 'center';
+            partnersContainer.style.justifyContent = 'center';
+            return;
+          }
+
+          // Center containers that don't need scrolling
+          if (!awardsNeedsScroll) {
+            awardsContainer.style.justifyContent = 'center';
+          } else {
+            awardsContainer.style.justifyContent = 'flex-start';
+          }
+
+          if (!partnersNeedsScroll) {
+            partnersContainer.style.justifyContent = 'center';
+          } else {
+            partnersContainer.style.justifyContent = 'flex-start';
+          }
+
+          // Remove any borders/outlines that might cause lines during scroll
+          awardsContainer.style.outline = 'none';
+          awardsContainer.style.border = 'none';
+          awardsContainer.style.boxShadow = 'none';
+          
+          partnersContainer.style.outline = 'none';
+          partnersContainer.style.border = 'none';
+          partnersContainer.style.boxShadow = 'none';
+
+          // Calculate scroll distances based on what needs scrolling
+          let awardsScrollDistance = 0;
+          let partnersScrollDistance = 0;
+          let gapScrollDistance = 0;
+
+          if (awardsNeedsScroll) {
+            awardsScrollDistance = awards.length * scrollDistancePerItem;
+          }
+
+          if (partnersNeedsScroll) {
+            // Only add gap if awards section exists and needs scrolling
+            if (awardsNeedsScroll) {
+              gapScrollDistance = viewportHeight * 0.3; // Gap uchun scroll masofa (Partners ko'rinishi uchun)
+            }
+            partnersScrollDistance = partners.length * scrollDistancePerItem;
+          }
+
+          const totalScrollDistance = awardsScrollDistance + gapScrollDistance + partnersScrollDistance;
+
           // Calculate progress thresholds
-          const awardsProgressEnd = awardsScrollDistance / totalScrollDistance;
-          const gapProgressEnd = (awardsScrollDistance + gapScrollDistance) / totalScrollDistance;
+          const awardsProgressEnd = awardsScrollDistance > 0 ? awardsScrollDistance / totalScrollDistance : 0;
+          const gapProgressEnd = gapScrollDistance > 0 
+            ? (awardsScrollDistance + gapScrollDistance) / totalScrollDistance 
+            : awardsProgressEnd;
 
           // Create ScrollTrigger with onUpdate for sequential scroll
           scrollTrigger = ScrollTrigger.create({
@@ -272,27 +348,105 @@ export default function AwardsAndPartners() {
             invalidateOnRefresh: true,
             pinSpacing: true,
             scrub: 1,
+            refreshPriority: 0, // Lower priority - refresh after Statistics
+            onEnter: () => {
+              // Pin boshlanganda bo'sh joyni dinamik boshqarish
+              setTimeout(() => {
+                const pinSpacer = section.nextElementSibling;
+                if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
+                  pinSpacer.style.marginTop = '0';
+                  pinSpacer.style.marginBottom = '0';
+                }
+              }, 0);
+            },
+            onLeave: () => {
+              // Pin tugaganda pinSpacer-ni to'liq yopish
+              setTimeout(() => {
+                const pinSpacer = section.nextElementSibling;
+                if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
+                  // To'liq yopish - height va margin-larni 0 qilish
+                  pinSpacer.style.height = '0';
+                  pinSpacer.style.marginTop = '0';
+                  pinSpacer.style.marginBottom = '0';
+                  pinSpacer.style.paddingTop = '0';
+                  pinSpacer.style.paddingBottom = '0';
+                  // Team section-ga yetib kelganda bo'sh joy qoldirmaslik uchun
+                  pinSpacer.style.overflow = 'hidden';
+                }
+              }, 0);
+            },
+            onEnterBack: () => {
+              // Orqaga scroll qilganda pinSpacer-ni qayta tiklash
+              setTimeout(() => {
+                const pinSpacer = section.nextElementSibling;
+                if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
+                  // ScrollTrigger avtomatik height-ni tiklaydi, biz faqat margin-larni boshqaramiz
+                  pinSpacer.style.marginTop = '0';
+                  pinSpacer.style.marginBottom = '0';
+                  pinSpacer.style.overflow = 'visible';
+                }
+              }, 0);
+            },
             onUpdate: (self) => {
               const progress = self.progress;
 
-              if (progress <= awardsProgressEnd) {
-                // Awards section scrolling
-                const awardsProgress = progress / awardsProgressEnd;
+              // PinSpacer height-ni dinamik boshqarish
+              const pinSpacer = section.nextElementSibling;
+              if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
+                // Progress 1 ga yetganda (pin tugaganda) height-ni kamaytirish
+                if (progress >= 0.99) {
+                  pinSpacer.style.height = '0';
+                  pinSpacer.style.marginTop = '0';
+                  pinSpacer.style.marginBottom = '0';
+                } else {
+                  // Normal holatda ScrollTrigger height-ni boshqaradi
+                  pinSpacer.style.marginTop = '0';
+                  pinSpacer.style.marginBottom = '0';
+                }
+              }
+
+              // Handle different scenarios based on what needs scrolling
+              if (awardsNeedsScroll && partnersNeedsScroll) {
+                // Both need scrolling - original logic
+                if (awardsProgressEnd > 0 && progress <= awardsProgressEnd) {
+                  // Awards section scrolling
+                  const awardsProgress = progress / awardsProgressEnd;
+                  gsap.set(awardsContainer, {
+                    x: -awardsMaxScroll * awardsProgress,
+                  });
+                  gsap.set(partnersContainer, { x: 0 });
+                } else if (gapProgressEnd > 0 && progress <= gapProgressEnd) {
+                  // Gap period - Awards fully scrolled, Partners visible but not scrolling yet
+                  gsap.set(awardsContainer, { x: -awardsMaxScroll });
+                  gsap.set(partnersContainer, { x: 0 });
+                } else {
+                  // Partners section scrolling (left scroll - negative x)
+                  gsap.set(awardsContainer, { x: -awardsMaxScroll });
+                  const partnersProgress = gapProgressEnd > 0 
+                    ? (progress - gapProgressEnd) / (1 - gapProgressEnd)
+                    : progress;
+                  gsap.set(partnersContainer, {
+                    x: -partnersMaxScroll * partnersProgress,
+                  });
+                }
+              } else if (awardsNeedsScroll && !partnersNeedsScroll) {
+                // Only awards need scrolling
+                const awardsProgress = progress;
                 gsap.set(awardsContainer, {
                   x: -awardsMaxScroll * awardsProgress,
                 });
                 gsap.set(partnersContainer, { x: 0 });
-              } else if (progress <= gapProgressEnd) {
-                // Gap period - Awards fully scrolled, Partners visible but not scrolling yet
-                gsap.set(awardsContainer, { x: -awardsMaxScroll });
-                gsap.set(partnersContainer, { x: 0 });
-              } else {
-                // Partners section scrolling (left scroll - negative x)
-                gsap.set(awardsContainer, { x: -awardsMaxScroll });
-                const partnersProgress = (progress - gapProgressEnd) / (1 - gapProgressEnd);
+              } else if (!awardsNeedsScroll && partnersNeedsScroll) {
+                // Only partners need scrolling
+                gsap.set(awardsContainer, { x: 0 });
+                const partnersProgress = progress;
                 gsap.set(partnersContainer, {
                   x: -partnersMaxScroll * partnersProgress,
                 });
+              } else {
+                // Neither needs scrolling (shouldn't reach here, but just in case)
+                gsap.set(awardsContainer, { x: 0 });
+                gsap.set(partnersContainer, { x: 0 });
               }
             },
           });
@@ -350,6 +504,7 @@ export default function AwardsAndPartners() {
         backgroundColor: "#00382F",
         overscrollBehaviorX: "none",
         overscrollBehaviorY: "auto",
+        marginBottom: 0, // Bo'sh joy qoldirmaslik uchun
       }}
     >
       <div
@@ -386,10 +541,15 @@ export default function AwardsAndPartners() {
           {/* Horizontal Scrollable Container */}
           <div
             ref={awardsContainerRef}
-            className="flex mr-4 gap-4 w-full pl-4 sm:pl-6 lg:pl-8 overflow-x-auto lg:overflow-x-visible scrollbar-hide"
+            className="flex gap-4 w-full pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-8 overflow-x-auto lg:overflow-x-visible scrollbar-hide"
             style={{
               willChange: "transform",
               transform: "translateZ(0)",
+              outline: "none",
+              border: "none",
+              boxShadow: "none",
+              marginRight: "0",
+              marginLeft: "0",
             }}
           >
             {awards.map((award) => {
@@ -502,10 +662,15 @@ export default function AwardsAndPartners() {
           {/* Horizontal Scrollable Container */}
           <div
             ref={partnersContainerRef}
-            className="flex mr-4 gap-4 w-full pl-4 sm:pl-6 lg:pl-8 overflow-x-auto lg:overflow-x-visible scrollbar-hide"
+            className="flex gap-4 w-full pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-8 overflow-x-auto lg:overflow-x-visible scrollbar-hide"
             style={{
               willChange: "transform",
               transform: "translateZ(0)",
+              outline: "none",
+              border: "none",
+              boxShadow: "none",
+              marginRight: "0",
+              marginLeft: "0",
             }}
           >
             {partners.map((partner) => {
