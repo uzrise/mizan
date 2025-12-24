@@ -18,6 +18,7 @@ const awards = [
     width: 230,
     height: 102,
     hasBackground: true,
+    website: "https://example.com/shahar-soz",
   },
   {
     id: 1,
@@ -26,6 +27,7 @@ const awards = [
     width: 147,
     height: 138,
     hasBackground: true,
+    website: "https://example.com/memor",
   },
   {
     id: 2,
@@ -34,6 +36,7 @@ const awards = [
     width: 230,
     height: 102,
     hasBackground: true,
+    website: "https://example.com/shahar-soz",
   },
   {
     id: 3,
@@ -42,6 +45,7 @@ const awards = [
     width: 177,
     height: 71,
     hasBackground: false,
+    website: "https://mizan.uz",
   },
   {
     id: 4,
@@ -50,6 +54,7 @@ const awards = [
     width: 177,
     height: 71,
     hasBackground: true,
+    website: "https://www.ifc.org",
   },
   {
     id: 5,
@@ -58,6 +63,7 @@ const awards = [
     width: 130,
     height: 111,
     hasBackground: true,
+    website: "https://example.com/award",
   },
   {
     id: 6,
@@ -66,6 +72,7 @@ const awards = [
     width: 147,
     height: 138,
     hasBackground: true,
+    website: "https://example.com/memor",
   },
   {
     id: 7,
@@ -74,6 +81,7 @@ const awards = [
     width: 230,
     height: 102,
     hasBackground: true,
+    website: "https://example.com/shahar-soz",
   },
   {
     id: 8,
@@ -82,6 +90,7 @@ const awards = [
     width: 177,
     height: 71,
     hasBackground: true,
+    website: "https://www.ifc.org",
   },
   {
     id: 9,
@@ -90,33 +99,40 @@ const awards = [
     width: 130,
     height: 111,
     hasBackground: true,
+    website: "https://example.com/award",
   },
 ];
 
-const partners =  [
+const partners = [
     {
       id: 0,
-      name: "SHAHAR SOZ 2025",
-      logo: "/images/awards/shaharsoz.png",
-      width: 230,
-      height: 102,
+      name: "Wendy's",
+      logo: "/images/partners/1.png",
+      width: 172,
+      height: 146,
       hasBackground: true,
+      bgColor: "",
+      website: "https://www.wendys.com",
     },
     {
       id: 1,
-      name: "ME'-MOR 2025",
-      logo: "/images/awards/meFor.png",
-      width: 147,
-      height: 138,
+      name: "Evos",
+      logo: "/images/partners/2.png",
+      width: 229,
+      height: 84,
       hasBackground: true,
+      bgColor: "#309B42",
+      website: "https://evos.uz",
     },
     {
       id: 2,
-      name: "SHAHAR SOZ 2025",
-      logo: "/images/awards/shaharsoz.png",
+      name: "SQB",
+      logo: "/images/partners/3.png",
       width: 230,
       height: 102,
       hasBackground: true,
+      bgColor: "",
+      website: "https://sqb.uz",
     },
     {
       id: 3,
@@ -125,14 +141,18 @@ const partners =  [
       width: 177,
       height: 71,
       hasBackground: false,
+      bgColor: "#FFFFFF",
+      website: "https://mizan.uz",
     },
     {
       id: 4,
-      name: "IFC",
-      logo: "/images/awards/ifc.png",
-      width: 177,
-      height: 71,
+      name: "Международные награды",
+      logo: "/images/partners/4.png",
+      width: 170,
+      height: 145,
       hasBackground: true,
+      bgColor: "#123368",
+      website: "https://example.com/international-awards",
     },
     {
       id: 5,
@@ -141,6 +161,8 @@ const partners =  [
       width: 130,
       height: 111,
       hasBackground: true,
+      bgColor: "",
+      website: "https://example.com/award",
     },
     {
       id: 6,
@@ -149,6 +171,8 @@ const partners =  [
       width: 147,
       height: 138,
       hasBackground: true,
+      bgColor: "#F3E5F5",
+      website: "https://example.com/memor",
     },
     {
       id: 7,
@@ -157,6 +181,8 @@ const partners =  [
       width: 230,
       height: 102,
       hasBackground: true,
+      bgColor: "#FFFDE7",
+      website: "https://example.com/shahar-soz",
     },
     {
       id: 8,
@@ -165,6 +191,8 @@ const partners =  [
       width: 177,
       height: 71,
       hasBackground: true,
+      bgColor: "#E0F7FA",
+      website: "https://www.ifc.org",
     },
     {
       id: 9,
@@ -173,6 +201,8 @@ const partners =  [
       width: 130,
       height: 111,
       hasBackground: true,
+      bgColor: "#FBE9E7",
+      website: "https://example.com/award",
     },
   ];
 
@@ -379,26 +409,60 @@ export default function AwardsAndPartners() {
               transform: "translateZ(0)",
             }}
           >
-            {awards.map((award) => (
-            <div
-              key={award.id}
-              className="flex flex-col shrink-0 min-h-[280px]"
-              style={{ width: award.hasBackground ? "256px" : "280px" }}
-            >
-              {award.hasBackground ? (
-                <>
-                  {/* White Container with Rounded Top - Fixed 256x256 */}
-                  <div
-                    className="bg-white rounded-b-lg overflow-hidden mb-4"
-                    style={{
-                      borderTopLeftRadius: "200px",
-                      borderTopRightRadius: "200px",
-                      width: "256px",
-                      height: "256px",
-                    }}
-                  >
-                      {/* Logo Container */}
-                      <div className="w-full h-full flex items-center justify-center pt-[60px]">
+            {awards.map((award) => {
+              const CardContent = (
+                <div
+                  className={`flex flex-col shrink-0 min-h-[280px] ${award.website ? 'cursor-pointer' : ''}`}
+                  style={{ width: award.hasBackground ? "256px" : "280px" }}
+                >
+                  {award.hasBackground ? (
+                    <>
+                      {/* White Container with Rounded Top - Fixed 256x256 */}
+                      <div
+                        className="bg-white rounded-b-lg overflow-hidden mb-4"
+                        style={{
+                          borderTopLeftRadius: "200px",
+                          borderTopRightRadius: "200px",
+                          width: "256px",
+                          height: "256px",
+                        }}
+                      >
+                        {/* Logo Container */}
+                        <div className="w-full h-full flex items-center justify-center pt-[60px]">
+                          <Image
+                            src={award.logo}
+                            alt={award.name}
+                            width={award.width}
+                            height={award.height}
+                            className="object-contain"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Text below - White on dark green */}
+                      <p
+                        className="text-white text-center"
+                        style={{
+                          fontFamily: "var(--font-inter), Inter, sans-serif",
+                          fontWeight: 400,
+                          fontSize: "24px",
+                          lineHeight: "115%",
+                          letterSpacing: "-0.02em",
+                          textAlign: "center",
+                        }}
+                      >
+                        {award.name || t("awards.internationalAwards")}
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      {/* Logo without background */}
+                      <div
+                        className="w-full flex items-center justify-center mb-4"
+                        style={{
+                          height: "280px",
+                        }}
+                      >
                         <Image
                           src={award.logo}
                           alt={award.name}
@@ -407,46 +471,26 @@ export default function AwardsAndPartners() {
                           className="object-contain"
                         />
                       </div>
-                    </div>
+                    </>
+                  )}
+                </div>
+              );
 
-                  {/* Text below - White on dark green */}
-                  <p
-                    className="text-white text-center"
-                    style={{
-                      fontFamily: "var(--font-inter), Inter, sans-serif",
-                      fontWeight: 400,
-                      fontSize: "24px",
-                      lineHeight: "115%",
-                      letterSpacing: "-0.02em",
-                      textAlign: "center",
-                    }}
-                  >
-                    {t("awards.internationalAwards")}
-                  </p>
-                  </>
-                ) : (
-                  <>
-                    {/* Logo without background */}
-                    <div
-                      className="w-full flex items-center justify-center mb-4"
-                      style={{
-                        height: "280px",
-                      }}
-                    >
-                      <Image
-                        src={award.logo}
-                        alt={award.name}
-                        width={award.width}
-                        height={award.height}
-                        className="object-contain"
-                      />
-                    </div>
-
-         
-                  </>
-                )}
-              </div>
-            ))}
+              return award.website ? (
+                <a
+                  key={award.id}
+                  href={award.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cursor-pointer"
+                  style={{ display: 'contents' }}
+                >
+                  {CardContent}
+                </a>
+              ) : (
+                <div key={award.id}>{CardContent}</div>
+              );
+            })}
           </div>
         </div>
 
@@ -481,26 +525,61 @@ export default function AwardsAndPartners() {
               transform: "translateZ(0)",
             }}
           >
-            {partners.map((partner) => (
-            <div
-              key={partner.id}
-              className="flex flex-col shrink-0 min-h-[280px]"
-              style={{ width: partner.hasBackground ? "256px" : "280px" }}
-            >
-              {partner.hasBackground ? (
-                <>
-                  {/* White Container with Rounded Top - Fixed 256x256 */}
-                  <div
-                    className="bg-white rounded-b-lg overflow-hidden mb-4"
-                    style={{
-                      borderTopLeftRadius: "200px",
-                      borderTopRightRadius: "200px",
-                      width: "256px",
-                      height: "256px",
-                    }}
-                  >
-                      {/* Logo Container */}
-                      <div className="w-full h-full flex items-center justify-center pt-[60px]">
+            {partners.map((partner) => {
+              const CardContent = (
+                <div
+                  className={`flex flex-col shrink-0 min-h-[280px] ${partner.website ? 'cursor-pointer' : ''}`}
+                  style={{ width: partner.hasBackground ? "256px" : "280px" }}
+                >
+                  {partner.hasBackground ? (
+                    <>
+                      {/* Colored Container with Rounded Top - Fixed 256x256 */}
+                      <div
+                        className="rounded-b-lg overflow-hidden mb-4"
+                        style={{
+                          borderTopLeftRadius: "200px",
+                          borderTopRightRadius: "200px",
+                          width: "256px",
+                          height: "256px",
+                          backgroundColor: partner.bgColor || "#FFFFFF",
+                        }}
+                      >
+                        {/* Logo Container */}
+                        <div className="w-full h-full flex items-center justify-center pt-[60px]">
+                          <Image
+                            src={partner.logo}
+                            alt={partner.name}
+                            width={partner.width}
+                            height={partner.height}
+                            className="object-contain"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Text below - White on dark green */}
+                      <p
+                        className="text-white text-center"
+                        style={{
+                          fontFamily: "var(--font-inter), Inter, sans-serif",
+                          fontWeight: 400,
+                          fontSize: "24px",
+                          lineHeight: "115%",
+                          letterSpacing: "-0.02em",
+                          textAlign: "center",
+                        }}
+                      >
+                        {partner.name || t("awards.internationalAwards")}
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      {/* Logo without background */}
+                      <div
+                        className="w-full flex items-center justify-center mb-4"
+                        style={{
+                          height: "280px",
+                        }}
+                      >
                         <Image
                           src={partner.logo}
                           alt={partner.name}
@@ -509,45 +588,26 @@ export default function AwardsAndPartners() {
                           className="object-contain"
                         />
                       </div>
-                    </div>
+                    </>
+                  )}
+                </div>
+              );
 
-                  {/* Text below - White on dark green */}
-                  <p
-                    className="text-white text-center"
-                    style={{
-                      fontFamily: "var(--font-inter), Inter, sans-serif",
-                      fontWeight: 400,
-                      fontSize: "24px",
-                      lineHeight: "115%",
-                      letterSpacing: "-0.02em",
-                      textAlign: "center",
-                    }}
-                  >
-                    {t("awards.internationalAwards")}
-                  </p>
-                  </>
-                ) : (
-                  <>
-                    {/* Logo without background */}
-                    <div
-                      className="w-full flex items-center justify-center mb-4"
-                      style={{
-                        height: "280px",
-                      }}
-                    >
-                      <Image
-                        src={partner.logo}
-                        alt={partner.name}
-                        width={partner.width}
-                        height={partner.height}
-                        className="object-contain"
-                      />
-                    </div>
-
-                  </>
-                )}
-              </div>
-            ))}
+              return partner.website ? (
+                <a
+                  key={partner.id}
+                  href={partner.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cursor-pointer"
+                  style={{ display: 'contents' }}
+                >
+                  {CardContent}
+                </a>
+              ) : (
+                <div key={partner.id}>{CardContent}</div>
+              );
+            })}
           </div>
         </div>
       </div>
