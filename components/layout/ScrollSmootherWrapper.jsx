@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
@@ -14,6 +15,7 @@ export default function ScrollSmootherWrapper({ children }) {
   const wrapperRef = useRef(null);
   const contentRef = useRef(null);
   const smootherRef = useRef(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -70,6 +72,27 @@ export default function ScrollSmootherWrapper({ children }) {
       }
     };
   }, []);
+
+  // Route o'zgarganda scroll to top
+  useEffect(() => {
+    const scrollToTop = () => {
+      const smoother = window.ScrollSmootherInstance || (window.ScrollSmoother?.get && window.ScrollSmoother.get());
+      if (smoother) {
+        // ScrollSmoother ishlatilganda
+        smoother.scrollTo(0, true);
+      } else {
+        // Oddiy scroll
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    // Kichik delay bilan scroll to top (sahifa yuklangandan keyin)
+    const timer = setTimeout(() => {
+      scrollToTop();
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
   return (
     <div id="smooth-wrapper" ref={wrapperRef}>

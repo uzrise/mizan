@@ -14,6 +14,7 @@ export default function Navbar() {
     // Initialize state based on intro completion status
     return typeof window !== 'undefined' && window.__introComplete === true;
   });
+  const [isScrolled, setIsScrolled] = useState(false);
   const logoContainerRef = useRef(null);
   const menuOverlayRef = useRef(null);
   const menuContentRef = useRef(null);
@@ -39,6 +40,22 @@ export default function Navbar() {
 
     return () => {
       window.removeEventListener('introComplete', handleIntroComplete);
+    };
+  }, []);
+
+  // Scroll event listener for blur effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset;
+      setIsScrolled(scrollY > 0);
+    };
+
+    // Check initial scroll position
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -96,7 +113,13 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   return (
-    <nav className="absolute top-0 left-0 right-0 z-50 bg-transparent text-white">
+    <nav 
+      className="fixed top-0 left-0 right-0 z-50 bg-transparent text-white transition-all duration-300"
+      style={{
+        backdropFilter: isScrolled ? 'blur(10px)' : 'none',
+        backgroundColor: isScrolled ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
+      }}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16 md:h-20">
           {/* Hamburger Menu Button - Menu overlay ichida ko'rinadi */}
@@ -187,7 +210,7 @@ export default function Navbar() {
           {/* Container for content */}
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col relative">
             {/* Menu Button - Navbar bilan bir xil joyda */}
-            <div className="absolute top-4 left-4 sm:left-6 lg:left-0">
+            <div className="pt-4">
               <Button
                 onClick={() => setIsMenuOpen(false)}
                 icon={
@@ -210,7 +233,7 @@ export default function Navbar() {
             </div>
 
             {/* Navigation Links - Chap tomonda vertical */}
-            <nav className="flex flex-col gap-6 flex-1 pt-20">
+            <nav className="flex flex-col gap-6 flex-1 pt-10">
               <Link
                 href="/"
                 onClick={() => setIsMenuOpen(false)}

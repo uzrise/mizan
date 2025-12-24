@@ -29,8 +29,9 @@ export default function Grid({ containerRef, filteredProjects }) {
                 alt={t(project.titleKey)}
                 width={457}
                 height={427}
-                className="object-cover h-full"
+                className="object-cover w-full h-full"
                 sizes="(max-width: 768px) 100vw, 457px"
+                unoptimized
               />
             
             
