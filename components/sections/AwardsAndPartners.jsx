@@ -38,15 +38,7 @@ const awards = [
     hasBackground: true,
     website: "https://example.com/shahar-soz",
   },
-  {
-    id: 3,
-    name: "mizan",
-    logo: "/images/logo.svg",
-    width: 177,
-    height: 71,
-    hasBackground: false,
-    website: "https://mizan.uz",
-  },
+
   {
     id: 4,
     name: "IFC",
@@ -134,16 +126,7 @@ const partners = [
       bgColor: "",
       website: "https://sqb.uz",
     },
-    {
-      id: 3,
-      name: "mizan",
-      logo: "/images/logo.svg",
-      width: 177,
-      height: 71,
-      hasBackground: false,
-      bgColor: "#FFFFFF",
-      website: "https://mizan.uz",
-    },
+
     {
       id: 4,
       name: "Международные награды",
@@ -171,7 +154,7 @@ const partners = [
       width: 147,
       height: 138,
       hasBackground: true,
-      bgColor: "#F3E5F5",
+      bgColor: "",
       website: "https://example.com/memor",
     },
     {
@@ -181,7 +164,7 @@ const partners = [
       width: 230,
       height: 102,
       hasBackground: true,
-      bgColor: "#FFFDE7",
+      bgColor: "",
       website: "https://example.com/shahar-soz",
     },
     {
@@ -191,7 +174,7 @@ const partners = [
       width: 177,
       height: 71,
       hasBackground: true,
-      bgColor: "#E0F7FA",
+      bgColor: "",
       website: "https://www.ifc.org",
     },
     {
@@ -201,7 +184,7 @@ const partners = [
       width: 130,
       height: 111,
       hasBackground: true,
-      bgColor: "#FBE9E7",
+      bgColor: "",
       website: "https://example.com/award",
     },
   ];

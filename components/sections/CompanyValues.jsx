@@ -51,7 +51,7 @@ export default function CompanyValues() {
                 <Image
                   src={value.image}
                   alt={t(value.titleKey)}
-                  className="object-cover w-full h-auto"
+                  className="object-cover w-[256px] h-[163px]"
                   width={256}
                   height={163}
                 />
