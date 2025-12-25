@@ -116,8 +116,8 @@ export default function Navbar() {
     <nav 
       className="fixed top-0 left-0 right-0 z-50 bg-transparent text-white transition-all duration-300"
       style={{
-        backdropFilter: isScrolled ? 'blur(10px)' : 'none',
-        backgroundColor: isScrolled ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
+        backdropFilter: isMenuOpen ? 'none' : (isScrolled ? 'blur(10px)' : 'none'),
+        backgroundColor: isMenuOpen ? 'transparent' : (isScrolled ? 'rgba(0, 0, 0, 0.1)' : 'transparent'),
       }}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
