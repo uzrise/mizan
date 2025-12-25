@@ -17,13 +17,20 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
   const [isMobile, setIsMobile] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [zoom, setZoom] = useState(1);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const lightboxRef = useRef(null);
   const lightboxImageRef = useRef(null);
+  const imageWrapperRef = useRef(null);
 
   // Open lightbox
   const openLightbox = useCallback((index) => {
     setCurrentImageIndex(index);
     setLightboxOpen(true);
+    setZoom(1);
+    setPosition({ x: 0, y: 0 });
     document.body.style.overflow = 'hidden';
     // Pause ScrollSmoother if available
     const smoother = window.ScrollSmootherInstance || (window.ScrollSmoother?.get && window.ScrollSmoother.get());
@@ -43,17 +50,100 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     }
   }, []);
 
-  // Navigate to next image
-  const nextImage = useCallback(() => {
-    if (!project?.images) return;
-    setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
-  }, [project]);
 
   // Navigate to previous image
   const prevImage = useCallback(() => {
     if (!project?.images) return;
     setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
+    setZoom(1);
+    setPosition({ x: 0, y: 0 });
   }, [project]);
+
+  // Navigate to next image
+  const nextImage = useCallback(() => {
+    if (!project?.images) return;
+    setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+    setZoom(1);
+    setPosition({ x: 0, y: 0 });
+  }, [project]);
+
+  // Zoom functions
+  const handleZoomIn = useCallback(() => {
+    setZoom((prev) => Math.min(prev + 0.5, 5));
+  }, []);
+
+  const handleZoomOut = useCallback(() => {
+    setZoom((prev) => {
+      const newZoom = Math.max(prev - 0.5, 1);
+      if (newZoom === 1) {
+        setPosition({ x: 0, y: 0 });
+      }
+      return newZoom;
+    });
+  }, []);
+
+  const handleResetZoom = useCallback(() => {
+    setZoom(1);
+    setPosition({ x: 0, y: 0 });
+  }, []);
+
+  // Mouse wheel zoom
+  const handleWheel = useCallback((e) => {
+    if (!lightboxImageRef.current) return;
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.1 : 0.1;
+    setZoom((prev) => {
+      const newZoom = Math.max(1, Math.min(prev + delta, 5));
+      if (newZoom === 1) {
+        setPosition({ x: 0, y: 0 });
+      }
+      return newZoom;
+    });
+  }, []);
+
+  // Drag handlers
+  const handleMouseDown = useCallback((e) => {
+    if (zoom <= 1) return;
+    e.preventDefault();
+    setIsDragging(true);
+    setDragStart({
+      x: e.clientX - position.x,
+      y: e.clientY - position.y,
+    });
+  }, [zoom, position]);
+
+  const handleMouseMove = useCallback((e) => {
+    if (!isDragging || zoom <= 1) return;
+    e.preventDefault();
+    
+    const newX = e.clientX - dragStart.x;
+    const newY = e.clientY - dragStart.y;
+    
+    // Calculate bounds to prevent dragging too far
+    if (lightboxImageRef.current) {
+      const container = lightboxImageRef.current;
+      const containerRect = container.getBoundingClientRect();
+      const scaledWidth = containerRect.width * zoom;
+      const scaledHeight = containerRect.height * zoom;
+      
+      const maxX = (scaledWidth - containerRect.width) / 2;
+      const maxY = (scaledHeight - containerRect.height) / 2;
+      
+      setPosition({
+        x: Math.max(-maxX, Math.min(maxX, newX)),
+        y: Math.max(-maxY, Math.min(maxY, newY)),
+      });
+    } else {
+      setPosition({
+        x: newX,
+        y: newY,
+      });
+    }
+  }, [isDragging, zoom, dragStart]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
@@ -63,11 +153,79 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowRight') nextImage();
       if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === '+' || e.key === '=') handleZoomIn();
+      if (e.key === '-' || e.key === '_') handleZoomOut();
+      if (e.key === '0') handleResetZoom();
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxOpen, closeLightbox, nextImage, prevImage]);
+  }, [lightboxOpen, closeLightbox, nextImage, prevImage, handleZoomIn, handleZoomOut, handleResetZoom]);
+
+  // Mouse wheel zoom
+  useEffect(() => {
+    if (!lightboxOpen || !lightboxImageRef.current) return;
+    const imageElement = lightboxImageRef.current;
+    imageElement.addEventListener('wheel', handleWheel, { passive: false });
+    return () => imageElement.removeEventListener('wheel', handleWheel);
+  }, [lightboxOpen, handleWheel]);
+
+  // Touch handlers for mobile
+  const handleTouchStart = useCallback((e) => {
+    if (zoom <= 1 || e.touches.length !== 1) return;
+    e.preventDefault();
+    const touch = e.touches[0];
+    setIsDragging(true);
+    setDragStart({
+      x: touch.clientX - position.x,
+      y: touch.clientY - position.y,
+    });
+  }, [zoom, position]);
+
+  const handleTouchMove = useCallback((e) => {
+    if (!isDragging || zoom <= 1 || e.touches.length !== 1) return;
+    e.preventDefault();
+    const touch = e.touches[0];
+    
+    const newX = touch.clientX - dragStart.x;
+    const newY = touch.clientY - dragStart.y;
+    
+    // Calculate bounds to prevent dragging too far
+    if (lightboxImageRef.current) {
+      const container = lightboxImageRef.current;
+      const containerRect = container.getBoundingClientRect();
+      const scaledWidth = containerRect.width * zoom;
+      const scaledHeight = containerRect.height * zoom;
+      
+      const maxX = (scaledWidth - containerRect.width) / 2;
+      const maxY = (scaledHeight - containerRect.height) / 2;
+      
+      setPosition({
+        x: Math.max(-maxX, Math.min(maxX, newX)),
+        y: Math.max(-maxY, Math.min(maxY, newY)),
+      });
+    } else {
+      setPosition({
+        x: newX,
+        y: newY,
+      });
+    }
+  }, [isDragging, zoom, dragStart]);
+
+  const handleTouchEnd = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  // Global mouse events for dragging
+  useEffect(() => {
+    if (!isDragging) return;
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
 
   useEffect(() => {
@@ -257,7 +415,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
       {typeof window !== 'undefined' && lightboxOpen && project?.images && createPortal(
         <div
           ref={lightboxRef}
-          className="fixed inset-0 bg-black/95 flex items-center justify-center"
+          className="fixed w-full inset-0 bg-black/95 flex items-center justify-center overflow-y-auto"
           onClick={closeLightbox}
           style={{ 
             zIndex: 99999,
@@ -267,7 +425,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
           {/* Close button */}
           <button
             onClick={closeLightbox}
-            className="absolute top-4 right-4 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200"
+            className="absolute top-4 right-4 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer"
             aria-label="Close lightbox"
           >
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -279,7 +437,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
           {project.images.length > 1 && (
             <button
               onClick={(e) => { e.stopPropagation(); prevImage(); }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer"
               aria-label="Previous image"
             >
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -292,7 +450,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
           {project.images.length > 1 && (
             <button
               onClick={(e) => { e.stopPropagation(); nextImage(); }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer"
               aria-label="Next image"
             >
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -301,26 +459,108 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
             </button>
           )}
 
-          {/* Image container */}
+          {/* Main content container */}
           <div
-            ref={lightboxImageRef}
-            className="relative w-[90vw] h-[80vh] max-w-6xl"
+            className="flex flex-col items-center justify-center w-full px-4 max-w-full py-8 min-h-full"
             onClick={(e) => e.stopPropagation()}
-            style={{ animation: 'scaleIn 0.3s ease-out' }}
           >
-            <Image
-              src={project.images[currentImageIndex]}
-              alt={`${t(project.titleKey)} - Image ${currentImageIndex + 1}`}
-              fill
-              className="object-contain"
-              sizes="90vw"
-              priority
-            />
-          </div>
+            {/* Image container */}
+            <div
+              ref={lightboxImageRef}
+              className="relative w-full h-[75vh] mb-8 overflow-hidden select-none"
+              style={{ animation: 'scaleIn 0.3s ease-out', cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default' }}
+              onMouseDown={handleMouseDown}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              <div
+                ref={imageWrapperRef}
+                className="relative w-full h-full"
+                style={{
+                  transform: `scale(${zoom}) translate(${position.x / zoom}px, ${position.y / zoom}px)`,
+                  transformOrigin: 'center center',
+                  transition: isDragging ? 'none' : 'transform 0.1s ease-out',
+                }}
+              >
+                <Image
+                  src={project.images[currentImageIndex]}
+                  alt={`${t(project.titleKey)} - Image ${currentImageIndex + 1}`}
+                  fill
+                  className="object-contain"
+                  sizes="90vw"
+                  priority
+                />
+              </div>
+            </div>
 
-          {/* Image counter */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-sm font-medium bg-black/30 px-4 py-2 rounded-full">
-            {currentImageIndex + 1} / {project.images.length}
+            {/* Zoom controls */}
+            <div className="absolute bottom-20 right-4 flex flex-col gap-2 z-10">
+              <button
+                onClick={(e) => { e.stopPropagation(); handleZoomIn(); }}
+                className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer"
+                aria-label="Zoom in"
+              >
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); handleZoomOut(); }}
+                className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer disabled:cursor-not-allowed"
+                aria-label="Zoom out"
+                disabled={zoom <= 1}
+              >
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                </svg>
+              </button>
+              {zoom > 1 && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleResetZoom(); }}
+                  className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer"
+                  aria-label="Reset zoom"
+                >
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                </button>
+              )}
+            </div>
+
+            {/* Thumbnail strip */}
+            <div className="w-full mb-8 max-w-5xl scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
+              <div className="flex gap-3 justify-center px-2">
+                {project.images.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`relative shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden border-2 transition-all duration-300 cursor-pointer ${
+                      index === currentImageIndex
+                        ? 'border-white scale-110 shadow-lg'
+                        : 'border-white/30 hover:border-white/60 hover:scale-105'
+                    }`}
+                    aria-label={`View image ${index + 1}`}
+                  >
+                    <Image
+                      src={image}
+                      alt={`Thumbnail ${index + 1}`}
+                      fill
+                      className={`object-cover transition-opacity duration-300 ${
+                        index === currentImageIndex ? 'opacity-100' : 'opacity-70 hover:opacity-90'
+                      }`}
+                      sizes="96px"
+                    />
+                    {/* Active indicator overlay */}
+                    {index === currentImageIndex && (
+                      <div className="absolute inset-0 bg-white/10" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+  
           </div>
 
           {/* CSS Animations */}
