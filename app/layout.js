@@ -41,10 +41,10 @@ export default function RootLayout({ children }) {
         <TranslationProvider>
           <IntroAnimation />
           <Navbar />
-          <ScrollSmootherWrapper>
+          {/* <ScrollSmootherWrapper> */}
             {children}
             <Footer />
-          </ScrollSmootherWrapper>
+          {/* </ScrollSmootherWrapper> */}
         </TranslationProvider>
       </body>
     </html>
