@@ -529,12 +529,12 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
             </div>
 
             {/* Thumbnail strip */}
-            <div className="w-full mb-8 max-w-5xl scrollbar-hide">
-              <div className="flex gap-3 justify-center px-2 flex-wrap">
+            <div className="w-full mb-8 max-w-5xl overflow-x-auto overflow-y-hidden scrollbar-hide md:overflow-x-visible md:overflow-y-visible" style={{ WebkitOverflowScrolling: 'touch' }}>
+              <div className="flex gap-3 justify-start px-2 flex-nowrap min-w-max md:justify-center md:flex-wrap md:min-w-0">
                 {project.images.map((image, index) => (
                   <button
                     key={index}
-                    onClick={() => setCurrentImageIndex(index)}
+                    onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(index); }}
                     className={`relative shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden border-2 transition-all duration-300 cursor-pointer ${
                       index === currentImageIndex
                         ? 'border-white scale-110 shadow-lg'
