@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -16,9 +16,22 @@ export default function ScrollSmootherWrapper({ children }) {
   const contentRef = useRef(null);
   const smootherRef = useRef(null);
   const pathname = usePathname();
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (isMobile) return; // Don't initialize ScrollSmoother on mobile
 
     const initSmoother = () => {
       const wrapper = wrapperRef.current;
@@ -71,10 +84,16 @@ export default function ScrollSmootherWrapper({ children }) {
         }
       }
     };
-  }, []);
+  }, [isMobile]);
 
   // Route o'zgarganda scroll to top
   useEffect(() => {
+    if (isMobile) {
+      // Mobile'da oddiy scroll
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     const scrollToTop = () => {
       const smoother = window.ScrollSmootherInstance || (window.ScrollSmoother?.get && window.ScrollSmoother.get());
       if (smoother) {
@@ -92,7 +111,7 @@ export default function ScrollSmootherWrapper({ children }) {
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [pathname]);
+  }, [pathname, isMobile]);
 
   return (
     <div id="smooth-wrapper" ref={wrapperRef}>
