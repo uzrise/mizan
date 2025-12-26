@@ -415,7 +415,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
       {typeof window !== 'undefined' && lightboxOpen && project?.images && createPortal(
         <div
           ref={lightboxRef}
-          className="fixed w-full inset-0 bg-black/95 flex items-center justify-center overflow-y-auto"
+          className="fixed w-full inset-0 bg-black/95 flex items-center justify-center overflow-hidden"
           onClick={closeLightbox}
           style={{ 
             zIndex: 99999,
@@ -461,7 +461,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
 
           {/* Main content container */}
           <div
-            className="flex flex-col items-center justify-center w-full px-4 max-w-full py-8 min-h-full"
+            className="flex flex-col items-center justify-center w-full px-4 max-w-full py-8 h-full overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Image container */}
@@ -529,8 +529,8 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
             </div>
 
             {/* Thumbnail strip */}
-            <div className="w-full mb-8 max-w-5xl scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
-              <div className="flex gap-3 justify-center px-2">
+            <div className="w-full mb-8 max-w-5xl scrollbar-hide">
+              <div className="flex gap-3 justify-center px-2 flex-wrap">
                 {project.images.map((image, index) => (
                   <button
                     key={index}

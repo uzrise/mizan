@@ -217,3 +217,16 @@ section[style*="background-color: #00382F"] .overflow-x-visible:focus {
   border: none !important;
   box-shadow: none !important;
 }
+
+/* Team section container - mobile da auto height, desktop da fixed */
+.team-container {
+  min-height: 660px;
+  height: auto;
+  will-change: transform;
+}
+
+@media (min-width: 1024px) {
+  .team-container {
+    height: 660px;
+  }
+}

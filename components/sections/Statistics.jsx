@@ -105,9 +105,21 @@ export default function Statistics() {
 
   // ScrollTrigger for positioning Statistics over ProjectShowcase
   // Bu faqat ProjectShowcase scroll masofasiga qadar ishlaydi va boshqa sectionlarga ta'sir qilmaydi
+  // Mobile da bu effect o'chiriladi
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
+
+    // Mobile da ScrollTrigger effect-ni o'chirish
+    const isMobile = window.innerWidth < 1024; // lg breakpoint
+    if (isMobile) {
+      // Mobile da normal holatda qoldirish
+      gsap.set(section, {
+        marginTop: '0px',
+        zIndex: 1,
+      });
+      return;
+    }
 
     let scrollTrigger = null;
 
@@ -178,8 +190,20 @@ export default function Statistics() {
 
     // Handle window resize
     const handleResize = () => {
-      if (scrollTrigger) {
-        ScrollTrigger.refresh();
+      const currentIsMobile = window.innerWidth < 1024;
+      if (currentIsMobile && scrollTrigger) {
+        // Mobile ga o'tsa ScrollTrigger-ni o'chirish
+        scrollTrigger.kill();
+        scrollTrigger = null;
+        gsap.set(section, {
+          marginTop: '0px',
+          clearProps: 'marginTop',
+          zIndex: 1,
+        });
+      } else if (!currentIsMobile) {
+        if (scrollTrigger) {
+          ScrollTrigger.refresh();
+        }
       }
     };
 
@@ -204,20 +228,19 @@ export default function Statistics() {
   return (
     <section 
       ref={sectionRef} 
-      className="bg-white relative overflow-hidden"
+      className="bg-white relative overflow-hidden py-8 lg:py-0"
       style={{
         position: 'relative',
-        zIndex: 20,
       }}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-4">
           {/* Left side - 2 cards side by side */}
-          <div className="flex flex-row gap-4 w-full lg:w-auto">
+          <div className="flex flex-row gap-2 sm:gap-4 w-full lg:w-auto justify-center lg:justify-start overflow-x-auto lg:overflow-visible scrollbar-hide">
             {statistics.slice(0, 2).map((stat, index) => (
               <div
                 key={index}
-                className="relative w-[256px] h-[412px] overflow-hidden group"
+                className="relative w-[160px] sm:w-[180px] md:w-[220px] lg:w-[256px] h-[240px] sm:h-[280px] md:h-[350px] lg:h-[412px] overflow-hidden group shrink-0"
                 style={{
                   borderTopLeftRadius: '200px',
                   borderTopRightRadius: '200px',
@@ -230,7 +253,7 @@ export default function Statistics() {
                     alt={t(stat.labelKey)}
                     fill
                     className="object-cover"
-                    sizes="256px"
+                    sizes="(max-width: 640px) 140px, (max-width: 768px) 180px, (max-width: 1024px) 220px, 256px"
                   />
                 </div>
                 
@@ -245,13 +268,10 @@ export default function Statistics() {
                 
                 {/* Content - positioned at bottom with padding */}
                 <div 
-                  className="relative h-full flex flex-col items-center justify-end text-center p-6"
-                  style={{
-                    padding: '24px',
-                  }}
+                  className="relative h-full flex flex-col items-center justify-end text-center p-3 sm:p-4 md:p-5 lg:p-6"
                 >
                   <div 
-                    className="mb-2 text-[64px] sm:text-[80px] md:text-[96px] lg:text-[112px]"
+                    className="mb-2 text-[32px] sm:text-[48px] md:text-[64px] lg:text-[112px]"
                     style={{
                       color: '#00382F',
                       fontFamily: 'var(--font-inter), Inter, sans-serif',
@@ -267,16 +287,16 @@ export default function Statistics() {
                     {animatedValues[index]}
                   </div>
                   <div 
-                    className="uppercase text-sm sm:text-base md:text-lg lg:text-[20px]"
+                    className="uppercase text-xs sm:text-sm md:text-base lg:text-[20px]"
                     style={{
                       color: '#00382F',
                       fontFamily: 'var(--font-inter), Inter, sans-serif',
                       fontWeight: 500,
-                      lineHeight: '1.5',
+                      lineHeight: '1.3',
                       letterSpacing: '-2%',
                       textAlign: 'center',
                       textTransform: 'uppercase',
-                      height: '3em',
+                      minHeight: '2.5em',
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
@@ -291,7 +311,7 @@ export default function Statistics() {
           </div>
 
           {/* Center Logo */}
-          <div className="w-[280px] flex items-center justify-center px-4 lg:px-8">
+          <div className="w-full sm:w-[200px] lg:w-[280px] flex items-center justify-center px-4 lg:px-8 py-4 lg:py-0">
             <Image
               src="/images/logo_gray.png"
               alt="Mizan Logo"
@@ -302,11 +322,11 @@ export default function Statistics() {
           </div>
 
           {/* Right side - 2 cards side by side */}
-          <div className="flex flex-row gap-4 w-full lg:w-auto">
+          <div className="flex flex-row gap-2 sm:gap-4 w-full lg:w-auto justify-center lg:justify-start overflow-x-auto lg:overflow-visible scrollbar-hide">
             {statistics.slice(2, 4).map((stat, index) => (
               <div
                 key={index + 2}
-                className="relative w-[256px] h-[412px] overflow-hidden group"
+                className="relative w-[160px] sm:w-[180px] md:w-[220px] lg:w-[256px] h-[240px] sm:h-[280px] md:h-[350px] lg:h-[412px] overflow-hidden group shrink-0"
                 style={{
                   borderTopLeftRadius: '200px',
                   borderTopRightRadius: '200px',
@@ -319,7 +339,7 @@ export default function Statistics() {
                     alt={t(stat.labelKey)}
                     fill
                     className="object-cover align-middle"
-                    sizes="256px"
+                    sizes="(max-width: 640px) 140px, (max-width: 768px) 180px, (max-width: 1024px) 220px, 256px"
                   />
                 </div>
                 
@@ -333,18 +353,15 @@ export default function Statistics() {
                 
                 {/* Content - positioned at bottom with padding */}
                 <div 
-                  className="relative h-full flex flex-col items-center justify-end text-center p-6"
-                  style={{
-                    padding: '24px',
-                  }}
+                  className="relative h-full flex flex-col items-center justify-end text-center p-3 sm:p-4 md:p-5 lg:p-6"
                 >
                   <div 
-                    className="mb-2 text-[64px] sm:text-[80px] md:text-[96px] lg:text-[112px]"
+                    className="mb-2 text-[32px] sm:text-[48px] md:text-[64px] lg:text-[112px]"
                     style={{
                       color: '#00382F',
                       fontFamily: 'var(--font-inter), Inter, sans-serif',
                       fontWeight: 500,
-                      lineHeight: '94%',
+                      lineHeight: '1',
                       letterSpacing: '-2%',
                       textAlign: 'center',
                     }}
@@ -352,16 +369,16 @@ export default function Statistics() {
                     {animatedValues[index + 2]}
                   </div>
                   <div 
-                    className="uppercase text-sm sm:text-base md:text-lg lg:text-[20px]"
+                    className="uppercase text-xs sm:text-sm md:text-base lg:text-[20px]"
                     style={{
                       color: '#00382F',
                       fontFamily: 'var(--font-inter), Inter, sans-serif',
                       fontWeight: 500,
-                      lineHeight: '1.5',
+                      lineHeight: '1.3',
                       letterSpacing: '-2%',
                       textAlign: 'center',
                       textTransform: 'uppercase',
-                      height: '3em',
+                      minHeight: '2.5em',
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',

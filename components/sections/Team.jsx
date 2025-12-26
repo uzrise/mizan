@@ -90,6 +90,22 @@ export default function Team() {
 
     if (!section || !container || !scrollContainer) return;
 
+    // Mobile da pin o'chiriladi va oddiy scroll qiladi
+    const isMobile = window.innerWidth < 1024; // lg breakpoint
+    if (isMobile) {
+      // Mobile da oddiy scroll - ScrollTrigger yo'q
+      gsap.set(scrollContainer, {
+        x: 0,
+        clearProps: "transform",
+      });
+      scrollContainer.style.transform = "none";
+      scrollContainer.style.overflowX = "auto";
+      scrollContainer.style.overflowY = "visible";
+      scrollContainer.style.webkitOverflowScrolling = "touch";
+      scrollContainer.style.willChange = "auto";
+      return;
+    }
+
     let ctx = null;
     let scrollTrigger = null;
 
@@ -177,8 +193,43 @@ export default function Team() {
 
     const timer = setTimeout(checkAndInit, 200);
 
+    // Handle window resize
+    const handleResize = () => {
+      const currentIsMobile = window.innerWidth < 1024;
+      if (currentIsMobile) {
+        // Mobile ga o'tsa ScrollTrigger-ni o'chirish
+        if (scrollTrigger) {
+          scrollTrigger.kill();
+          scrollTrigger = null;
+        }
+        if (ctx) {
+          ctx.revert();
+          ctx = null;
+        }
+        gsap.set(scrollContainer, {
+          x: 0,
+          clearProps: "transform",
+        });
+        scrollContainer.style.transform = "none";
+        scrollContainer.style.overflowX = "auto";
+        scrollContainer.style.overflowY = "visible";
+        scrollContainer.style.webkitOverflowScrolling = "touch";
+        scrollContainer.style.willChange = "auto";
+      } else {
+        // Desktop ga o'tsa qayta init qilish
+        if (!scrollTrigger && !ctx) {
+          checkAndInit();
+        } else if (scrollTrigger) {
+          ScrollTrigger.refresh();
+        }
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
     return () => {
       clearTimeout(timer);
+      window.removeEventListener('resize', handleResize);
       if (ctx) {
         ctx.revert();
       }
@@ -205,11 +256,9 @@ export default function Team() {
     >
       <div
         ref={containerRef}
-        className="w-full flex flex-col py-12 md:py-16 lg:py-24"
+        className="w-full flex flex-col py-12 md:py-16 lg:py-24 team-container"
         style={{
-          height: "660px",
           backgroundColor: "#00382F",
-          willChange: "transform",
           overscrollBehaviorX: "none",
           overscrollBehaviorY: "auto",
         }}
@@ -232,10 +281,9 @@ export default function Team() {
         {/* Horizontal Scrollable Container */}
         <div
           ref={scrollContainerRef}
-          className="flex w-full pl-4 sm:pl-6 lg:pl-8"
+          className="flex w-full pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-0 overflow-x-auto lg:overflow-x-visible scrollbar-hide"
           style={{
             willChange: "transform",
-            transform: "translateZ(0)",
             gap: "32px",
           }}
         >
