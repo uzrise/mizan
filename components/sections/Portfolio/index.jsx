@@ -3,7 +3,10 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { getAllProjects } from "@/constants/projects";
+import { useProjects } from "@/hooks/useProjects";
+import { useTranslation } from "@/contexts/TranslationContext";
+import { transformProject } from "@/lib/strapi";
+import { isConstantsProject } from "@/utils/projectUtils";
 import Hero from "./Hero";
 import Header from "./Header";
 import Filters from "./Filters";
@@ -15,28 +18,44 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function Portfolio() {
+export default function Portfolio({ initialProjects = null }) {
   const [activeFilter, setActiveFilter] = useState("all");
-  const projects = getAllProjects();
+  const { language } = useTranslation();
+  const { projects: clientProjects, loading: clientLoading } = useProjects();
   const containerRef = useRef(null);
   const titleRef = useRef(null);
   const descriptionRef = useRef(null);
   const filtersRef = useRef(null);
   const sectionRef = useRef(null);
 
-  // Filter projects based on active filter - use useMemo for derived state
+  const transformedInitialProjects = useMemo(() => {
+    if (!initialProjects || initialProjects.length === 0) {
+      return null;
+    }
+    return initialProjects.map(project => {
+      if (isConstantsProject(project)) {
+        return project;
+      }
+      return transformProject(project, language);
+    });
+  }, [initialProjects, language]);
+
+  const projects = transformedInitialProjects || clientProjects;
+  const loading = initialProjects ? false : clientLoading;
+
   const filteredProjects = useMemo(() => {
+    if (!projects || projects.length === 0) {
+      return [];
+    }
     if (activeFilter === "all") {
       return projects;
     }
     return projects.filter((project) =>
-      project.category.includes(activeFilter)
+      project.category && project.category.includes(activeFilter)
     );
   }, [activeFilter, projects]);
 
-  // Initial page animations - wait for IntroAnimation to complete
   useEffect(() => {
-    // Set initial states
     if (titleRef.current && descriptionRef.current) {
       gsap.set([titleRef.current, descriptionRef.current], {
         opacity: 0,
@@ -53,7 +72,6 @@ export default function Portfolio() {
     }
 
     const animateInitialContent = () => {
-      // Animate title and description
       if (titleRef.current && descriptionRef.current) {
         gsap.to([titleRef.current, descriptionRef.current], {
           opacity: 1,
@@ -64,7 +82,6 @@ export default function Portfolio() {
         });
       }
 
-      // Animate filter buttons
       if (filtersRef.current) {
         const filterButtons = filtersRef.current.children;
         gsap.to(Array.from(filterButtons), {
@@ -77,11 +94,9 @@ export default function Portfolio() {
       }
     };
 
-    // Check if intro is already complete
     if (window.__introComplete) {
       animateInitialContent();
     } else {
-      // Wait for introComplete event
       const handleIntroComplete = () => {
         animateInitialContent();
       };
@@ -92,7 +107,6 @@ export default function Portfolio() {
     }
   }, []);
 
-  // Animate project cards with ScrollTrigger when section is visible
   useEffect(() => {
     if (!containerRef.current || !sectionRef.current) return;
 
@@ -106,7 +120,6 @@ export default function Portfolio() {
 
       if (projectElements.length === 0) return;
 
-      // Set initial state
       gsap.set(Array.from(projectElements), {
         opacity: 0,
         y: 40,
@@ -114,7 +127,6 @@ export default function Portfolio() {
         rotationX: 15,
       });
 
-      // Set initial state for m-vector logos
       const vectorLogos = container.querySelectorAll("[data-vector-logo]");
       gsap.set(Array.from(vectorLogos), {
         opacity: 0,
@@ -122,7 +134,6 @@ export default function Portfolio() {
         rotation: -180,
       });
 
-      // Set initial state for gradient overlays
       const gradientOverlays = container.querySelectorAll(
         "[data-gradient-overlay]"
       );
@@ -130,12 +141,10 @@ export default function Portfolio() {
         opacity: 0,
       });
 
-      // Create ScrollTrigger for cards animation
       const scrollTrigger = ScrollTrigger.create({
         trigger: section,
         start: "top 80%",
         onEnter: () => {
-          // Animate in new projects with improved animation
           gsap.to(Array.from(projectElements), {
             opacity: 1,
             y: 0,
@@ -149,7 +158,6 @@ export default function Portfolio() {
             ease: "power3.out",
           });
 
-          // Animate m-vector logos in each card
           gsap.to(Array.from(vectorLogos), {
             opacity: 1,
             scale: 1,
@@ -160,7 +168,6 @@ export default function Portfolio() {
             ease: "elastic.out(1, 0.5)",
           });
 
-          // Animate gradient overlays
           gsap.to(Array.from(gradientOverlays), {
             opacity: 1,
             duration: 1,
@@ -175,7 +182,6 @@ export default function Portfolio() {
       return scrollTrigger;
     };
 
-    // Wait for DOM to update with new filtered projects
     const timer = setTimeout(() => {
       setupScrollTrigger();
     }, 50);
@@ -194,10 +200,24 @@ export default function Portfolio() {
     setActiveFilter(filterId);
   };
 
+  if (loading) {
+    return (
+      <>
+        <Hero />
+        <section className="bg-white py-12">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center py-12">
+              <p className="text-gray-500">Loading projects...</p>
+            </div>
+          </div>
+        </section>
+      </>
+    );
+  }
+
   return (
     <>
       <Hero />
-      {/* Portfolio Content Section */}
       <section ref={sectionRef} className="bg-white py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <Header 

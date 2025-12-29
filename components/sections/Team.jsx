@@ -83,6 +83,142 @@ export default function Team() {
   const [selectedMember, setSelectedMember] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // ScrollTrigger for positioning Team over Partners (like Statistics overlays ProjectShowcase)
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    // Mobile da ScrollTrigger effect-ni o'chirish
+    const isMobile = window.innerWidth < 1024; // lg breakpoint
+    if (isMobile) {
+      // Mobile da normal holatda qoldirish
+      gsap.set(section, {
+        marginTop: '0px',
+        zIndex: 1,
+      });
+      return;
+    }
+
+    let partnersOverlayTrigger = null;
+
+    const checkAndInit = () => {
+      if (window.__introComplete) {
+        const viewportHeight = window.innerHeight;
+        const useOverlayPattern = viewportHeight < 900; // Use overlay pattern for height < 900px
+
+        // Faqat overlay pattern uchun ishlaydi
+        if (!useOverlayPattern) {
+          gsap.set(section, {
+            marginTop: '0px',
+            zIndex: 1,
+          });
+          return;
+        }
+
+        // Partners sectionni topish
+        const partnersSection = document.getElementById('partners-section');
+        if (!partnersSection) {
+          setTimeout(checkAndInit, 100);
+          return;
+        }
+
+        // Partners section scroll masofasini hisoblash
+        // Partners scroll distance AwardsAndPartners komponentida hisoblanadi
+        // Biz xuddi shu formulani ishlatamiz: partners.length * scrollDistancePerItem
+        const scrollDistancePerItem = viewportHeight * 0.05;
+        const partnersContainer = partnersSection.querySelector('[data-partners-container]');
+        if (!partnersContainer) {
+          setTimeout(checkAndInit, 100);
+          return;
+        }
+
+        // Partners items soni (real DOM children length)
+        const partnersCount = partnersContainer.children.length || 10;
+        const partnersScrollDistance = partnersCount * scrollDistancePerItem;
+
+        partnersOverlayTrigger = ScrollTrigger.create({
+          trigger: partnersSection,
+          start: 'top top',
+          end: () => `+=${partnersScrollDistance}`,
+          scrub: true,
+          invalidateOnRefresh: true,
+          refreshPriority: 0,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            // Team overlays Partners during Partners scroll
+            const negativeMargin = -partnersScrollDistance * (1 - progress);
+            gsap.set(section, {
+              marginTop: `${negativeMargin}px`,
+              zIndex: 20,
+            });
+          },
+          onLeave: () => {
+            // Partners scroll tugagandan keyin Team normal holatga qaytadi
+            gsap.set(section, {
+              marginTop: '0px',
+              clearProps: 'marginTop',
+            });
+            setTimeout(() => {
+              ScrollTrigger.refresh();
+            }, 0);
+          },
+          onEnterBack: () => {
+            // Orqaga scroll qilganda yana negative margin qo'llanadi
+            gsap.set(section, {
+              marginTop: `-${partnersScrollDistance}px`,
+            });
+          },
+        });
+
+        // Initial positioning
+        gsap.set(section, {
+          marginTop: `-${partnersScrollDistance}px`,
+          zIndex: 20,
+        });
+      } else {
+        setTimeout(checkAndInit, 100);
+      }
+    };
+
+    const timer = setTimeout(checkAndInit, 200);
+
+    // Handle window resize
+    const handleResize = () => {
+      const currentIsMobile = window.innerWidth < 1024;
+      if (currentIsMobile && partnersOverlayTrigger) {
+        // Mobile ga o'tsa ScrollTrigger-ni o'chirish
+        partnersOverlayTrigger.kill();
+        partnersOverlayTrigger = null;
+        gsap.set(section, {
+          marginTop: '0px',
+          clearProps: 'marginTop',
+          zIndex: 1,
+        });
+      } else if (!currentIsMobile) {
+        if (partnersOverlayTrigger) {
+          ScrollTrigger.refresh();
+        }
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', handleResize);
+      if (partnersOverlayTrigger) {
+        partnersOverlayTrigger.kill();
+      }
+      // Cleanup - marginTop-ni tozalash
+      if (section) {
+        gsap.set(section, {
+          marginTop: '0px',
+          clearProps: 'marginTop',
+        });
+      }
+    };
+  }, []);
+
   useEffect(() => {
     const section = sectionRef.current;
     const container = containerRef.current;

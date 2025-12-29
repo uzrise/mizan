@@ -6,21 +6,28 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslation } from '@/contexts/TranslationContext';
 import Image from 'next/image';
 import Link from 'next/link';
-import { projects as allProjects } from '@/constants/projects';
+import { useProjects } from '@/hooks/useProjects';
 
 // Register ScrollTrigger plugin
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function ProjectShowcase() {
-  const { t } = useTranslation();
+export default function ProjectShowcase({ initialProjects = [] }) {
+  const { t, language, safeTranslate } = useTranslation();
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
   const projectRefs = useRef([]);
+  const { projects: allProjects, loading, error } = useProjects();
+
+  // Use initial projects from server if available, otherwise use hook data
+  // Transform initial projects if language changed (client-side)
+  const projectsToUse = allProjects && allProjects.length > 0 
+    ? allProjects 
+    : initialProjects;
 
   // First 4 projects for showcase
-  const projects = allProjects.slice(0, 4);
+  const projects = projectsToUse?.slice(0, 4) || [];
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -269,7 +276,71 @@ export default function ProjectShowcase() {
         }
       });
     };
-  }, []);
+  }, [projects.length]); // Re-run when projects are loaded or change
+
+  // Show loading state only if we don't have initial projects and are still loading
+  if (loading && (!initialProjects || initialProjects.length === 0)) {
+    return (
+      <section
+        id="portfolio"
+        className="relative bg-white overflow-hidden pt-16 sm:pt-20 md:pt-24"
+        style={{ 
+          minHeight: 'clamp(200px, 50vw, 466px)',
+          position: 'relative'
+        }}
+      >
+        <div className="container mx-auto px-0 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex gap-3 sm:gap-4 md:gap-6 lg:gap-8 justify-start sm:justify-center items-center min-h-[200px] sm:min-h-[300px] md:min-h-[400px] lg:min-h-[466px]">
+            <div className="text-center text-gray-500">Loading projects...</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Show error state only if we don't have initial projects and there's an error
+  if (error && (!initialProjects || initialProjects.length === 0) && (!projects || projects.length === 0)) {
+    return (
+      <section
+        id="portfolio"
+        className="relative bg-white overflow-hidden pt-16 sm:pt-20 md:pt-24"
+        style={{ 
+          minHeight: 'clamp(200px, 50vw, 466px)',
+          position: 'relative'
+        }}
+      >
+        <div className="container mx-auto px-0 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex gap-3 sm:gap-4 md:gap-6 lg:gap-8 justify-start sm:justify-center items-center min-h-[200px] sm:min-h-[300px] md:min-h-[400px] lg:min-h-[466px]">
+            <div className="text-center text-gray-500">
+              Failed to load projects
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // If no projects at all, show empty state
+  if (!projects || projects.length === 0) {
+    return (
+      <section
+        id="portfolio"
+        className="relative bg-white overflow-hidden pt-16 sm:pt-20 md:pt-24"
+        style={{ 
+          minHeight: 'clamp(200px, 50vw, 466px)',
+          position: 'relative'
+        }}
+      >
+        <div className="container mx-auto px-0 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex gap-3 sm:gap-4 md:gap-6 lg:gap-8 justify-start sm:justify-center items-center min-h-[200px] sm:min-h-[300px] md:min-h-[400px] lg:min-h-[466px]">
+            <div className="text-center text-gray-500">
+              No projects available
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -314,20 +385,17 @@ export default function ProjectShowcase() {
                     height: 'clamp(200px, 50vw, 466px)',
                   }}
                 >
-                  {/* Project image */}
                   <Image
-                    src={project.image}
-                    alt={t(project.titleKey)}
+                    src={project.image || '/images/projects/1.jpg'}
+                    alt={safeTranslate(project?.titleKey) || 'Project'}
                     fill
                     unoptimized
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 256px, (max-width: 1024px) 256px, 548px"
                   />
                   
-                  {/* Gradient overlay for text readability */}
                   <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
                   
-                  {/* Title text - positioned at bottom */}
                   <h3 
                     className="absolute bottom-0 left-0 right-0 px-3 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6 text-white uppercase text-sm sm:text-base md:text-xl lg:text-2xl"
                     style={{
@@ -339,7 +407,7 @@ export default function ProjectShowcase() {
                       color: '#FFFFFF',
                     }}
                   >
-                    {t(project.titleKey)}
+                    {safeTranslate(project?.titleKey) || 'Project'}
                   </h3>
                   
                   <div className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg z-10">

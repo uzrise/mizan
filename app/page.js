@@ -4,13 +4,18 @@ import Statistics from "@/components/sections/Statistics";
 import CompanyValues from "@/components/sections/CompanyValues";
 import AwardsAndPartners from "@/components/sections/AwardsAndPartners";
 import Team from "@/components/sections/Team";
+import { getProjects } from "@/lib/strapi";
 
-export default function Home() {
+export default async function Home() {
+  // Server-side fetch projects with default language (RU)
+  // getProjects already handles fallback to constants if Strapi fails
+  const initialProjects = await getProjects('RU');
+
   return (
     <main className="min-h-screen">
       <Hero />
       <div className="space-y-24">
-        <ProjectShowcase />
+        <ProjectShowcase initialProjects={initialProjects} />
         <Statistics />
         <CompanyValues />
         <div style={{ backgroundColor: "#00382F" }}>

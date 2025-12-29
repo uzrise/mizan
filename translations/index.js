@@ -11,16 +11,34 @@ export const translations = {
 };
 
 export const getTranslation = (lang, key) => {
-  const keys = key.split('.');
+  if (!key) return '';
+  
+  const keyStr = String(key);
+  const keys = keyStr.split('.');
   let value = translations[lang] || translations['RU'];
   
   for (const k of keys) {
     value = value?.[k];
     if (value === undefined) {
-      return key; // Fallback to key if translation not found
+      return keyStr;
     }
   }
   
   return value;
 };
+
+export function safeTranslate(lang, key) {
+  if (!key) return '';
+  
+  const keyStr = String(key);
+  
+  if (keyStr.includes('.')) {
+    const translation = getTranslation(lang, keyStr);
+    if (translation !== keyStr) {
+      return translation;
+    }
+  }
+  
+  return keyStr;
+}
 

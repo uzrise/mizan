@@ -1,9 +1,10 @@
 "use client";
 import { useTranslation } from "@/contexts/TranslationContext";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import AwardsAndPartnersSeparate from "./AwardsAndPartnersSeparate";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
@@ -191,10 +192,24 @@ const partners = [
 
 export default function AwardsAndPartners() {
   const { t } = useTranslation();
+  const [useSeparate, setUseSeparate] = useState(false);
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
   const awardsContainerRef = useRef(null);
   const partnersContainerRef = useRef(null);
+
+  // Check if we should use separate component (view height < 900px and not mobile)
+  useEffect(() => {
+    const checkViewport = () => {
+      const viewHeight = window.innerHeight;
+      const isMobile = window.innerWidth < 1024;
+      setUseSeparate(viewHeight < 900 && !isMobile);
+    };
+
+    checkViewport();
+    window.addEventListener('resize', checkViewport);
+    return () => window.removeEventListener('resize', checkViewport);
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -495,6 +510,11 @@ export default function AwardsAndPartners() {
       });
     };
   }, []);
+
+  // If conditions are met, use separate component
+  if (useSeparate) {
+    return <AwardsAndPartnersSeparate />;
+  }
 
   return (
     <section
