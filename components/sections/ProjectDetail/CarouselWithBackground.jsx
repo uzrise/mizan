@@ -3,17 +3,21 @@
 import * as React from 'react';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { formatImageUrl } from '@/utils/imageUtils';
 
 export default function CarouselWithBackground({ project }) {
-  const { t } = useTranslation();
+  const { t, safeTranslate } = useTranslation();
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isAnimating, setIsAnimating] = React.useState(false);
 
-  if (!project?.images || project.images.length === 0) {
+  // Filter out empty or invalid image URLs
+  const validImages = project?.images?.filter(img => img && img.trim() !== '') || [];
+
+  if (validImages.length === 0) {
     return null;
   }
 
-  const totalImages = project.images.length;
+  const totalImages = validImages.length;
   const prevIndex = currentIndex === 0 ? totalImages - 1 : currentIndex - 1;
   const nextIndex = currentIndex === totalImages - 1 ? 0 : currentIndex + 1;
 
@@ -31,17 +35,15 @@ export default function CarouselWithBackground({ project }) {
     setTimeout(() => setIsAnimating(false), 500);
   };
 
-  // Fixed item width for consistent sliding
-  const itemWidth = 620; // Fixed width for each slide position
+  const itemWidth = 620;
 
   return (
     <section className="relative overflow-hidden isolate" style={{ height: '416px' }}>
-      {/* Background Image - Full Screen */}
       <div className="absolute inset-0 w-full h-full">
         <div className="relative w-full h-full">
           <Image
             src="/bg-detail-carousel.png"
-            alt={t(project.titleKey)}
+            alt={safeTranslate(project?.titleKey)}
             fill
             className="object-cover"
             sizes="100vw"
@@ -50,7 +52,6 @@ export default function CarouselWithBackground({ project }) {
         </div>
       </div>
 
-      {/* Subtitle and Title - Absolute Top */}
       <div className="absolute top-6 left-4 sm:left-6 lg:left-8 z-30">
         <p 
           className="text-white mb-1"
@@ -76,9 +77,7 @@ export default function CarouselWithBackground({ project }) {
         </h2>
       </div>
 
-      {/* Carousel Container - Isolated */}
       <div className="relative z-10 h-full flex items-center justify-center isolate">
-        {/* Track Container */}
         <div 
           className="relative overflow-hidden isolate" 
           style={{ 
@@ -87,14 +86,16 @@ export default function CarouselWithBackground({ project }) {
             height: '320px',
           }}
         >
-          {/* Sliding Track */}
           <div 
             className="absolute inset-0 flex items-center transition-transform duration-500 ease-out"
             style={{
               transform: `translateX(calc(50% - ${itemWidth / 2}px - ${currentIndex * itemWidth}px))`,
             }}
           >
-            {project.images.map((image, index) => {
+            {validImages.map((image, index) => {
+              if (!image || image.trim() === '') return null;
+              
+              const imageUrl = formatImageUrl(image);
               const isCenter = index === currentIndex;
               const isPrev = index === prevIndex;
               const isNext = index === nextIndex;
@@ -121,12 +122,16 @@ export default function CarouselWithBackground({ project }) {
                     }}
                   >
                     <Image
-                      src={image}
-                      alt={`${t(project.titleKey)} - Plan ${index + 1}`}
+                      src={imageUrl}
+                      alt={`${safeTranslate(project?.titleKey)} - Plan ${index + 1}`}
                       fill
                       className="object-contain"
                       sizes={isCenter ? '596px' : '427px'}
                       priority={index <= 2}
+                      unoptimized={imageUrl.includes('localhost:1337')}
+                      onError={(e) => {
+                        console.error('Carousel image failed to load:', imageUrl);
+                      }}
                     />
                   </div>
                 </div>
@@ -135,7 +140,6 @@ export default function CarouselWithBackground({ project }) {
           </div>
         </div>
 
-        {/* Navigation Arrows - Left Bottom */}
         {totalImages > 1 && (
           <div className="absolute bottom-4 left-4 flex items-center gap-2 z-50">
             <button

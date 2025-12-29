@@ -1,19 +1,19 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { formatImageUrl } from '@/utils/imageUtils';
 
-// Register ScrollTrigger plugin
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 export default function Gallery({ project, gallerySectionRef, galleryContainerRef, galleryItemsRef }) {
-  const { t } = useTranslation();
+  const { t, safeTranslate } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -51,21 +51,26 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
   }, []);
 
 
+  // Get valid images
+  const validImages = useMemo(() => {
+    return project?.images?.filter(img => img && img.trim() !== '') || [];
+  }, [project?.images]);
+
   // Navigate to previous image
   const prevImage = useCallback(() => {
-    if (!project?.images) return;
-    setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
+    if (validImages.length === 0) return;
+    setCurrentImageIndex((prev) => (prev - 1 + validImages.length) % validImages.length);
     setZoom(1);
     setPosition({ x: 0, y: 0 });
-  }, [project]);
+  }, [validImages]);
 
   // Navigate to next image
   const nextImage = useCallback(() => {
-    if (!project?.images) return;
-    setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+    if (validImages.length === 0) return;
+    setCurrentImageIndex((prev) => (prev + 1) % validImages.length);
     setZoom(1);
     setPosition({ x: 0, y: 0 });
-  }, [project]);
+  }, [validImages]);
 
   // Zoom functions
   const handleZoomIn = useCallback(() => {
@@ -241,7 +246,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
   useEffect(() => {
     const section = gallerySectionRef.current;
     const container = galleryContainerRef.current;
-    if (!section || !container || !project?.images || project.images.length === 0) return;
+    if (!section || !container || validImages.length === 0) return;
 
     const items = galleryItemsRef.current.filter(Boolean);
     if (items.length === 0) return;
@@ -357,9 +362,10 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
       }
       gsap.set(container, { willChange: 'auto', x: 0 });
     };
-  }, [project, gallerySectionRef, galleryContainerRef, galleryItemsRef]);
+  }, [validImages, gallerySectionRef, galleryContainerRef, galleryItemsRef]);
 
-  if (!project?.images || project.images.length === 0) {
+  // Don't render if no images (after all hooks)
+  if (validImages.length === 0) {
     return null;
   }
 
@@ -382,22 +388,33 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
             WebkitOverflowScrolling: 'touch',
           }}
         >
-          {project.images.map((image, index) => (
-            <div
-              key={index}
-              ref={(el) => {
-                galleryItemsRef.current[index] = el;
-              }}
-              onClick={() => openLightbox(index)}
-              className={`relative shrink-0 w-[85vw] sm:w-[70vw] md:w-[60vw] lg:w-[50vw] aspect-16/10 md:aspect-4/3 rounded-lg overflow-hidden shadow-2xl cursor-pointer group ${isMobile ? 'snap-center' : ''}`}
-            >
-              <Image
-                src={image}
-                alt={`${t(project.titleKey)} - Image ${index + 1}`}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 640px) 85vw, (max-width: 768px) 70vw, (max-width: 1024px) 60vw, 50vw"
-              />
+          {validImages.map((image, index) => {
+            // Skip if image is empty or invalid
+            if (!image || image.trim() === '') return null;
+            
+            const imageUrl = formatImageUrl(image);
+            
+            return (
+              <div
+                key={index}
+                ref={(el) => {
+                  galleryItemsRef.current[index] = el;
+                }}
+                onClick={() => openLightbox(index)}
+                className={`relative shrink-0 w-[85vw] sm:w-[70vw] md:w-[60vw] lg:w-[50vw] aspect-16/10 md:aspect-4/3 rounded-lg overflow-hidden shadow-2xl cursor-pointer group ${isMobile ? 'snap-center' : ''}`}
+              >
+                <Image
+                  src={imageUrl}
+                  alt={`${safeTranslate(project?.titleKey)} - Image ${index + 1}`}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 85vw, (max-width: 768px) 70vw, (max-width: 1024px) 60vw, 50vw"
+                  unoptimized={imageUrl.includes('localhost:1337')}
+                  onError={(e) => {
+                    console.error('Image failed to load:', imageUrl);
+                    e.target.style.display = 'none';
+                  }}
+                />
               {/* Hover overlay with zoom icon */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
                 <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-lg">
@@ -407,12 +424,13 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
       {/* Lightbox Modal - Rendered via Portal to document.body */}
-      {typeof window !== 'undefined' && lightboxOpen && project?.images && createPortal(
+      {typeof window !== 'undefined' && lightboxOpen && validImages.length > 0 && createPortal(
         <div
           ref={lightboxRef}
           className="fixed w-full inset-0 bg-black/95 flex items-center justify-center overflow-hidden"
@@ -434,7 +452,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
           </button>
 
           {/* Previous button */}
-          {project.images.length > 1 && (
+          {validImages.length > 1 && (
             <button
               onClick={(e) => { e.stopPropagation(); prevImage(); }}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer"
@@ -447,7 +465,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
           )}
 
           {/* Next button */}
-          {project.images.length > 1 && (
+          {validImages.length > 1 && (
             <button
               onClick={(e) => { e.stopPropagation(); nextImage(); }}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer"
@@ -483,14 +501,23 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                   transition: isDragging ? 'none' : 'transform 0.1s ease-out',
                 }}
               >
-                <Image
-                  src={project.images[currentImageIndex]}
-                  alt={`${t(project.titleKey)} - Image ${currentImageIndex + 1}`}
-                  fill
-                  className="object-contain"
-                  sizes="90vw"
-                  priority
-                />
+                {(() => {
+                  const currentImageUrl = formatImageUrl(validImages[currentImageIndex]);
+                  return (
+                    <Image
+                      src={currentImageUrl}
+                      alt={`${safeTranslate(project?.titleKey)} - Image ${currentImageIndex + 1}`}
+                      fill
+                      className="object-contain"
+                      sizes="90vw"
+                      priority
+                      unoptimized={currentImageUrl?.includes('localhost:1337')}
+                      onError={(e) => {
+                        console.error('Lightbox image failed to load:', currentImageUrl);
+                      }}
+                    />
+                  );
+                })()}
               </div>
             </div>
 
@@ -531,7 +558,10 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
             {/* Thumbnail strip */}
             <div className="w-full mb-8 max-w-5xl overflow-x-auto overflow-y-hidden scrollbar-hide md:overflow-x-visible md:overflow-y-visible" style={{ WebkitOverflowScrolling: 'touch' }}>
               <div className="flex gap-3 justify-start px-2 flex-nowrap min-w-max md:justify-center md:flex-wrap md:min-w-0">
-                {project.images.map((image, index) => (
+                {validImages.map((image, index) => {
+                  if (!image || image.trim() === '') return null;
+                  const thumbnailUrl = formatImageUrl(image);
+                  return (
                   <button
                     key={index}
                     onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(index); }}
@@ -543,20 +573,25 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                     aria-label={`View image ${index + 1}`}
                   >
                     <Image
-                      src={image}
+                      src={thumbnailUrl}
                       alt={`Thumbnail ${index + 1}`}
                       fill
                       className={`object-cover transition-opacity duration-300 ${
                         index === currentImageIndex ? 'opacity-100' : 'opacity-70 hover:opacity-90'
                       }`}
                       sizes="96px"
+                      unoptimized={thumbnailUrl.includes('localhost:1337')}
+                      onError={(e) => {
+                        console.error('Thumbnail failed to load:', thumbnailUrl);
+                      }}
                     />
                     {/* Active indicator overlay */}
                     {index === currentImageIndex && (
                       <div className="absolute inset-0 bg-white/10" />
                     )}
                   </button>
-                ))}
+                  );
+                })}
               </div>
             </div>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect } from 'react';
-import { getTranslation } from '@/translations';
+import { getTranslation, safeTranslate as safeTranslateUtil } from '@/translations';
 
 const TranslationContext = createContext();
 
@@ -9,7 +9,6 @@ export function TranslationProvider({ children }) {
   const [language, setLanguage] = useState('RU');
 
   useEffect(() => {
-    // Load saved language from localStorage
     if (typeof window !== 'undefined') {
       const savedLang = localStorage.getItem('language');
       if (savedLang && ['RU', 'EN', 'UZ', 'TR'].includes(savedLang)) {
@@ -29,8 +28,12 @@ export function TranslationProvider({ children }) {
     return getTranslation(language, key);
   };
 
+  const safeTranslate = (key) => {
+    return safeTranslateUtil(language, key);
+  };
+
   return (
-    <TranslationContext.Provider value={{ language, changeLanguage, t }}>
+    <TranslationContext.Provider value={{ language, changeLanguage, t, safeTranslate }}>
       {children}
     </TranslationContext.Provider>
   );

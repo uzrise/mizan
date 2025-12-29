@@ -205,7 +205,9 @@ export default function Navbar() {
         <div
           ref={menuContentRef}
           className="h-full w-full flex flex-col relative"
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => {e.stopPropagation() 
+            setIsMenuOpen(false)
+          }}
         >
           {/* Container for content */}
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col relative">
@@ -233,7 +235,7 @@ export default function Navbar() {
             </div>
 
             {/* Navigation Links - Chap tomonda vertical */}
-            <nav className="flex flex-col gap-6 flex-1 pt-10">
+            <nav className="flex flex-col w-fit gap-6 flex-1 pt-10">
               <Link
                 href="/"
                 onClick={() => setIsMenuOpen(false)}
