@@ -148,7 +148,7 @@ export default function Info() {
           {/* Office Image - 550x400 at 1440px */}
           <div className="relative w-full lg:w-[550px] h-[300px] sm:h-[350px] lg:h-[400px] shrink-0 overflow-hidden">
             <Image
-              src="/images/contact-us.png"
+              src="/images/contact-us2.png"
               alt={t('contact.info.office.imageAlt')}
               fill
               className="object-cover"

@@ -12,7 +12,7 @@ export default function Hero() {
       <div className="absolute inset-0 w-full h-full">
         <div className="relative w-full h-full">
           <Image
-            src="/images/bg-about-us.jpg"
+            src="/images/bg-about-us.png"
             alt={t('about.hero.imageAlt')}
             fill
             className="object-cover"
