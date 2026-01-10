@@ -25,7 +25,7 @@ export default function Hero() {
           <h1 className="text-white mb-3 sm:mb-4 md:mb-6 font-bold text-xl sm:text-2xl md:text-3xl lg:text-[36px] leading-[115%] tracking-[-0.02em]">
             {t('durability.hero.title')}
           </h1>
-          <p className="font-normal text-sm sm:text-base md:text-lg lg:text-[20px] leading-[130%] sm:leading-[115%] tracking-normal text-[#DADADA]">
+          <p className=" max-w-[860px] font-normal text-sm sm:text-base md:text-lg lg:text-[20px] leading-[130%] sm:leading-[115%] tracking-normal text-[#DADADA]">
             {t('durability.hero.description')}
           </p>
         </div>

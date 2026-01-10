@@ -32,6 +32,9 @@ export default function Content() {
             <p className="font-medium text-[16px] leading-[120%] tracking-[-0.02em] text-[#01382F]">
               {t('about.content.rightColumn')}
             </p>
+            <p className="font-medium text-[16px] leading-[120%] tracking-[-0.02em] text-[#01382F]">
+              {t('about.content.centertColumn')}
+            </p>
           </div>
         </div>
       </div>

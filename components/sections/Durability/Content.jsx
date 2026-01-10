@@ -9,7 +9,7 @@ export default function Content() {
   const contentBlocks = [
     {
       id: 1,
-      image: '/images/durability/1.png',
+      image: '/images/durability/durability1.png',
       imageAltKey: 'durability.content.block1.imageAlt',
       titleKey: 'durability.content.block1.title',
       descriptionKey: 'durability.content.block1.description',
@@ -18,7 +18,7 @@ export default function Content() {
     },
     {
       id: 2,
-      image: '/images/durability/2.png',
+      image: '/images/durability/durability2.png',
       imageAltKey: 'durability.content.block2.imageAlt',
       titleKey: 'durability.content.block2.title',
       descriptionKey: 'durability.content.block2.description',
@@ -27,7 +27,7 @@ export default function Content() {
     },
     {
       id: 3,
-      image: '/images/durability/3.png',
+      image: '/images/durability/durability3.png',
       imageAltKey: 'durability.content.block3.imageAlt',
       titleKey: 'durability.content.block3.title',
       descriptionKey: 'durability.content.block3.description',

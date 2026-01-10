@@ -312,7 +312,8 @@
   "contact": {
     "hero": {
       "title": "Biz bilan bog'lanish",
-      "description": "Biz bilan bog‘lanish uchun, quyidagi formani to‘ldirishingiz yoki ko‘rsatilgan kontaktlar orqali aloqaga chiqishingiz mumkin. Biz sizning har qanday so‘rovingiz, loyihalar uchun g‘oyalaringiz yoki hamkorlik takliflaringizga javob berishga tayyormiz. Siz bilan hamkorlik qilish va loyihalaringizga qiymat qo‘shish imkoniyatini intiqlik bilan kutamiz!"
+      "description": "Biz bilan bog‘lanish uchun, quyidagi formani to‘ldirishingiz yoki ko‘rsatilgan kontaktlar orqali aloqaga chiqishingiz mumkin. Biz sizning har qanday so‘rovingiz, loyihalar uchun g‘oyalaringiz yoki hamkorlik takliflaringizga javob berishga tayyormiz.",
+      "description2": " Siz bilan hamkorlik qilish va loyihalaringizga qiymat qo‘shish imkoniyatini intiqlik bilan kutamiz!"
     },
     "info": {
       "title": "Loyihangizni bizga ishoning!",
@@ -320,7 +321,7 @@
       "office": {
         "title": "Ofis",
         "address": "Toshkent, Shayxontohur tumani, Al-Xorazmiy ko‘chasi, 62",
-        "phone": "+998 (77) 066‑07‑70",
+        "phone": "Dushanba-Juma: 09:00–18:00",
         "imageAlt": "Mizan Architecture ofisi"
       },
       "contact": {
@@ -355,8 +356,8 @@
       "title": "Bo‘sh ish o‘rinlari",
       "subtitle": "Birinchilardan bo‘lib ariza topshiring!",
       "apply": "Ariza berish",
-      "salaryFrom": "dan",
-      "salaryPerMonth": "so'm oyiga",
+      "salaryFrom": "oylik",
+      "salaryPerMonth": "so‘mdan boshlanadi",
       "job1": {
         "title": "Amaliyotchi dizayner",
         "location": "Toshkent, Shayxontohur tumani"
@@ -366,7 +367,7 @@
         "location": "Toshkent, Shayxontohur tumani"
       },
       "job3": {
-        "title": "Registrator/administrator",
+        "title": "Interyer dizayner",
         "location": "Toshkent, Shayxontohur tumani"
       },
       "job4": {
@@ -378,14 +379,16 @@
   "about": {
     "hero": {
       "title": "Biz chiroyli xatolar o’rniga ishonchli yechimlar taklif qilamiz.",
-      "paragraph1": "Bizning faoliyatimizdagi asosiy jihat - faqatgina chiroyli vizual tasvirlar emas, balki ekspertizadan muvaffaqiyatli o‘tadigan va qurilish maydonchasida muammosiz amalga oshiriladigan puxta hamda texnik jihatdan asoslangan loyiha yechimlaridir.  Biz texnik talablar, obyekt sharoitlari, byudjet va muddatlarni chuqur tahlil qilamiz, natijada har bir loyiha nafaqat estetik jihatdan ifodali, balki eng avvalo ishonchli, iqtisodiy jihatdan maqsadga muvofiq va xavfsiz bo‘ladi.",
-      "paragraph2": "Biz arxitektura olamida o‘zgarish yaratishga intilamiz",
-      "paragraph3": "Ijodkorligimiz va texnik bilimlarimizni birlashtirib, har bir loyihaga yangicha, innovatsion qarash olib kiramiz. Loyihalarimizning barcha bosqichlarida diqqat va puxta ishlash bizni sohada ishonchli hamkor qiladi.",
+      "paragraph1": "Bizning faoliyatimizdagi asosiy jihat - faqatgina chiroyli vizual tasvirlar emas, balki ekspertizadan muvaffaqiyatli o‘tadigan va qurilish maydonchasida muammosiz amalga oshiriladigan puxta hamda texnik jihatdan asoslangan loyiha yechimlaridir.",
+      "paragraph2": "Biz texnik talablar, obyekt sharoitlari, byudjet va muddatlarni chuqur tahlil qilamiz, natijada har bir loyiha nafaqat estetik jihatdan ifodali, balki eng avvalo ishonchli, iqtisodiy jihatdan maqsadga muvofiq va xavfsiz bo‘ladi.",
+      "paragraph3": "Biz arxitektura olamida o‘zgarish yaratishga intilamiz",
+      "paragraph4": "Ijodkorligimiz va texnik bilimlarimizni birlashtirib, har bir loyihaga yangicha, innovatsion qarash olib kiramiz. Loyihalarimizning barcha bosqichlarida diqqat va puxta ishlash bizni sohada ishonchli hamkor qiladi.",
       "imageAlt": "Biz haqimizda - Mizan Architecture"
     },
     "content": {
       "leftColumn": "Biz arxitektura olamida o‘zgarish yaratishga intilamiz",
-      "rightColumn": "Ijodkorligimiz va texnik bilimlarimizni birlashtirib, har bir loyihaga yangicha, innovatsion qarash olib kiramiz. Loyihalarimizning barcha bosqichlarida diqqat va puxta ishlash bizni sohada ishonchli hamkor qiladi. Biz barqarorlikka yo‘naltirilgan loyihalar yaratadigan global arxitektura ofisiga aylanishni maqsad qilganmiz. Estetik va texnik mukammallikka intilib, kelajak avlodlar uchun meros bo‘lib xizmat qiladigan konstruksiyalar yaratishga harakat qilamiz. "
+      "rightColumn": "Ijodkorligimiz va texnik bilimlarimizni birlashtirib, har bir loyihaga yangicha, innovatsion qarash olib kiramiz. Loyihalarimizning barcha bosqichlarida diqqat va puxta ishlash bizni sohada ishonchli hamkor qiladi.",
+      "centertColumn": " Biz barqarorlikka yo‘naltirilgan loyihalar yaratadigan global arxitektura ofisiga aylanishni maqsad qilganmiz. Estetik va texnik mukammallikka intilib, kelajak avlodlar uchun meros bo‘lib xizmat qiladigan konstruksiyalar yaratishga harakat qilamiz. "
     },
     "team": {
       "title": "Jamoamiz",

@@ -118,10 +118,10 @@ export default function TeamSection() {
             border: '1px solid #F3F3F3',
           }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className=" font-semibold lg:text-[32px] text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             {t('about.team.title')}
           </h2>
-          <p className="text-base sm:text-lg text-gray-700 mb-12 max-w-3xl">
+          <p className=" font-semibold max-w-[660px] lg:text-[20px] text-[#161616] sm:text-lg text-gray-700 mb-12 max-w-3xl">
             {t('about.team.description')}
           </p>
 

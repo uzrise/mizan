@@ -10,27 +10,27 @@ export default function CompanyValues() {
     {
       titleKey: 'values.innovative.title',
       descriptionKey: 'values.innovative.description',
-      image: '/images/values/m.png', // Image with "m" letter
+      image: '/images/values/m1.png', // Image with "m" letter
     },
     {
       titleKey: 'values.economical.title',
       descriptionKey: 'values.economical.description',
-      image: '/images/values/i.png', // Image with graph and icon
+      image: '/images/values/i2.png', // Image with graph and icon
     },
     {
-      titleKey: 'values.quality.title',
-      descriptionKey: 'values.quality.description',
-      image: '/images/values/z.png', // Image with "z" letter
+      titleKey: '',
+      descriptionKey: '',
+      image: '/images/values/z3.png', // Image with "z" letter
     },
     {
       titleKey: 'values.sustainability.title',
       descriptionKey: 'values.sustainability.description',
-      image: '/images/values/a.png', // Image with "a" letter
+      image: '/images/values/a4.png', // Image with "a" letter
     },
     {
       titleKey: 'values.clientOriented.title',
       descriptionKey: 'values.clientOriented.description',
-      image: '/images/values/n.png', // Image with icon
+      image: '/images/values/n5.png', // Image with icon
     },
   ];
 
