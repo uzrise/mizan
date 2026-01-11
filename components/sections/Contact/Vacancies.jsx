@@ -4,6 +4,15 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "@/contexts/TranslationContext";
 import Image from "next/image";
 
+const LocationIcon = ({ size = 20 }) => (
+  <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M7.08366 9.58335C8.46437 9.58335 9.58366 8.46407 9.58366 7.08335C9.58366 5.70264 8.46437 4.58335 7.08366 4.58335C5.70295 4.58335 4.58366 5.70264 4.58366 7.08335C4.58366 8.46407 5.70295 9.58335 7.08366 9.58335Z" stroke="#F2DA2F" strokeWidth="0.833333" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M7.08366 17.0834C10.417 13.75 13.7503 10.7653 13.7503 7.08335C13.7503 3.40146 10.7656 0.416687 7.08366 0.416687C3.40176 0.416687 0.416992 3.40146 0.416992 7.08335C0.416992 10.7653 3.75033 13.75 7.08366 17.0834Z" stroke="#F2DA2F" strokeWidth="0.833333" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+
+
+);
+
 export default function Vacancies() {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,25 +30,25 @@ export default function Vacancies() {
       id: 2,
       titleKey: "contact.vacancies.job2.title",
       locationKey: "contact.vacancies.job2.location",
-      salary: 4000000,
+      salary: 12000000,
     },
     {
       id: 3,
       titleKey: "contact.vacancies.job3.title",
       locationKey: "contact.vacancies.job3.location",
-      salary: 4000000,
+      salary: 44000000,
     },
     {
       id: 4,
       titleKey: "contact.vacancies.job4.title",
       locationKey: "contact.vacancies.job4.location",
-      salary: 4000000,
+      salary: 25000000,
     },
     {
       id: 5,
       titleKey: "contact.vacancies.job4.title",
       locationKey: "contact.vacancies.job4.location",
-      salary: 4000000,
+      salary: 25000000,
     },
   ];
 
@@ -108,7 +117,7 @@ export default function Vacancies() {
 
   // VacancyCard component
   const VacancyCard = ({ vacancy }) => (
-    <div 
+    <div
       className="flex flex-col group cursor-pointer shrink-0"
       style={{ width: getItemWidth() }}
     >
@@ -122,7 +131,10 @@ export default function Vacancies() {
             {t("contact.vacancies.salaryFrom")} {formatSalary(vacancy.salary)} {t("contact.vacancies.salaryPerMonth")}
           </p>
         </div>
-        <p className="text-sm text-gray-600">{t(vacancy.locationKey)}</p>
+        <p className="flex gap-[4px] items-center  text-sm text-[#111927]">
+          <LocationIcon/>
+          {t(vacancy.locationKey)}
+        </p>
       </div>
 
       {/* Button - 44px height, bg #F3F3F3 */}

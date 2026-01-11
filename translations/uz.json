@@ -1,19 +1,19 @@
 {
   "nav": {
-    "home": "Bosh sahifa",
-    "portfolio": "Portfolio",
-    "durability": "Chidamlilik",
+    "home": "Asosiy sahifa ",
+    "portfolio": "Amalga oshirgan loyihalarimiz",
+    "durability": "Nega aynan Mizan?",
     "about": "Biz haqimizda",
-    "contact": "Bog'lanish"
+    "contact": "Aloqa"
   },
   "hero": {
-    "title": "Innovatsion arxitektura chegaralarini kengaytirish",
-    "description": "Mizan Architecture zamonaviy, estetik va funksional makonlar yaratadi. Biz sizning g'oyalaringizni o'ylangan va barqaror yechimlarga aylantiramiz.",
+    "title": "Innovatsion arxitektura chegaralarini kengaytiramiz",
+    "description": "G‘oyalaringizni real va barqaror yechimga aylantiramiz. Mizan - dizayn orqali kelajakni shakllantiramiz!",
     "cta": "Ko'proq bilish"
   },
   "portfolio": {
-    "title": "Portfolio",
-    "description": "Mizan Architecture'da biz zamonaviy va innovatsion arxitektura yechimlarini yaratamiz. Har bir loyiha texnologiya, barqarorlik va estetikani birlashtiradi, mijozlarimizga yuqori sifat va ishonchli natijalarni ta'minlaydi. Biz byudjetni qat'iy nazorat qilamiz va ishning barcha bosqichlarida xarajatlarni samarali boshqaramiz.",
+    "title": "Bizning loyihalarimiz",
+    "description": "Mizan Architecture’da biz yirik va murakkab loyihalarni yaratamiz. Har bir loyihada innovatsion yondashuv, ilg‘or texnologiyalar va estetik uyg‘unlik birlashgan.   Portfolio orqali bizning amalga oshirgan ishlarimizni, ijodiy yondashuvimizni va mijozlarimiz bilan hamkorligimiz natijalarini ko‘rishingiz mumkin.",
     "all": "Hammasi",
     "exterior": "Eksterer",
     "interior": "Interyer",
@@ -264,27 +264,27 @@
     }
   },
   "stats": {
-    "completed": "YAKUNLANGAN",
-    "currentProjects": "JORIY LOYIHALAR",
+    "completed": "tugatilgan loyihalar",
+    "currentProjects": "amaldagi loyihalar",
     "builtKm2": "QURILGAN KM²",
-    "yearsExperience": "YILLIK TAJRIBA"
+    "yearsExperience": "yillik tajriba"
   },
   "values": {
     "innovative": {
       "title": "Innovatsion",
-      "description": "Arxitektura firmalari estetika va funksionallikni birlashtirgan noyob va ijodiy loyihalar yaratadi. Biz har bir loyihaga alohida yondashamiz, zamonaviy va innovatsion yechimlarni taklif qilamiz."
+      "description": "Arxitektura - estetika va funksionallikni uyg‘unlashtirgan noyob hamda ijodiy loyihalarni yaratadi. Biz har bir loyihaga o‘ziga xos yondashib, zamonaviy va innovatsion yechimlarni taklif etamiz."
     },
     "economical": {
-      "title": "Iqtisodiy",
-      "description": "Byudjetni bajarish va xarajatlarni samarali boshqarish muvaffaqiyatli arxitektura firmasining eng muhim jihatlaridan biridir. To'g'ri rejalashtirish sifat va narx o'rtasidagi muvozanatni saqlaydi."
+      "title": "Tejamkor",
+      "description": "Byudjetga amal qilish va xarajatlarni samarali boshqarish arxitekturaning eng muhim jihatlaridan biridir. Biz to‘g‘ri rejalashtirish orqali sifat va qiymat o‘rtasidagi muvozanatni ta’minlaymiz."
     },
     "sustainability": {
-      "title": "Barqarorlik",
-      "description": "Ekologik mas'uliyat va barqarorlik zamonaviy arxitektura firmalarining asosiy faoliyat yo'nalishlaridir. Energiya samaradorligi yuqori bo'lgan loyihalar va loyihalarda barqaror materiallardan foydalanishga alohida e'tibor qaratiladi."
+      "title": "Ekologik toza",
+      "description": "Bugungi iqlim sharoitida ekologik xavfsiz va atrof-muhitga zarar yetkazmaydigan loyihalar yaratish har bir insonning mas’uliyatidir. Biz loyihalarimizda energiya tejovchi yechimlarga hamda uzoq muddat xizmat qiladigan, sifatli materiallardan foydalanishga alohida e’tibor qaratamiz."
     },
     "clientOriented": {
-      "title": "Mijozga yo'naltirilgan",
-      "description": "Mijozlarning qoniqishi arxitektura loyihalarining muvaffaqiyatining asosiy omilidir. Firmalar mijozlarning ehtiyojlarini tushunadi va ham individual, ham korporativ kutishlarga javob beradigan individual yechimlarni taklif qiladi."
+      "title": "Individuallik",
+      "description": "Arxitektura bu mijozlarning tasavvurlarini reallikka aylantiradigan hamda ularning qulayligini ta’minlaydigan loyihalarni yaratishdir. Bizning jamoamiz mijozlar ehtiyojlarini chuqur tahlil qilib, ham individual, ham korporativ kutuvlarga mos keladigan samarali yechimlarni taklif etadi."
     }
   },
   "sections": {
@@ -312,24 +312,25 @@
   "contact": {
     "hero": {
       "title": "Biz bilan bog'lanish",
-      "description": "Biz har doim savollaringizga javob berishga va loyihalaringizni muhokama qilishga tayyormiz. Biz bilan qulay usulda bog'laning: formani to'ldiring, qo'ng'iroq qiling yoki ofisimizga tashrif buyuring. Biz hamkorlikka ochiqmiz va g'oyalaringizni amalga oshirishda yordam berishga tayyormiz."
+      "description": "Biz bilan bog‘lanish uchun, quyidagi formani to‘ldirishingiz yoki ko‘rsatilgan kontaktlar orqali aloqaga chiqishingiz mumkin. Biz sizning har qanday so‘rovingiz, loyihalar uchun g‘oyalaringiz yoki hamkorlik takliflaringizga javob berishga tayyormiz.",
+      "description2": " Siz bilan hamkorlik qilish va loyihalaringizga qiymat qo‘shish imkoniyatini intiqlik bilan kutamiz!"
     },
     "info": {
-      "title": "Kontakt ma'lumotlari",
-      "description": "Biz har doim savollaringizga javob berishga va loyihalaringizni muhokama qilishga tayyormiz. Biz bilan qulay usulda bog'laning.",
+      "title": "Loyihangizni bizga ishoning!",
+      "description": "Bizning ofis Toshkentda, lekin loyihalarimiz O‘zbekiston bo‘ylab amalga oshiriladi:)",
       "office": {
         "title": "Ofis",
-        "address": "Toshkent, Shayxontohur tumani, Zulfiyaxonim ko'chasi, 62",
-        "phone": "+998 71 200-00-00",
+        "address": "Toshkent, Shayxontohur tumani, Al-Xorazmiy ko‘chasi, 62",
+        "phone": "Dushanba-Juma: 09:00–18:00",
         "imageAlt": "Mizan Architecture ofisi"
       },
       "contact": {
         "title": "Aloqa",
-        "phone": "+998 77 004-07-70",
-        "email": "arch.mizan@gmail.com"
+        "phone": "+998 (77) 066‑07‑70",
+        "email": "architectmizan@gmail.com"
       },
       "social": {
-        "title": "Ijtimoiy tarmoqlar",
+        "title": "Ijtimoiy tarmoqlarimiz",
         "telegram": {
           "label": "Telegram",
           "url": "https://t.me/mizanarch"
@@ -341,24 +342,24 @@
       }
     },
     "form": {
-      "title": "So'rov yuborish",
-      "description": "Quyidagi formani to'ldiring va biz tez orada siz bilan bog'lanamiz.",
-      "name": "Ism",
-      "surname": "Familiya",
-      "email": "Email",
-      "phone": "Telefon raqami",
+      "title": "Ariza yuborish",
+      "description": "Arizani to‘ldiring va vazifani qisqacha bayon qiling. Mutaxassisimiz 1 ish kuni ichida sizga aloqaga chiqadi!",
+      "name": "Ismningiz",
+      "surname": "Familyangiz",
+      "email": "Pochtangiz",
+      "phone": "Telefon raqamingiz",
       "message": "Xabar",
-      "disclaimer": "Biz 1 ish kunida javob beramiz",
-      "submit": "So'rov yuborish"
+      "disclaimer": "Mutaxassisimiz 1 ish kuni ichida sizga aloqaga chiqadi!",
+      "submit": "Arizani yuborish"
     },
     "vacancies": {
-      "title": "Vakansiyalar",
-      "subtitle": "Hozir mavjud yangilar",
+      "title": "Bo‘sh ish o‘rinlari",
+      "subtitle": "Birinchilardan bo‘lib ariza topshiring!",
       "apply": "Ariza berish",
-      "salaryFrom": "dan",
-      "salaryPerMonth": "so'm oyiga",
+      "salaryFrom": "oylik",
+      "salaryPerMonth": "so‘mdan boshlanadi",
       "job1": {
-        "title": "Smeta",
+        "title": "Amaliyotchi dizayner",
         "location": "Toshkent, Shayxontohur tumani"
       },
       "job2": {
@@ -366,7 +367,7 @@
         "location": "Toshkent, Shayxontohur tumani"
       },
       "job3": {
-        "title": "Registrator/administrator",
+        "title": "Interyer dizayner",
         "location": "Toshkent, Shayxontohur tumani"
       },
       "job4": {
@@ -377,61 +378,61 @@
   },
   "about": {
     "hero": {
-      "title": "Har bir makon - jamiyat rivojiga hissa.",
-      "paragraph1": "Har bir makon - jamiyat rivojiga hissa.",
-      "paragraph2": "Biz ijodkorlik va texnik aniqlikni birlashtirib, arxitekturaga qaraymiz, har bir loyihada biz tafsilotlarga e'tibor qaratamiz va haqiqatan ham ishlaydigan yechimlar yaratamiz.",
-      "paragraph3": "Biz barqaror va estetik loyihalar yaratadigan xalqaro arxitektura byurosiga aylanishga intilamiz. Bizning maqsadimiz - bugun odamlarga xizmat qiladigan va kelajak avlodlar uchun meros bo'ladigan ob'ektlarni qurish.",
+      "title": "Biz chiroyli xatolar o’rniga ishonchli yechimlar taklif qilamiz.",
+      "paragraph1": "Bizning faoliyatimizdagi asosiy jihat - faqatgina chiroyli vizual tasvirlar emas, balki ekspertizadan muvaffaqiyatli o‘tadigan va qurilish maydonchasida muammosiz amalga oshiriladigan puxta hamda texnik jihatdan asoslangan loyiha yechimlaridir.",
+      "paragraph2": "Biz texnik talablar, obyekt sharoitlari, byudjet va muddatlarni chuqur tahlil qilamiz, natijada har bir loyiha nafaqat estetik jihatdan ifodali, balki eng avvalo ishonchli, iqtisodiy jihatdan maqsadga muvofiq va xavfsiz bo‘ladi.",
+      "paragraph3": "Biz arxitektura olamida o‘zgarish yaratishga intilamiz",
+      "paragraph4": "Ijodkorligimiz va texnik bilimlarimizni birlashtirib, har bir loyihaga yangicha, innovatsion qarash olib kiramiz. Loyihalarimizning barcha bosqichlarida diqqat va puxta ishlash bizni sohada ishonchli hamkor qiladi.",
       "imageAlt": "Biz haqimizda - Mizan Architecture"
     },
     "content": {
-      "leftColumn": "Biz arxitektura dunyosini o'zgartirishga intilamiz. Ijodkorlik va texnik bilimlarni birlashtirib, biz har bir loyihaga yangi, innovatsion qarashlarni kiritamiz. Biz loyihalarimizning barcha bosqichlarida qo'llaydigan tafsilotlarga e'tibor va puxtalik bizni sanoatda ishonchli hamkor qiladi.",
-      "rightColumn": "Biz barqarorlikka yo'naltirilgan ofislarni loyihalash, turar-joy qurilishi sohasida rivojlanmoqdamiz. Tabiiy va texnologik mukammallikni saqlab, kelajak avlodlarining timsoli bo'ladigan konstruksiyalarni yaratishga intilamiz."
+      "leftColumn": "Biz arxitektura olamida o‘zgarish yaratishga intilamiz",
+      "rightColumn": "Ijodkorligimiz va texnik bilimlarimizni birlashtirib, har bir loyihaga yangicha, innovatsion qarash olib kiramiz. Loyihalarimizning barcha bosqichlarida diqqat va puxta ishlash bizni sohada ishonchli hamkor qiladi.",
+      "centertColumn": " Biz barqarorlikka yo‘naltirilgan loyihalar yaratadigan global arxitektura ofisiga aylanishni maqsad qilganmiz. Estetik va texnik mukammallikka intilib, kelajak avlodlar uchun meros bo‘lib xizmat qiladigan konstruksiyalar yaratishga harakat qilamiz. "
     },
     "team": {
-      "title": "Jamoa",
-      "description": "Bizning jamoamiz turli arxitektura sohalarida ixtisoslashgan ijodkor va tajribali arxitektorlar, muhandislar va dizaynerlardan iborat. Har bir jamoa a'zosi individual yechimlar bilan mijozlar kutishlaridan oshib ketishimizga yordam berib, loyihalarimizga noyob hissa qo'shadi.",
+      "title": "Jamoamiz",
+      "description": "Bizning jamoamiz turli arxitektura yo‘nalishlarida ixtisoslashgan ijodkor va tajribali arxitektorlar, muhandislar va dizaynerlardan iborat. Har bir jamoa a’zosi loyihalarimizga o‘ziga xos hissa qo‘shadi, mijozlarimizning kutganidan ham yuqori natijalarni beradigan individual yechimlarni yaratishda bizga yordam beradi!",
       "values": {
         "innovation": {
           "title": "INNOVATSIYA",
-          "description": "Biz doimiy ravishda yangi yondashuvlarni qidiramiz, noyob va funksional makonlar yaratish uchun zamonaviy texnologiyalar va materiallardan foydalanamiz."
+          "description": "Biz arxitektura dizaynlarimizda ilg‘or texnologiyalardan foydalanib, kelajakni shakllantiradigan loyihalarni yaratamiz."
         },
         "quality": {
           "title": "SIFAT",
-          "description": "Biz har bir loyihaning eng yuqori sifatli bajarilishini kafolatlaymiz, barcha standartlar va me'yorlarga rioya qilamiz."
+          "description": "Biz har bir loyihamizning har bosqichida mukammallikka intilib, uzoq muddatli qadriyatlar yaratamiz."
         },
         "sustainability": {
           "title": "BARQARORLIK",
-          "description": "Biz barqaror rivojlanish tamoyillarini integratsiya qilib, ekologik mas'uliyat va yechimlarimizning barqarorligini ta'minlaymiz."
+          "description": "Biz ekologik toza loyihalarga yaratamiz va tabiiy resurslardan samarali foydalanamiz."
         },
         "clientFocus": {
           "title": "MIJOZGA YO'NALTIRILGAN",
-          "description": "Biz mijozlar ehtiyojlariga quloq solamiz, individual yechimlar taklif qilamiz va uzoq muddatli hamkorlik munosabatlarini quramiz."
+          "description": "Biz mijozlarimizning maksimal darajada roziligiga erishishga e’tibor qaratamiz va ularning ehtiyojlariga to‘liq mos keladigan yechimlarni taklif qilamiz."
         }
       }
     }
   },
   "durability": {
     "hero": {
-      "title": "Mizan va Chidamlilik",
-      "description": "Mizanda biz chidamlilikni ishimizning markaziga qo'yamiz. Biz ekologik, ijtimoiy va iqtisodiy chidamlilik tamoyillariga rioya qilamiz, atrof-muhitga ta'sirimizni minimallashtirishga va jamiyatga foyda keltiradigan loyihalar yaratishga intilamiz."
+      "title": "Mizan bu - Barqarorlik",
+      "description": "Jamoamiz loyihalash jarayonidayoq ehtimoliy xatarlarni aniqlab, ularni bartaraf etishga e’tibor qaratadi. Bu qurilish jarayoningizni tuzatishlar, muddatlarning cho‘zilishi va kutilmagan xarajatlardan xoli bo‘lishiga sabab bo‘ladi."
     },
     "content": {
       "block1": {
-        "title": "Chidamli dizaynga yondashuvimiz",
-        "description": "Biz har bir loyihada chidamli materiallar, energiya samaradorligi yuqori bo'lgan yechimlar va ekologik toza qurilish jarayonlaridan foydalanishga intilamiz. Chidamli dizaynga yondashuvimiz binolarning hayotiy tsikllarini diqqat bilan tahlil qilish va qayta tiklanadigan energiya manbalarini integratsiya qilishni o'z ichiga oladi.",
+        "title": "Mizan bu - Ekologik yechimlar",
+        "description": "Biz loyihalarimizda ekologik xavfsiz qurilishga yo‘naltirilgan yondashuvni qo‘llaymiz. Ishlatiladigan materiallar qayta ishlanishi mumkin, mahalliy manbalardan olinadi va iqtisodiyot rivojiga hissa qo‘shadi. Shuningdek, biz tabiiy yorug‘lik va energiyadan maksimal darajada foydalanib, barcha loyihalarimizda samaradorlikni ta’minlaymiz.",
         "imageAlt": "Chidamli dizayn"
       },
       "block2": {
-        "title": "Jamiyatga hissa",
-        "description": "Bizning chidamli yechimlarimiz jamoalarga foyda keltiradi, sog'lom yashash muhitini rag'batlantiradi va mahalliy rivojlanishga hissa qo'shadi. Biz nafaqat funksional, balki odamlarning hayot sifatini yaxshilaydigan binolarni loyihalashtiramiz.",
+        "title": "Mizan bu - Jamiyat ",
+        "description": "Mizan'da nafaqat atrof-muhitga foyda keltiradigan, balki jamiyat uchun ham qo‘shimcha qiymat, qulaylik yaratadigan yechimlar qilamiz. Biz inson salomatligini ustuvor qo‘ygan, hayot sifatini yaxshilaydigan va mahalliy hamjamiyatlar rivojiga xizmat qiladigan obyektlarni loyihalashtiramiz. Biz ekologik toza infratuzilma va shaharlarimizdagi yashil hududlarni ko‘paytirishga, tabiiy resurslarni asrashga qaratilgan loyihalar yaratamiz.",
         "imageAlt": "Jamiyatga hissa"
       },
       "block3": {
-        "title": "Mijozlarimiz uchun chidamli yechimlar",
-        "description": "Biz mijozlarimizga uzoq muddatli foyda keltiradigan energiya samaradorligi yuqori, chidamli va ekologik mas'uliyatli binolarni taqdim etishga e'tibor qaratamiz. Bizning yechimlarimiz operatsion xarajatlarni kamaytirishga va atrof-muhitga ta'sirni minimallashtirishga yordam beradi.",
-        "imageAlt": "Mijozlar uchun chidamli yechimlar"
+        "title": "Mizan bu - Tejamkorlik",
+        "description": "Biz mijozlarimizga taqdim etadigan loyihalarda iqtisodiy barqarorlikni birinchi o‘ringa qo‘yamiz. Energiya tejamkor, uzoq muddat xizmat qiladigan va past uglerod darajasi bilan ajralib turadigan binolarni taklif etib, biz nafaqat ekologik, balki iqtisodiy foydani ham ta’minlaymiz. Samarali qurilish texnologiyalaridan foydalangan holda, mijozlarimizga bugun va kelajak avlodlar uchun foydali bo‘lgan mas’uliyatli qarorlar qabul qilishda yordam beramiz."
       }
     }
   }
 }
-

@@ -36,7 +36,7 @@ export default function Hero() {
       {/* Content Overlay */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pb-12 md:pb-16 lg:pb-20 w-full">
         <div className="w-full">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+          <h1 className=" max-w-[860px] text-2xl sm:text-3xl md:text-4xl lg:text-[5xl] font-bold text-white mb-4 sm:mb-6 leading-tight">
             {t('hero.title')}
           </h1>
           <div className='flex flex-col sm:flex-row justify-between w-full items-start sm:items-center gap-4 sm:gap-6'>

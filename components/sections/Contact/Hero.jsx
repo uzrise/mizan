@@ -14,9 +14,9 @@ export default function Hero() {
         alt="Contact background"
         fill
         className="object-cover object-top"
-priority
+        priority
       />
-      
+
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/30" />
 
@@ -25,8 +25,11 @@ priority
           <h1 className="text-white mb-3 sm:mb-4 md:mb-6 font-bold text-xl sm:text-2xl md:text-3xl lg:text-[36px] leading-[115%] tracking-[-0.02em]">
             {t('contact.hero.title')}
           </h1>
-          <p className="font-normal text-sm sm:text-base md:text-lg lg:text-[20px] leading-[130%] sm:leading-[115%] tracking-normal text-[#DADADA]">
+          <p className="mb-8 max-w-[860px]  font-normal text-sm sm:text-base md:text-lg lg:text-[20px] leading-[130%] sm:leading-[115%] tracking-normal text-[#DADADA]">
             {t('contact.hero.description')}
+          </p>
+          <p className=" max-w-[860px] font-normal text-sm sm:text-base md:text-lg lg:text-[20px] leading-[130%] sm:leading-[115%] tracking-normal text-[#DADADA]">
+            {t('contact.hero.description2')}
           </p>
         </div>
       </div>

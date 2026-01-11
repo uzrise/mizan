@@ -11,10 +11,14 @@ if (typeof window !== "undefined") {
 
 const partners = [
   { id: 1, name: "Wendy's" },
-  { id: 2, name: "EVOS" },
-  { id: 3, name: "mizan" },
-  { id: 4, name: "SQB" },
-  { id: 5, name: "TOSHKENT SHAHAR HOKIMIYATI" },
+  { id: 2, name: "SQB" },
+  { id: 3, name: "UZTELECOM" },
+  { id: 4, name: "DISCOVER INVEST" },
+  { id: 5, name: "AHK WORLDWIDE" },
+  { id: 6, name: "KOÇ CONSTRUCTION" },
+  { id: 7, name: "PRIME TOWER" },
+  { id: 8, name: "UZBEKISTAN AIRWAYS" },
+  { id: 9, name: "ABOZOR" },
 ];
 
 export default function Partners() {
