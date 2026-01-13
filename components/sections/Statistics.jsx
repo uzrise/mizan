@@ -15,7 +15,7 @@ const STATISTICS_DATA = [
   {
     value: 18,
     labelKey: 'stats.completed',
-    image: '/images/stats/1.jpg', // Apartment buildings
+    image: '/images/stats/1.png', // Apartment buildings
   },
   {
     value: 32,

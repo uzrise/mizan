@@ -15,7 +15,7 @@ export default async function Home() {
     <main className="min-h-screen">
       <Hero />
       <div className="space-y-24">
-        <ProjectShowcase initialProjects={initialProjects} />
+        <ProjectShowcase initialProjects={initialProjects} />   
         <Statistics />
         <CompanyValues />
         <div style={{ backgroundColor: "#00382F" }}>

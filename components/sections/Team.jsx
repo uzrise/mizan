@@ -14,64 +14,89 @@ if (typeof window !== "undefined") {
 const teamMembers = [
   {
     id: 1,
-    name: "Алексей Громов",
+    name: "Zafarjon Raxmatov",
     roleKey: "team.chiefArchitect",
-    image: "/images/team/1.jpg",
-    experience: "10+",
-    specialization: "Commercial",
-    instagram: "https://instagram.com",
-    telegram: "https://t.me",
-    linkedin: "https://linkedin.com",
-    phone: "+998901234567",
+    image: "/images/team/1.png",
+    experience: "6+",
+    
+    instagram: " https://www.instagram.com/rakhzaa/",
+    telegram: " https://t.me/zakkomusic",
+    linkedin: " https://www.linkedin.com/in/zafar-rahmatov-8b4a6b22a/",
+    phone: "",
   },
   {
     id: 2,
-    name: "Kamoliddin Yusufov",
+    name: "Shahzod Rahmatov",
     roleKey: "team.leadDesigner",
-    image: "/images/team/2.jpg",
-    experience: "8+",
-    specialization: "Residential",
-    instagram: "https://instagram.com",
-    telegram: "https://t.me",
-    linkedin: "https://linkedin.com",
-    phone: "+998901234567",
+    image: "/images/team/2.png",
+    experience: "6+",
+    
+    instagram: "https://www.instagram.com/shakhzod_rakhmatov/",
+    telegram: "https://t.me/Shakhzod_Rakhmatov ",
+    linkedin: "https://www.linkedin.com/in/shahzod-rahmatov-213262175/",
+    phone: "+998998771573",
   },
   {
     id: 3,
-    name: "Мария Щербакова",
-    roleKey: "team.architectVisualizer",
-    image: "/images/team/3.jpg",
-    experience: "7+",
-    specialization: "Residential",
-    instagram: "https://instagram.com",
-    telegram: "https://t.me",
-    linkedin: "https://linkedin.com",
-    phone: "+998901234567",
+    name: "Abdulla Abdullayev",
+    roleKey: "team.interiorDesigner",
+    image: "/images/team/3.png",
+    experience: "6+",
+    
+    instagram: "https://www.instagram.com/abdullayev_a21?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    telegram: "https://t.me/DoubleA",
+    linkedin: "",
+    phone: "+998936343555",
   },
   {
     id: 4,
-    name: "Shahzod Raxmatov",
+    name: "Ibrohim Islomov",
     roleKey: "team.constructionEngineer",
-    image: "/images/team/3.jpg",
-    experience: "6+",
-    specialization: "Industrial",
-    instagram: "https://instagram.com",
-    telegram: "https://t.me",
-    linkedin: "https://linkedin.com",
-    phone: "+998901234567",
+    image: "/images/team/4.png",
+    experience: "7+",
+    
+    instagram: "https://www.instagram.com/ibrohimislom03/",
+    telegram: "https://t.me/ibrohimislomov03",
+    linkedin: "https://www.linkedin.com/feed/?trk=guest_homepage-basic_google-one-tap-submit",
+    phone: "+998997920007",
   },
   {
     id: 5,
-    name: "Светлана Мурадова",
+    name: "Ramziddin Muxutdinov",
+    roleKey: "team.architectVisualizer",
+    image: "/images/team/5.png",
+    experience: "16+",
+    
+    instagram: "https://www.instagram.com/ramziddin_nizomiddin_ogli/",
+    telegram: "https://t.me/Symboldesigner",
+    linkedin: "",
+    phone: "+998909542611",
+  },
+  {
+    id: 6,
+    name: "Aziz Omonov",
+    roleKey: "team.constructionEngineer",
+    image: "/images/team/6.png",
+    experience: "8+",
+    
+    instagram: "https://www.instagram.com/azizomonov/",
+    telegram: "https://t.me/AzizOmonov",
+    linkedin: "",
+    phone: "+998946831191",
+  },
+  {
+    id: 7,
+    name: "Xasan G’anixo’jayev",
     roleKey: "team.interiorDesigner",
-    image: "/images/team/1.jpg",
-    experience: "9+",
-    specialization: "Residential",
-    instagram: "https://instagram.com",
-    telegram: "https://t.me",
-    linkedin: "https://linkedin.com",
+    image: "/images/team/7.png",
+    experience: "12+",
+    
+    instagram: "https://www.instagram.com/xasanganixojaev/ ",
+    telegram: "https://t.me/Mizan_Xasan",
+    linkedin: "",
     phone: "+998901234567",
   },
+
 ];
 
 export default function Team() {
@@ -564,7 +589,7 @@ export default function Team() {
               {selectedMember.name}
             </h3>
 
-            {/* Experience and Specialization */}
+            {/* Experience  */}
             <div className="space-y-1 mb-4" style={{ fontFamily: "Inter, sans-serif", width: "100%" }}>
               <div style={{ textAlign: "left" }}>
                 <span style={{ 
@@ -607,24 +632,8 @@ export default function Team() {
                 </span>
               </div>
               <div style={{ textAlign: "left" }}>
-                <span style={{ 
-                  color: "#98A2B3",
-                  fontWeight: 400,
-                  fontSize: "14px",
-                  lineHeight: "20px",
-                  letterSpacing: "0%",
-                }}>
-                  {t("team.specialization")}:{" "}
-                </span>
-                <span style={{ 
-                  color: "#344054",
-                  fontWeight: 500,
-                  fontSize: "14px",
-                  lineHeight: "20px",
-                  letterSpacing: "0%",
-                }}>
-                  {selectedMember.specialization}
-                </span>
+
+
               </div>
             </div>
 

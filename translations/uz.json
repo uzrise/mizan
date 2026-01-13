@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Asosiy sahifa ",
-    "portfolio": "Amalga oshirgan loyihalarimiz",
+    "portfolio": "Loyihalarimiz",
     "durability": "Nega aynan Mizan?",
     "about": "Biz haqimizda",
     "contact": "Aloqa"
@@ -299,11 +299,11 @@
     "copyright": "© 2025 Mizan Architecture. Barcha huquqlar himoyalangan."
   },
   "team": {
-    "chiefArchitect": "Bosh arxitektor",
-    "leadDesigner": "Bosh loyihalashtiruvchi",
-    "architectVisualizer": "Arxitektor-vizualizator",
-    "constructionEngineer": "Qurilish muhandisi",
-    "interiorDesigner": "Interyer dizayneri",
+    "chiefArchitect": "Arxitektor",
+    "leadDesigner": "Urban dizayner",
+    "architectVisualizer": "Vizualizator",
+    "constructionEngineer": "Arxitektor",
+    "interiorDesigner": "Architect Designer",
     "role": "Rol",
     "experience": "Tajriba",
     "years": "yil",
@@ -320,14 +320,14 @@
       "description": "Bizning ofis Toshkentda, lekin loyihalarimiz O‘zbekiston bo‘ylab amalga oshiriladi:)",
       "office": {
         "title": "Ofis",
-        "address": "Toshkent, Shayxontohur tumani, Al-Xorazmiy ko‘chasi, 62",
+        "address": "Toshkent, Yashnabod tumani, Mahtumquli ko’chasi 98",
         "phone": "Dushanba-Juma: 09:00–18:00",
         "imageAlt": "Mizan Architecture ofisi"
       },
       "contact": {
         "title": "Aloqa",
         "phone": "+998 (77) 066‑07‑70",
-        "email": "architectmizan@gmail.com"
+        "email": "info@mizanarchitect.uz"
       },
       "social": {
         "title": "Ijtimoiy tarmoqlarimiz",
