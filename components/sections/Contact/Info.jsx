@@ -58,12 +58,12 @@ export default function Info() {
           {/* Glass Card with Contact Info */}
           <div className="flex-1 p-6 sm:p-8 md:p-10 bg-[#FFF6001F] border border-[#F3F3F3] backdrop-blur-sm">
             {/* Title */}
-            <h2 className="mb-3 text-[#161616] font-semibold text-2xl leading-8">
+            <h2 className="mb-3 text-[#161616] font-bold text-2xl leading-8">
               {t('contact.info.title')}
             </h2>
 
             {/* Description */}
-            <p className="mb-8 text-[#161616] font-normal text-sm leading-5">
+            <p className="mb-8 text-[#161616] font-medium text-sm leading-5">
               {t('contact.info.description')}
             </p>
 

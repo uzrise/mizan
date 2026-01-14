@@ -9,6 +9,7 @@
   "hero": {
     "title": "Expanding the Boundaries of Innovative Architecture",
     "description": "Mizan Architecture creates modern, aesthetic, and functional spaces. We transform your ideas into thoughtful and sustainable solutions.",
+    "description2": "",
     "cta": "Learn More"
   },
   "portfolio": {
@@ -312,7 +313,10 @@
   "contact": {
     "hero": {
       "title": "Contact Us",
-      "description": "We are always ready to answer your questions and discuss your projects. Contact us in any convenient way: fill out the form, call or visit our office. We are open to cooperation and ready to help you bring your ideas to life."
+      "description": "We are always ready to answer your questions and discuss your projects. Contact us in any convenient way: fill out the form, call or visit our office. We are open to cooperation and ready to help you bring your ideas to life.",
+      "description2":""
+
+    
     },
     "info": {
       "title": "Contact Information",
@@ -385,7 +389,8 @@
     },
     "content": {
       "leftColumn": "We strive to change the world of architecture. Combining creativity and technical knowledge, we bring fresh, innovative perspectives to every project. The attention to detail and thoroughness that we apply at all stages of our projects make us a reliable partner in the industry.",
-      "rightColumn": "We are developing in the field of office design, housing construction, focused on sustainability. Preserving natural and technological perfection, we strive to create structures that will serve as the embodiment of future generations."
+      "rightColumn": "We are developing in the field of office design, housing construction, focused on sustainability. Preserving natural and technological perfection, we strive to create structures that will serve as the embodiment of future generations.",
+      "centertColumn": ""
     },
     "team": {
       "title": "Team",
@@ -413,7 +418,8 @@
   "durability": {
     "hero": {
       "title": "Mizan and Durability",
-      "description": "At Mizan, we place durability at the core of our work. We adhere to principles of ecological, social, and economic durability, striving to minimize our environmental footprint and create projects that benefit society."
+      "description": "At Mizan, we place durability at the core of our work. We adhere to principles of ecological, social, and economic durability, striving to minimize our environmental footprint and create projects that benefit society.",
+      "description2": ""
     },
     "content": {
       "block1": {
@@ -434,4 +440,3 @@
     }
   }
 }
-

@@ -9,6 +9,7 @@
   "hero": {
     "title": "Yenilikçi Mimarinin Sınırlarını Genişletmek",
     "description": "Mizan Architecture modern, estetik ve işlevsel mekanlar yaratır. Fikirlerinizi düşünceli ve sürdürülebilir çözümlere dönüştürüyoruz.",
+    "description2":  "",
     "cta": "Daha Fazla Bilgi"
   },
   "portfolio": {
@@ -312,10 +313,12 @@
   "contact": {
     "hero": {
       "title": "Bizimle İletişime Geçin",
-      "description": "Sorularınızı yanıtlamaya ve projelerinizi tartışmaya her zaman hazırız. Bize uygun bir şekilde ulaşın: formu doldurun, arayın veya ofisimizi ziyaret edin. İşbirliğine açığız ve fikirlerinizi hayata geçirmenize yardımcı olmaya hazırız."
+      "description": "Sorularınızı yanıtlamaya ve projelerinizi tartışmaya her zaman hazırız. Bize uygun bir şekilde ulaşın: formu doldurun, arayın veya ofisimizi ziyaret edin. İşbirliğine açığız ve fikirlerinizi hayata geçirmenize yardımcı olmaya hazırız.",
+      "description2":""
     },
     "info": {
       "title": "İletişim Bilgileri",
+      "description":"Sorularınızı yanıtlamaya ve projelerinizi görüşmeye her zaman hazırız.",
       "office": {
         "title": "Ofis",
         "address": "Taşkent, Şayhantahur bölgesi, Zülfiyahanım caddesi, 62",
@@ -384,7 +387,8 @@
     },
     "content": {
       "leftColumn": "Mimarlık dünyasını değiştirmeye çalışıyoruz. Yaratıcılık ve teknik bilgiyi birleştirerek, her projeye taze, yenilikçi bakış açıları getiriyoruz. Projelerimizin tüm aşamalarında uyguladığımız detaylara dikkat ve titizlik, bizi sektörde güvenilir bir ortak yapar.",
-      "rightColumn": "Sürdürülebilirliğe odaklanmış ofis tasarımı, konut inşaatı alanında gelişiyoruz. Doğal ve teknolojik mükemmelliği koruyarak, gelecek nesillerin somutlaşması olarak hizmet edecek yapılar yaratmaya çalışıyoruz."
+      "rightColumn": "Sürdürülebilirliğe odaklanmış ofis tasarımı, konut inşaatı alanında gelişiyoruz. Doğal ve teknolojik mükemmelliği koruyarak, gelecek nesillerin somutlaşması olarak hizmet edecek yapılar yaratmaya çalışıyoruz.",
+      "centertColumn": ""
     },
     "team": {
       "title": "Ekip",
