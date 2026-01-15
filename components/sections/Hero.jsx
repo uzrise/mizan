@@ -18,9 +18,19 @@ export default function Hero() {
           {/* Placeholder for hero image - replace with actual image path */}
           {/* The image should show a modern building with glass facade, green elements, and a curved bridge */}
           <div className="absolute inset-0 bg-gradient-to-b from-blue-400/20 via-gray-700/40 to-[#1a3a2a]">
-            <div className="w-full h-full bg-[url('/images/bg-image.jpg')] bg-cover bg-center bg-no-repeat" />
+            <div className="absolute inset-0 w-full h-full">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                id="bg-video"
+                className="w-full h-full object-cover">
+                <source src="/images/bg-gif.mp4" type="video/mp4" />
+              </video>
+            </div>
             {/* Fallback gradient overlay */}
-            <div 
+            <div
               className="absolute inset-0"
               style={{
                 background: `

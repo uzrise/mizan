@@ -18,7 +18,6 @@ const teamMembers = [
     roleKey: "team.chiefArchitect",
     image: "/images/team/1.png",
     experience: "6+",
-    
     instagram: " https://www.instagram.com/rakhzaa/",
     telegram: " https://t.me/zakkomusic",
     linkedin: " https://www.linkedin.com/in/zafar-rahmatov-8b4a6b22a/",
@@ -42,7 +41,6 @@ const teamMembers = [
     roleKey: "team.interiorDesigner",
     image: "/images/team/3.png",
     experience: "6+",
-    
     instagram: "https://www.instagram.com/abdullayev_a21?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
     telegram: "https://t.me/DoubleA",
     linkedin: "",
@@ -53,8 +51,7 @@ const teamMembers = [
     name: "Ibrohim Islomov",
     roleKey: "team.constructionEngineer",
     image: "/images/team/4.png",
-    experience: "7+",
-    
+    experience: "7+",  
     instagram: "https://www.instagram.com/ibrohimislom03/",
     telegram: "https://t.me/ibrohimislomov03",
     linkedin: "https://www.linkedin.com/feed/?trk=guest_homepage-basic_google-one-tap-submit",
@@ -66,7 +63,6 @@ const teamMembers = [
     roleKey: "team.architectVisualizer",
     image: "/images/team/5.png",
     experience: "16+",
-    
     instagram: "https://www.instagram.com/ramziddin_nizomiddin_ogli/",
     telegram: "https://t.me/Symboldesigner",
     linkedin: "",
@@ -78,7 +74,6 @@ const teamMembers = [
     roleKey: "team.constructionEngineer",
     image: "/images/team/6.png",
     experience: "8+",
-    
     instagram: "https://www.instagram.com/azizomonov/",
     telegram: "https://t.me/AzizOmonov",
     linkedin: "",
@@ -90,7 +85,7 @@ const teamMembers = [
     roleKey: "team.interiorDesigner",
     image: "/images/team/7.png",
     experience: "12+",
-    
+
     instagram: "https://www.instagram.com/xasanganixojaev/ ",
     telegram: "https://t.me/Mizan_Xasan",
     linkedin: "",
@@ -473,7 +468,7 @@ export default function Team() {
                 }}
               >
                 {/* Profile Image */}
-                <div className="relative mb-4 rounded-full overflow-hidden bg-gray-700" style={{ width: "160px", height: "160px" }}>
+                <div className="relative mb-4 rounded-full overflow-hidden " style={{ width: "160px", height: "160px" }}>
                   <Image
                     src={member.image}
                     alt={member.name}
@@ -562,7 +557,7 @@ export default function Team() {
             </button>
 
             {/* Profile Image */}
-            <div className="relative mb-4 rounded-full overflow-hidden bg-gray-700" style={{ width: "200px", height: "200px" }}>
+            <div className="relative mb-4 rounded-full overflow-hidden " style={{ width: "200px", height: "200px" }}>
               <Image
                 src={selectedMember.image}
                 alt={selectedMember.name}
