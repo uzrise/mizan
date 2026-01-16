@@ -626,10 +626,6 @@ export default function Team() {
                   {selectedMember.experience} {t("team.years")}
                 </span>
               </div>
-              <div style={{ textAlign: "left" }}>
-
-
-              </div>
             </div>
 
           </div>
