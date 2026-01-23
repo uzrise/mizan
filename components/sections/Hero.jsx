@@ -4,9 +4,11 @@ import { useTranslation } from '@/contexts/TranslationContext';
 import Button from '@/components/ui/Button';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
 
 export default function Hero() {
   const { t } = useTranslation();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <section
@@ -16,6 +18,7 @@ export default function Hero() {
       {/* Hero Image Background */}
       <div className="absolute inset-0 w-full h-full">
         <div className="relative w-full h-full">
+          <div className="absolute inset-0 bg-[#1a3a2a]" aria-hidden />
           {/* Placeholder for hero image - replace with actual image path */}
           {/* The image should show a modern building with glass facade, green elements, and a curved bridge */}
           <div className="absolute inset-0 bg-gradient-to-b from-blue-400/20 via-gray-700/40 to-[#1a3a2a]">
@@ -27,7 +30,8 @@ export default function Hero() {
               placeholder="blur"
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAuMB9o8zWZ4AAAAASUVORK5CYII="
               sizes="100vw"
-              className="object-cover object-center"
+              onLoadingComplete={() => setImageLoaded(true)}
+              className={`object-cover object-center transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             />
             {/* Fallback gradient overlay */}
             <div
