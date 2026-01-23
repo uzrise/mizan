@@ -589,10 +589,10 @@ export default function Team() {
           onClick={() => setIsModalOpen(false)}
         >
           <div
-            className="relative rounded-lg text-center flex flex-col items-center"
+            className="relative rounded-lg text-center flex flex-col items-center justify-start"
             style={{
               width: "360px",
-              height: "488px",
+              height: "fit-content",
               backgroundColor: "#fff",
               backdropFilter: "blur(4px)",
               opacity: 1,
