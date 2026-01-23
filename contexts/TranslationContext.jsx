@@ -1,21 +1,20 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { getTranslation, safeTranslate as safeTranslateUtil } from '@/translations';
 
 const TranslationContext = createContext();
 
 export function TranslationProvider({ children }) {
-  const [language, setLanguage] = useState('RU');
-
-  useEffect(() => {
+  const [language, setLanguage] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedLang = localStorage.getItem('language');
       if (savedLang && ['RU', 'EN', 'UZ', 'TR'].includes(savedLang)) {
-        setLanguage(savedLang);
+        return savedLang;
       }
     }
-  }, []);
+    return 'RU';
+  });
 
   const changeLanguage = (lang) => {
     setLanguage(lang);

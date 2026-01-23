@@ -306,21 +306,78 @@ export default function Team() {
           const scrollAnimation = gsap.to(scrollContainer, {
             x: () => -getMaxScroll(),
             ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: "top top",
-              end: () => `+=${totalScrollDistance}`,
-              pin: container,
-              pinType: pinType,
-              pinReparent: false,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-              pinSpacing: true,
-              scrub: 1,
-            },
           });
 
-          scrollTrigger = scrollAnimation.scrollTrigger;
+          // Create ScrollTrigger with pinSpacer management (like AwardsAndPartners)
+          scrollTrigger = ScrollTrigger.create({
+            trigger: section,
+            start: "top top",
+            end: () => `+=${totalScrollDistance}`,
+            pin: container,
+            pinType: pinType,
+            pinReparent: false,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            pinSpacing: true,
+            scrub: 1,
+            animation: scrollAnimation,
+            onEnter: () => {
+              // Pin boshlanganda bo'sh joyni dinamik boshqarish
+              setTimeout(() => {
+                const pinSpacer = section.nextElementSibling;
+                if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
+                  pinSpacer.style.marginTop = '0';
+                  pinSpacer.style.marginBottom = '0';
+                }
+              }, 0);
+            },
+            onLeave: () => {
+              // Pin tugaganda pinSpacer-ni to'liq yopish - footer tepaga chiqishi uchun
+              setTimeout(() => {
+                const pinSpacer = section.nextElementSibling;
+                if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
+                  // To'liq yopish - height va margin-larni 0 qilish
+                  pinSpacer.style.height = '0';
+                  pinSpacer.style.marginTop = '0';
+                  pinSpacer.style.marginBottom = '0';
+                  pinSpacer.style.paddingTop = '0';
+                  pinSpacer.style.paddingBottom = '0';
+                  // Footer-ga yetib kelganda bo'sh joy qoldirmaslik uchun
+                  pinSpacer.style.overflow = 'hidden';
+                }
+              }, 0);
+            },
+            onEnterBack: () => {
+              // Orqaga scroll qilganda pinSpacer-ni qayta tiklash
+              setTimeout(() => {
+                const pinSpacer = section.nextElementSibling;
+                if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
+                  // ScrollTrigger avtomatik height-ni tiklaydi, biz faqat margin-larni boshqaramiz
+                  pinSpacer.style.marginTop = '0';
+                  pinSpacer.style.marginBottom = '0';
+                  pinSpacer.style.overflow = 'visible';
+                }
+              }, 0);
+            },
+            onUpdate: (self) => {
+              const progress = self.progress;
+
+              // PinSpacer height-ni dinamik boshqarish
+              const pinSpacer = section.nextElementSibling;
+              if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
+                // Progress 1 ga yetganda (pin tugaganda) height-ni kamaytirish
+                if (progress >= 0.99) {
+                  pinSpacer.style.height = '0';
+                  pinSpacer.style.marginTop = '0';
+                  pinSpacer.style.marginBottom = '0';
+                } else {
+                  // Normal holatda ScrollTrigger height-ni boshqaradi
+                  pinSpacer.style.marginTop = '0';
+                  pinSpacer.style.marginBottom = '0';
+                }
+              }
+            },
+          });
         }, scrollContainer);
 
         // Refresh ScrollTrigger after setup
