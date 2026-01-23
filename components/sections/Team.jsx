@@ -100,6 +100,9 @@ export default function Team() {
   const containerRef = useRef(null);
   const scrollContainerRef = useRef(null);
   const spacerRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [needsScroll, setNeedsScroll] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -244,9 +247,17 @@ export default function Team() {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
 
+    const updateScrollState = () => {
+      const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      const left = scrollContainer.scrollLeft;
+      setCanScrollLeft(left > 4);
+      setCanScrollRight(left < maxScroll - 4);
+    };
+
     const applyLayout = () => {
       const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
       const needsScroll = maxScroll > 0;
+      setNeedsScroll(needsScroll);
 
       scrollContainer.style.overflowX = "auto";
       scrollContainer.style.overflowY = "visible";
@@ -260,12 +271,19 @@ export default function Team() {
       if (!needsScroll && spacerRef.current?.parentNode) {
         spacerRef.current.parentNode.removeChild(spacerRef.current);
       }
+
+      // Ensure scroll state is refreshed after layout adjustments
+      requestAnimationFrame(updateScrollState);
     };
 
     applyLayout();
+    scrollContainer.addEventListener("scroll", updateScrollState, { passive: true });
     const handleResize = () => applyLayout();
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      scrollContainer.removeEventListener("scroll", updateScrollState);
+    };
   }, []);
 
   return (
@@ -303,22 +321,81 @@ export default function Team() {
         </h2>
 
         {/* Horizontal Scrollable Container */}
-        <div
-          ref={scrollContainerRef}
-          className="flex w-full pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-0 overflow-x-auto lg:overflow-x-visible scrollbar-hide snap-x snap-mandatory"
-          style={{
-            willChange: "transform",
-            gap: "32px",
-          }}
-        >
-          {teamMembers.map((member) => (
-            <div
-              key={member.id}
-              className="flex flex-col shrink-0 snap-start"
-              style={{
-                width: "240px",
+        <div className="relative w-full">
+          {/* Prev button */}
+          {needsScroll && (
+            <button
+              type="button"
+              aria-label="Previous"
+              onClick={() => {
+                const sc = scrollContainerRef.current;
+                if (!sc) return;
+                const amount = Math.max(240, sc.clientWidth * 0.6);
+                sc.scrollBy({ left: -amount, behavior: "smooth" });
               }}
+              disabled={!canScrollLeft}
+              className={`hidden md:flex items-center justify-center absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 shadow-md transition hover:bg-white ${!canScrollLeft ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+              style={{ zIndex: 5 }}
             >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
+                stroke="#00382F"
+              >
+                <path d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
+
+          {/* Next button */}
+          {needsScroll && (
+            <button
+              type="button"
+              aria-label="Next"
+              onClick={() => {
+                const sc = scrollContainerRef.current;
+                if (!sc) return;
+                const amount = Math.max(240, sc.clientWidth * 0.6);
+                sc.scrollBy({ left: amount, behavior: "smooth" });
+              }}
+              disabled={!canScrollRight}
+              className={`hidden md:flex items-center justify-center absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 shadow-md transition hover:bg-white ${!canScrollRight ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+              style={{ zIndex: 5 }}
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
+                stroke="#00382F"
+              >
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
+
+          <div
+            ref={scrollContainerRef}
+            className="flex w-full pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-0 overflow-x-auto lg:overflow-x-visible scrollbar-hide snap-x snap-mandatory"
+            style={{
+              willChange: "transform",
+              gap: "32px",
+            }}
+          >
+            {teamMembers.map((member) => (
+              <div
+                key={member.id}
+                className="flex flex-col shrink-0 snap-start"
+                style={{
+                  width: "240px",
+                }}
+              >
               {/* Card with rounded corners */}
               <div
                 className="rounded-lg text-center flex flex-col items-center cursor-pointer hover:opacity-90 transition-opacity"
@@ -376,10 +453,11 @@ export default function Team() {
                   {t(member.roleKey)}
                 </p>
               </div>
-            </div>
-          ))}
-          {/* Spacer to ensure last item is fully visible - only when scroll is needed */}
-         
+              </div>
+            ))}
+            {/* Spacer to ensure last item is fully visible - only when scroll is needed */}
+           
+          </div>
         </div>
       </div>
 

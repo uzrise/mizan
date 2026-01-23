@@ -3,6 +3,7 @@
 import { useTranslation } from '@/contexts/TranslationContext';
 import Button from '@/components/ui/Button';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -18,7 +19,16 @@ export default function Hero() {
           {/* Placeholder for hero image - replace with actual image path */}
           {/* The image should show a modern building with glass facade, green elements, and a curved bridge */}
           <div className="absolute inset-0 bg-gradient-to-b from-blue-400/20 via-gray-700/40 to-[#1a3a2a]">
-            <div className="w-full h-full bg-[url('/images/bg-image.jpg')] bg-cover bg-center bg-no-repeat" />
+            <Image
+              src="/images/bg-image.jpg"
+              alt="Modern architectural background"
+              fill
+              priority
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAuMB9o8zWZ4AAAAASUVORK5CYII="
+              sizes="100vw"
+              className="object-cover object-center"
+            />
             {/* Fallback gradient overlay */}
             <div
               className="absolute inset-0"
