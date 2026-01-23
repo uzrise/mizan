@@ -239,222 +239,33 @@ export default function Team() {
     };
   }, []);
 
+  // Team carousel: native horizontal scroll with snap (no pin)
   useEffect(() => {
-    const section = sectionRef.current;
-    const container = containerRef.current;
     const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
 
-    if (!section || !container || !scrollContainer) return;
+    const applyLayout = () => {
+      const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      const needsScroll = maxScroll > 0;
 
-    // Mobile da pin o'chiriladi va oddiy scroll qiladi
-    const isMobile = window.innerWidth < 1024; // lg breakpoint
-    if (isMobile) {
-      // Mobile da oddiy scroll - ScrollTrigger yo'q
-      gsap.set(scrollContainer, {
-        x: 0,
-        clearProps: "transform",
-      });
-      scrollContainer.style.transform = "none";
       scrollContainer.style.overflowX = "auto";
       scrollContainer.style.overflowY = "visible";
       scrollContainer.style.webkitOverflowScrolling = "touch";
       scrollContainer.style.willChange = "auto";
-      return;
-    }
 
-    let ctx = null;
-    let scrollTrigger = null;
+      scrollContainer.style.justifyContent = needsScroll ? "flex-start" : "center";
+      scrollContainer.style.paddingLeft = needsScroll ? "32px" : "0";
+      scrollContainer.style.paddingRight = needsScroll ? "32px" : "0";
 
-    const checkAndInit = () => {
-      if (window.__introComplete) {
-        const pinType = "transform";
-
-        // Set initial transform for better performance
-        gsap.set(scrollContainer, {
-          x: 0,
-          force3D: true,
-        });
-
-        ctx = gsap.context(() => {
-          // Calculate max scroll distance - use callback for dynamic calculation
-          const getMaxScroll = () => {
-            scrollContainer.offsetHeight; // Force layout recalculation
-            return scrollContainer.scrollWidth - scrollContainer.clientWidth;
-          };
-
-          // Check if scroll is needed
-          const maxScroll = getMaxScroll();
-
-          // If no scroll is needed, center the items and remove spacer
-          if (maxScroll <= 0) {
-            scrollContainer.style.justifyContent = "center";
-            scrollContainer.style.paddingLeft = "0";
-            scrollContainer.style.paddingRight = "0";
-            // Remove spacer if it exists
-            if (spacerRef.current && spacerRef.current.parentNode) {
-              spacerRef.current.parentNode.removeChild(spacerRef.current);
-            }
-            return; // Don't create ScrollTrigger
-          }
-
-          const viewportHeight = window.innerHeight;
-          // Har bir team member uchun scroll masofa
-          const scrollDistancePerMember = viewportHeight * 0.3;
-          const totalScrollDistance = teamMembers.length * scrollDistancePerMember;
-
-          // Create GSAP animation for smooth horizontal scroll
-          const scrollAnimation = gsap.to(scrollContainer, {
-            x: () => -getMaxScroll(),
-            ease: "none",
-          });
-
-          // Create ScrollTrigger with pinSpacer management (like AwardsAndPartners)
-          scrollTrigger = ScrollTrigger.create({
-            trigger: section,
-            start: "top top",
-            end: () => `+=${totalScrollDistance}`,
-            pin: container,
-            pinType: pinType,
-            pinReparent: false,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            pinSpacing: true,
-            scrub: 1,
-            animation: scrollAnimation,
-            onEnter: () => {
-              // Pin boshlanganda bo'sh joyni dinamik boshqarish
-              setTimeout(() => {
-                const pinSpacer = section.nextElementSibling;
-                if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
-                  pinSpacer.style.marginTop = '0';
-                  pinSpacer.style.marginBottom = '0';
-                }
-              }, 0);
-            },
-            onLeave: () => {
-              // Pin tugaganda pinSpacer-ni to'liq yopish - footer tepaga chiqishi uchun
-              setTimeout(() => {
-                const pinSpacer = section.nextElementSibling;
-                if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
-                  // To'liq yopish - height va margin-larni 0 qilish
-                  pinSpacer.style.height = '0';
-                  pinSpacer.style.marginTop = '0';
-                  pinSpacer.style.marginBottom = '0';
-                  pinSpacer.style.paddingTop = '0';
-                  pinSpacer.style.paddingBottom = '0';
-                  // Footer-ga yetib kelganda bo'sh joy qoldirmaslik uchun
-                  pinSpacer.style.overflow = 'hidden';
-                }
-              }, 0);
-            },
-            onEnterBack: () => {
-              // Orqaga scroll qilganda pinSpacer-ni qayta tiklash
-              setTimeout(() => {
-                const pinSpacer = section.nextElementSibling;
-                if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
-                  // ScrollTrigger avtomatik height-ni tiklaydi, biz faqat margin-larni boshqaramiz
-                  pinSpacer.style.marginTop = '0';
-                  pinSpacer.style.marginBottom = '0';
-                  pinSpacer.style.overflow = 'visible';
-                }
-              }, 0);
-            },
-            onUpdate: (self) => {
-              const progress = self.progress;
-
-              // PinSpacer height-ni dinamik boshqarish
-              const pinSpacer = section.nextElementSibling;
-              if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
-                // Progress 1 ga yetganda (pin tugaganda) height-ni kamaytirish
-                if (progress >= 0.99) {
-                  pinSpacer.style.height = '0';
-                  pinSpacer.style.marginTop = '0';
-                  pinSpacer.style.marginBottom = '0';
-                } else {
-                  // Normal holatda ScrollTrigger height-ni boshqaradi
-                  pinSpacer.style.marginTop = '0';
-                  pinSpacer.style.marginBottom = '0';
-                }
-              }
-            },
-          });
-        }, scrollContainer);
-
-        // Refresh ScrollTrigger after setup
-        const smoother =
-          window.ScrollSmootherInstance ||
-          (window.ScrollSmoother?.get && window.ScrollSmoother.get());
-
-        if (smoother) {
-          setTimeout(() => {
-            try {
-              ScrollTrigger.refresh();
-              smoother.refresh();
-            } catch (e) {
-              console.warn("Error refreshing ScrollSmoother:", e);
-            }
-          }, 200);
-        } else {
-          setTimeout(() => {
-            ScrollTrigger.refresh();
-          }, 150);
-        }
-      } else {
-        setTimeout(checkAndInit, 100);
+      if (!needsScroll && spacerRef.current?.parentNode) {
+        spacerRef.current.parentNode.removeChild(spacerRef.current);
       }
     };
 
-    const timer = setTimeout(checkAndInit, 200);
-
-    // Handle window resize
-    const handleResize = () => {
-      const currentIsMobile = window.innerWidth < 1024;
-      if (currentIsMobile) {
-        // Mobile ga o'tsa ScrollTrigger-ni o'chirish
-        if (scrollTrigger) {
-          scrollTrigger.kill();
-          scrollTrigger = null;
-        }
-        if (ctx) {
-          ctx.revert();
-          ctx = null;
-        }
-        gsap.set(scrollContainer, {
-          x: 0,
-          clearProps: "transform",
-        });
-        scrollContainer.style.transform = "none";
-        scrollContainer.style.overflowX = "auto";
-        scrollContainer.style.overflowY = "visible";
-        scrollContainer.style.webkitOverflowScrolling = "touch";
-        scrollContainer.style.willChange = "auto";
-      } else {
-        // Desktop ga o'tsa qayta init qilish
-        if (!scrollTrigger && !ctx) {
-          checkAndInit();
-        } else if (scrollTrigger) {
-          ScrollTrigger.refresh();
-        }
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', handleResize);
-      if (ctx) {
-        ctx.revert();
-      }
-      if (scrollTrigger) {
-        scrollTrigger.kill();
-      }
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars.trigger === section) {
-          trigger.kill();
-        }
-      });
-    };
+    applyLayout();
+    const handleResize = () => applyLayout();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -494,7 +305,7 @@ export default function Team() {
         {/* Horizontal Scrollable Container */}
         <div
           ref={scrollContainerRef}
-          className="flex w-full pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-0 overflow-x-auto lg:overflow-x-visible scrollbar-hide"
+          className="flex w-full pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-0 overflow-x-auto lg:overflow-x-visible scrollbar-hide snap-x snap-mandatory"
           style={{
             willChange: "transform",
             gap: "32px",
@@ -503,7 +314,7 @@ export default function Team() {
           {teamMembers.map((member) => (
             <div
               key={member.id}
-              className="flex flex-col shrink-0"
+              className="flex flex-col shrink-0 snap-start"
               style={{
                 width: "240px",
               }}
