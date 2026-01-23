@@ -2,16 +2,44 @@
 
 import * as React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { formatImageUrl } from '@/utils/imageUtils';
+import { useProjects } from '@/hooks/useProjects';
 
 export default function CarouselWithBackground({ project }) {
   const { t, safeTranslate } = useTranslation();
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isAnimating, setIsAnimating] = React.useState(false);
+  const { projects: allProjects } = useProjects();
 
-  // Filter out empty or invalid image URLs
-  const validImages = project?.images?.filter(img => img && img.trim() !== '') || [];
+  // Get projects from ProjectShowcase logic (first 4 projects)
+  const showcaseProjects = React.useMemo(() => {
+    return allProjects?.slice(0, 4) || [];
+  }, [allProjects]);
+
+  // Get first image from each showcase project (one image per project)
+  const validImages = React.useMemo(() => {
+    const imagesWithProjects = [];
+    showcaseProjects.forEach((proj) => {
+      if (proj?.images && Array.isArray(proj.images) && proj.images.length > 0) {
+        // Get first valid image from each project
+        const firstImage = proj.images.find(img => img && img.trim() !== '');
+        if (firstImage && proj?.slug) {
+          imagesWithProjects.push({
+            image: firstImage,
+            project: proj,
+          });
+        }
+      }
+    });
+    // Debug: log to see what projects are included
+    if (process.env.NODE_ENV === 'development') {
+      console.log('CarouselWithBackground - Projects:', showcaseProjects.map(p => ({ slug: p?.slug, title: p?.titleKey })));
+      console.log('CarouselWithBackground - Valid Images:', imagesWithProjects.map(i => ({ slug: i.project?.slug, image: i.image })));
+    }
+    return imagesWithProjects;
+  }, [showcaseProjects]);
 
   if (validImages.length === 0) {
     return null;
@@ -92,18 +120,23 @@ export default function CarouselWithBackground({ project }) {
               transform: `translateX(calc(50% - ${itemWidth / 2}px - ${currentIndex * itemWidth}px))`,
             }}
           >
-            {validImages.map((image, index) => {
-              if (!image || image.trim() === '') return null;
+            {validImages.map((item, index) => {
+              if (!item || !item.image || item.image.trim() === '') return null;
               
-              const imageUrl = formatImageUrl(image);
+              const imageUrl = formatImageUrl(item.image);
+              const projectItem = item.project;
               const isCenter = index === currentIndex;
               const isPrev = index === prevIndex;
               const isNext = index === nextIndex;
               const isVisible = isCenter || isPrev || isNext;
               
+              // Use project slug + image index as unique key
+              const uniqueKey = `${projectItem?.slug || 'project'}-${index}-${item.image}`;
+              
               return (
-                <div
-                  key={index}
+                <Link
+                  key={uniqueKey}
+                  href={`/portfolio/${projectItem?.slug}`}
                   className="shrink-0 flex items-center justify-center"
                   style={{ 
                     width: `${itemWidth}px`,
@@ -111,7 +144,7 @@ export default function CarouselWithBackground({ project }) {
                   }}
                 >
                   <div
-                    className={`relative transition-all duration-500 ease-out rounded-lg overflow-hidden shadow-2xl bg-white/10 backdrop-blur-sm ${
+                    className={`relative transition-all duration-500 ease-out rounded-lg overflow-hidden shadow-2xl bg-white/10 backdrop-blur-sm cursor-pointer hover:scale-105 ${
                       isCenter ? 'z-20' : 'z-10'
                     }`}
                     style={{ 
@@ -123,7 +156,7 @@ export default function CarouselWithBackground({ project }) {
                   >
                     <Image
                       src={imageUrl}
-                      alt={`${safeTranslate(project?.titleKey)} - Plan ${index + 1}`}
+                      alt={`${safeTranslate(projectItem?.titleKey)} - Image ${index + 1}`}
                       fill
                       className="object-contain"
                       sizes={isCenter ? '596px' : '427px'}
@@ -134,7 +167,7 @@ export default function CarouselWithBackground({ project }) {
                       }}
                     />
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

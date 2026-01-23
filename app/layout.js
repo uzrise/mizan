@@ -30,6 +30,15 @@ export const metadata = {
   description:
     "Mizan Architecture создаёт современные, эстетичные и функциональные пространства. Мы превращаем ваши идеи в продуманные и устойчивые решения.",
   keywords: "архитектура, дизайн, строительство, Mizan Architecture",
+  icons: {
+    icon: [
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/favicon-96x96.png', sizes: 'any' },
+    ],
+    apple: [
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {
