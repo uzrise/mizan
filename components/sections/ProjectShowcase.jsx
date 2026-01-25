@@ -8,7 +8,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useProjects } from '@/hooks/useProjects';
 
-// Register ScrollTrigger plugin
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -20,13 +19,10 @@ export default function ProjectShowcase({ initialProjects = [] }) {
   const projectRefs = useRef([]);
   const { projects: allProjects, loading, error } = useProjects();
 
-  // Use initial projects from server if available, otherwise use hook data
-  // Transform initial projects if language changed (client-side)
   const projectsToUse = allProjects && allProjects.length > 0 
     ? allProjects 
     : initialProjects;
 
-  // First 4 projects for showcase
   const projects = projectsToUse?.slice(0, 4) || [];
 
   useEffect(() => {
@@ -38,7 +34,6 @@ export default function ProjectShowcase({ initialProjects = [] }) {
     const totalProjects = projectElements.length;
     if (totalProjects === 0) return;
 
-    // Wait for ScrollSmoother to be ready
     let scrollTrigger = null;
     
     const initScrollTrigger = () => {
@@ -47,16 +42,13 @@ export default function ProjectShowcase({ initialProjects = [] }) {
       const scrollMultiplier = 0.3;
       const scrollDistance = viewportHeight * totalProjects * scrollMultiplier;
       
-      // Set initial states
       gsap.set(container, {
         transform: 'translateZ(0)',
         backfaceVisibility: 'hidden',
         willChange: 'transform'
       });
 
-      // Mobile: Simple horizontal scroll (no pin)
       if (isMobile) {
-        // Set all cards to same size on mobile
         projectElements.forEach((projectRef) => {
           const imageRef = projectRef.querySelector('[data-project-image]');
           if (!imageRef) return;
@@ -68,12 +60,10 @@ export default function ProjectShowcase({ initialProjects = [] }) {
           });
         });
 
-        // Show section immediately (no ScrollTrigger needed)
         gsap.set([section, container], { opacity: 1, visibility: 'visible' });
         return;
       }
 
-      // Desktop: Vertical scroll with width changes
       projectElements.forEach((projectRef, index) => {
         const imageRef = projectRef.querySelector('[data-project-image]');
         if (!imageRef) return;
@@ -158,11 +148,9 @@ export default function ProjectShowcase({ initialProjects = [] }) {
       });
 
 
-      // Refresh ScrollTrigger after setup (desktop only)
       if (!isMobile) {
         ScrollTrigger.refresh();
         
-        // Show section smoothly after ScrollTrigger is ready
         const showSection = () => {
           gsap.to([section, container], {
             opacity: 1,
@@ -184,22 +172,17 @@ export default function ProjectShowcase({ initialProjects = [] }) {
       }
     };
 
-    // Wait for ScrollSmoother to be ready and intro animation to complete
     const checkAndInit = () => {
-      // Check if ScrollSmoother is available and intro is complete
       const smoother = window.ScrollSmootherInstance || (window.ScrollSmoother?.get && window.ScrollSmoother.get());
       if (window.__introComplete) {
         initScrollTrigger();
         
-        // If ScrollSmoother is active, refresh it after ScrollTrigger is created
         if (smoother) {
-          // Small delay to ensure ScrollTrigger is fully initialized
           setTimeout(() => {
             try {
               smoother.refresh();
               ScrollTrigger.refresh();
               
-              // Ensure visibility after refresh - use smooth transition
               requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                   gsap.to([section, container], {
@@ -221,11 +204,9 @@ export default function ProjectShowcase({ initialProjects = [] }) {
             }
           }, 150);
         } else {
-          // Refresh ScrollTrigger if no ScrollSmoother
           setTimeout(() => {
             ScrollTrigger.refresh();
             
-            // Ensure visibility after refresh - use smooth transition
             requestAnimationFrame(() => {
               requestAnimationFrame(() => {
                 gsap.to([section, container], {
@@ -245,15 +226,12 @@ export default function ProjectShowcase({ initialProjects = [] }) {
           }, 100);
         }
       } else {
-        // Check again after a short delay
         setTimeout(checkAndInit, 100);
       }
     };
 
-    // Start checking
     const timer = setTimeout(checkAndInit, 200);
 
-    // Handle window resize
     const handleResize = () => {
       if (scrollTrigger) {
         ScrollTrigger.refresh();
@@ -268,7 +246,6 @@ export default function ProjectShowcase({ initialProjects = [] }) {
       if (scrollTrigger) {
         scrollTrigger.kill();
       }
-      // Clean up will-change
       projectElements.forEach((projectRef) => {
         const imageRef = projectRef.querySelector('[data-project-image]');
         if (imageRef) {
@@ -276,9 +253,8 @@ export default function ProjectShowcase({ initialProjects = [] }) {
         }
       });
     };
-  }, [projects.length]); // Re-run when projects are loaded or change
+  }, [projects.length]);
 
-  // Show loading state only if we don't have initial projects and are still loading
   if (loading && (!initialProjects || initialProjects.length === 0)) {
     return (
       <section
@@ -298,7 +274,6 @@ export default function ProjectShowcase({ initialProjects = [] }) {
     );
   }
 
-  // Show error state only if we don't have initial projects and there's an error
   if (error && (!initialProjects || initialProjects.length === 0) && (!projects || projects.length === 0)) {
     return (
       <section
@@ -320,7 +295,6 @@ export default function ProjectShowcase({ initialProjects = [] }) {
     );
   }
 
-  // If no projects at all, show empty state
   if (!projects || projects.length === 0) {
     return (
       <section
@@ -354,15 +328,12 @@ export default function ProjectShowcase({ initialProjects = [] }) {
         position: 'relative'
       }}
     >
-
-
-      {/* Sticky Container - z-10 ensures it's above the vector image */}
       <div 
         ref={containerRef}
         className="container mx-auto px-0 sm:px-6 lg:px-8 relative z-10"
         style={{ 
           willChange: 'transform',
-          transform: 'translateZ(0)', // Force hardware acceleration to prevent bounce
+          transform: 'translateZ(0)',
           backfaceVisibility: 'hidden',
           WebkitBackfaceVisibility: 'hidden',
         }}

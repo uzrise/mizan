@@ -25,25 +25,21 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
   const lightboxImageRef = useRef(null);
   const imageWrapperRef = useRef(null);
 
-  // Open lightbox
   const openLightbox = useCallback((index) => {
     setCurrentImageIndex(index);
     setLightboxOpen(true);
     setZoom(1);
     setPosition({ x: 0, y: 0 });
     document.body.style.overflow = 'hidden';
-    // Pause ScrollSmoother if available
     const smoother = window.ScrollSmootherInstance || (window.ScrollSmoother?.get && window.ScrollSmoother.get());
     if (smoother) {
       smoother.paused(true);
     }
   }, []);
 
-  // Close lightbox
   const closeLightbox = useCallback(() => {
     setLightboxOpen(false);
     document.body.style.overflow = '';
-    // Resume ScrollSmoother if available
     const smoother = window.ScrollSmootherInstance || (window.ScrollSmoother?.get && window.ScrollSmoother.get());
     if (smoother) {
       smoother.paused(false);
@@ -51,12 +47,10 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
   }, []);
 
 
-  // Get valid images
   const validImages = useMemo(() => {
     return project?.images?.filter(img => img && img.trim() !== '') || [];
   }, [project?.images]);
 
-  // Navigate to previous image
   const prevImage = useCallback(() => {
     if (validImages.length === 0) return;
     setCurrentImageIndex((prev) => (prev - 1 + validImages.length) % validImages.length);
@@ -64,7 +58,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     setPosition({ x: 0, y: 0 });
   }, [validImages]);
 
-  // Navigate to next image
   const nextImage = useCallback(() => {
     if (validImages.length === 0) return;
     setCurrentImageIndex((prev) => (prev + 1) % validImages.length);
@@ -72,7 +65,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     setPosition({ x: 0, y: 0 });
   }, [validImages]);
 
-  // Zoom functions
   const handleZoomIn = useCallback(() => {
     setZoom((prev) => Math.min(prev + 0.5, 5));
   }, []);
@@ -92,7 +84,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     setPosition({ x: 0, y: 0 });
   }, []);
 
-  // Mouse wheel zoom
   const handleWheel = useCallback((e) => {
     if (!lightboxImageRef.current) return;
     e.preventDefault();
@@ -106,7 +97,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     });
   }, []);
 
-  // Drag handlers
   const handleMouseDown = useCallback((e) => {
     if (zoom <= 1) return;
     e.preventDefault();
@@ -124,7 +114,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     const newX = e.clientX - dragStart.x;
     const newY = e.clientY - dragStart.y;
     
-    // Calculate bounds to prevent dragging too far
     if (lightboxImageRef.current) {
       const container = lightboxImageRef.current;
       const containerRect = container.getBoundingClientRect();
@@ -150,7 +139,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     setIsDragging(false);
   }, []);
 
-  // Keyboard navigation
   useEffect(() => {
     if (!lightboxOpen) return;
 
@@ -167,7 +155,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [lightboxOpen, closeLightbox, nextImage, prevImage, handleZoomIn, handleZoomOut, handleResetZoom]);
 
-  // Mouse wheel zoom
   useEffect(() => {
     if (!lightboxOpen || !lightboxImageRef.current) return;
     const imageElement = lightboxImageRef.current;
@@ -175,7 +162,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     return () => imageElement.removeEventListener('wheel', handleWheel);
   }, [lightboxOpen, handleWheel]);
 
-  // Touch handlers for mobile
   const handleTouchStart = useCallback((e) => {
     if (zoom <= 1 || e.touches.length !== 1) return;
     e.preventDefault();
@@ -195,7 +181,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     const newX = touch.clientX - dragStart.x;
     const newY = touch.clientY - dragStart.y;
     
-    // Calculate bounds to prevent dragging too far
     if (lightboxImageRef.current) {
       const container = lightboxImageRef.current;
       const containerRect = container.getBoundingClientRect();
@@ -221,7 +206,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     setIsDragging(false);
   }, []);
 
-  // Global mouse events for dragging
   useEffect(() => {
     if (!isDragging) return;
     window.addEventListener('mousemove', handleMouseMove);
@@ -234,7 +218,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
 
 
   useEffect(() => {
-    // Check if mobile on mount
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -257,21 +240,17 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
       const isMobileView = window.innerWidth < 768;
       
       if (isMobileView) {
-        // Mobile: Simple horizontal scroll (no pin, no animation)
-        // Just show the section and let native scroll work
         gsap.set([section, container], { opacity: 1, visibility: 'visible' });
         section.style.opacity = '1';
         section.style.visibility = 'visible';
         return;
       }
 
-      // Desktop: Pinned horizontal scroll
       const itemWidth = items[0].offsetWidth || 600;
-      const gap = 24; // gap-6 = 24px
+      const gap = 24;
       const totalWidth = (itemWidth + gap) * items.length - gap;
       const scrollSpeedMultiplier = 0.5; 
       const scrollDistance = (totalWidth - window.innerWidth + (itemWidth * 0.2)) * scrollSpeedMultiplier
-      // Set initial states
       gsap.set(container, {
         x: 0,
         willChange: 'transform',
@@ -304,7 +283,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
         },
       });
 
-      // Show section after ScrollTrigger is ready
       gsap.to([section, container], {
         opacity: 1,
         visibility: 'visible',
@@ -316,7 +294,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
         },
       });
 
-      // Wait for ScrollSmoother if available
       const smoother = window.ScrollSmootherInstance || (window.ScrollSmoother?.get && window.ScrollSmoother.get());
       if (smoother) {
         setTimeout(() => {
@@ -332,7 +309,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
       }
     };
 
-    // Wait for intro animation and ScrollSmoother
     const checkAndInit = () => {
       if (window.__introComplete || typeof window.__introComplete === 'undefined') {
         initScrollTrigger();
@@ -343,7 +319,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
 
     const timer = setTimeout(checkAndInit, 200);
 
-    // Handle resize
     const handleResize = () => {
       if (scrollTrigger) {
         scrollTrigger.kill();
@@ -364,7 +339,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     };
   }, [validImages, gallerySectionRef, galleryContainerRef, galleryItemsRef]);
 
-  // Don't render if no images (after all hooks)
   if (validImages.length === 0) {
     return null;
   }
@@ -389,7 +363,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
           }}
         >
           {validImages.map((image, index) => {
-            // Skip if image is empty or invalid
             if (!image || image.trim() === '') return null;
             
             const imageUrl = formatImageUrl(image);
@@ -426,7 +399,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                   }}
                   style={{ pointerEvents: 'none' }}
                 />
-              {/* Hover overlay with zoom icon */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center pointer-events-none">
                 <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-lg">
                   <svg className="w-6 h-6 text-[#1a3a2a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -440,7 +412,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
         </div>
       </section>
 
-      {/* Lightbox Modal - Rendered via Portal to document.body */}
       {typeof window !== 'undefined' && lightboxOpen && validImages.length > 0 && createPortal(
         <div
           ref={lightboxRef}
@@ -451,7 +422,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
             animation: 'fadeIn 0.3s ease-out',
           }}
         >
-          {/* Close button */}
           <button
             onClick={closeLightbox}
             className="absolute top-4 right-4 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer"
@@ -462,7 +432,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
             </svg>
           </button>
 
-          {/* Previous button */}
           {validImages.length > 1 && (
             <button
               onClick={(e) => { e.stopPropagation(); prevImage(); }}
@@ -475,7 +444,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
             </button>
           )}
 
-          {/* Next button */}
           {validImages.length > 1 && (
             <button
               onClick={(e) => { e.stopPropagation(); nextImage(); }}
@@ -488,12 +456,10 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
             </button>
           )}
 
-          {/* Main content container */}
           <div
               className="flex flex-col items-center justify-center w-full h-full overflow-visible"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Image container - Full screen */}
             <div
               ref={lightboxImageRef}
               className="relative w-full h-full overflow-hidden select-none mb-0"
@@ -532,9 +498,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
               </div>
             </div>
 
-            {/* Controls container - Below image */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent pb-4 pt-6 z-20 overflow-visible">
-              {/* Thumbnail strip */}
               <div className="w-full max-w-5xl mx-auto overflow-x-auto overflow-y-visible scrollbar-hide px-4 py-2" style={{ WebkitOverflowScrolling: 'touch', minHeight: 'fit-content' }}>
                 <div className="flex gap-2 justify-center flex-nowrap min-w-max py-1 items-center">
                   {validImages.map((image, index) => {
@@ -564,7 +528,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                           console.error('Thumbnail failed to load:', thumbnailUrl);
                         }}
                       />
-                      {/* Active indicator overlay */}
                       {index === currentImageIndex && (
                         <div className="absolute inset-0 bg-white/10" />
                       )}
@@ -574,7 +537,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                 </div>
               </div>
 
-              {/* Zoom controls */}
               <div className="absolute bottom-4 right-4 flex flex-col gap-2 z-10">
                 <button
                   onClick={(e) => { e.stopPropagation(); handleZoomIn(); }}
@@ -612,7 +574,6 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
   
           </div>
 
-          {/* CSS Animations */}
           <style jsx>{`
             @keyframes fadeIn {
               from { opacity: 0; }

@@ -7,8 +7,6 @@ import Team from "@/components/sections/Team";
 import { getProjects } from "@/lib/strapi";
 
 export default async function Home() {
-  // Server-side fetch projects with default language (RU)
-  // getProjects already handles fallback to constants if Strapi fails
   const initialProjects = await getProjects('RU');
 
   return (

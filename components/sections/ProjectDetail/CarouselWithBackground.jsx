@@ -13,17 +13,14 @@ export default function CarouselWithBackground({ project }) {
   const [isAnimating, setIsAnimating] = React.useState(false);
   const { projects: allProjects } = useProjects();
 
-  // Get projects from ProjectShowcase logic (first 4 projects)
   const showcaseProjects = React.useMemo(() => {
     return allProjects?.slice(0, 4) || [];
   }, [allProjects]);
 
-  // Get first image from each showcase project (one image per project)
   const validImages = React.useMemo(() => {
     const imagesWithProjects = [];
     showcaseProjects.forEach((proj) => {
       if (proj?.images && Array.isArray(proj.images) && proj.images.length > 0) {
-        // Get first valid image from each project
         const firstImage = proj.images.find(img => img && img.trim() !== '');
         if (firstImage && proj?.slug) {
           imagesWithProjects.push({
@@ -33,7 +30,6 @@ export default function CarouselWithBackground({ project }) {
         }
       }
     });
-    // Debug: log to see what projects are included
     if (process.env.NODE_ENV === 'development') {
       console.log('CarouselWithBackground - Projects:', showcaseProjects.map(p => ({ slug: p?.slug, title: p?.titleKey })));
       console.log('CarouselWithBackground - Valid Images:', imagesWithProjects.map(i => ({ slug: i.project?.slug, image: i.image })));
@@ -66,19 +62,14 @@ export default function CarouselWithBackground({ project }) {
   const itemWidth = 620;
 
   return (
-    <section className="relative overflow-hidden isolate" style={{ height: '416px' }}>
-      <div className="absolute inset-0 w-full h-full">
-        <div className="relative w-full h-full">
-          <Image
-            src="/bg-detail-carousel.png"
-            alt={safeTranslate(project?.titleKey)}
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority
-          />
-        </div>
-      </div>
+    <section
+      className="relative overflow-hidden isolate"
+      style={{ height: '416px', backgroundColor: '#1a3a2a' }}
+    >
+      <div
+        className="absolute inset-0 w-full h-full"
+        style={{ backgroundColor: '#1a3a2a' }}
+      />
 
       <div className="absolute top-6 left-4 sm:left-6 lg:left-8 z-30">
         <p 
@@ -130,7 +121,6 @@ export default function CarouselWithBackground({ project }) {
               const isNext = index === nextIndex;
               const isVisible = isCenter || isPrev || isNext;
               
-              // Use project slug + image index as unique key
               const uniqueKey = `${projectItem?.slug || 'project'}-${index}-${item.image}`;
               
               return (
@@ -144,7 +134,7 @@ export default function CarouselWithBackground({ project }) {
                   }}
                 >
                   <div
-                    className={`relative transition-all duration-500 ease-out rounded-lg overflow-hidden shadow-2xl bg-white/10 backdrop-blur-sm cursor-pointer hover:scale-105 ${
+                    className={`relative transition-all duration-500 ease-out rounded-lg overflow-hidden cursor-pointer hover:scale-105 ${
                       isCenter ? 'z-20' : 'z-10'
                     }`}
                     style={{ 

@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
 
-// Memoized project card to prevent unnecessary re-renders
 const ProjectCard = memo(({ project }) => {
   const { t, safeTranslate } = useTranslation();
 

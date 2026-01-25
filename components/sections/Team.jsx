@@ -6,7 +6,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 
-// Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -106,15 +105,12 @@ export default function Team() {
   const [selectedMember, setSelectedMember] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // ScrollTrigger for positioning Team over Partners (like Statistics overlays ProjectShowcase)
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
-    // Mobile da ScrollTrigger effect-ni o'chirish
-    const isMobile = window.innerWidth < 1024; // lg breakpoint
+    const isMobile = window.innerWidth < 1024;
     if (isMobile) {
-      // Mobile da normal holatda qoldirish
       gsap.set(section, {
         marginTop: '0px',
         zIndex: 1,
@@ -127,9 +123,7 @@ export default function Team() {
     const checkAndInit = () => {
       if (window.__introComplete) {
         const viewportHeight = window.innerHeight;
-        const useOverlayPattern = viewportHeight < 900; // Use overlay pattern for height < 900px
-
-        // Faqat overlay pattern uchun ishlaydi
+        const useOverlayPattern = viewportHeight < 900;
         if (!useOverlayPattern) {
           gsap.set(section, {
             marginTop: '0px',
@@ -138,16 +132,12 @@ export default function Team() {
           return;
         }
 
-        // Partners sectionni topish
         const partnersSection = document.getElementById('partners-section');
         if (!partnersSection) {
           setTimeout(checkAndInit, 100);
           return;
         }
 
-        // Partners section scroll masofasini hisoblash
-        // Partners scroll distance AwardsAndPartners komponentida hisoblanadi
-        // Biz xuddi shu formulani ishlatamiz: partners.length * scrollDistancePerItem
         const scrollDistancePerItem = viewportHeight * 0.05;
         const partnersContainer = partnersSection.querySelector('[data-partners-container]');
         if (!partnersContainer) {
@@ -155,7 +145,6 @@ export default function Team() {
           return;
         }
 
-        // Partners items soni (real DOM children length)
         const partnersCount = partnersContainer.children.length || 10;
         const partnersScrollDistance = partnersCount * scrollDistancePerItem;
 
@@ -168,7 +157,6 @@ export default function Team() {
           refreshPriority: 0,
           onUpdate: (self) => {
             const progress = self.progress;
-            // Team overlays Partners during Partners scroll
             const negativeMargin = -partnersScrollDistance * (1 - progress);
             gsap.set(section, {
               marginTop: `${negativeMargin}px`,
@@ -176,7 +164,6 @@ export default function Team() {
             });
           },
           onLeave: () => {
-            // Partners scroll tugagandan keyin Team normal holatga qaytadi
             gsap.set(section, {
               marginTop: '0px',
               clearProps: 'marginTop',
@@ -186,14 +173,12 @@ export default function Team() {
             }, 0);
           },
           onEnterBack: () => {
-            // Orqaga scroll qilganda yana negative margin qo'llanadi
             gsap.set(section, {
               marginTop: `-${partnersScrollDistance}px`,
             });
           },
         });
 
-        // Initial positioning
         gsap.set(section, {
           marginTop: `-${partnersScrollDistance}px`,
           zIndex: 20,
@@ -205,11 +190,9 @@ export default function Team() {
 
     const timer = setTimeout(checkAndInit, 200);
 
-    // Handle window resize
     const handleResize = () => {
       const currentIsMobile = window.innerWidth < 1024;
       if (currentIsMobile && partnersOverlayTrigger) {
-        // Mobile ga o'tsa ScrollTrigger-ni o'chirish
         partnersOverlayTrigger.kill();
         partnersOverlayTrigger = null;
         gsap.set(section, {
@@ -232,7 +215,6 @@ export default function Team() {
       if (partnersOverlayTrigger) {
         partnersOverlayTrigger.kill();
       }
-      // Cleanup - marginTop-ni tozalash
       if (section) {
         gsap.set(section, {
           marginTop: '0px',
@@ -242,7 +224,6 @@ export default function Team() {
     };
   }, []);
 
-  // Team carousel: native horizontal scroll with snap (no pin)
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
@@ -272,7 +253,6 @@ export default function Team() {
         spacerRef.current.parentNode.removeChild(spacerRef.current);
       }
 
-      // Ensure scroll state is refreshed after layout adjustments
       requestAnimationFrame(updateScrollState);
     };
 
@@ -305,7 +285,6 @@ export default function Team() {
           overscrollBehaviorY: "auto",
         }}
       >
-        {/* Title */}
         <h2
           className="text-white text-center mb-16"
           style={{
@@ -320,9 +299,7 @@ export default function Team() {
           {t("sections.team")}
         </h2>
 
-        {/* Horizontal Scrollable Container */}
         <div className="relative w-full">
-          {/* Prev button */}
           {needsScroll && (
             <button
               type="button"
@@ -351,7 +328,6 @@ export default function Team() {
             </button>
           )}
 
-          {/* Next button */}
           {needsScroll && (
             <button
               type="button"
@@ -396,7 +372,6 @@ export default function Team() {
                   width: "240px",
                 }}
               >
-              {/* Card with rounded corners */}
               <div
                 className="rounded-lg text-center flex flex-col items-center cursor-pointer hover:opacity-90 transition-opacity"
                 style={{
@@ -412,7 +387,6 @@ export default function Team() {
                   setIsModalOpen(true);
                 }}
               >
-                {/* Profile Image */}
                 <div className="relative mb-4 rounded-full overflow-hidden " style={{ width: "160px", height: "160px" }}>
                   <Image
                     src={member.image}
@@ -423,7 +397,6 @@ export default function Team() {
                   />
                 </div>
 
-                {/* Name */}
                 <h3
                   className="text-white mb-2"
                   style={{
@@ -438,7 +411,6 @@ export default function Team() {
                   {member.name}
                 </h3>
 
-                {/* Role */}
                 <p
                   className="text-white/70"
                   style={{
@@ -455,13 +427,11 @@ export default function Team() {
               </div>
               </div>
             ))}
-            {/* Spacer to ensure last item is fully visible - only when scroll is needed */}
            
           </div>
         </div>
       </div>
 
-      {/* Modal - Rendered via Portal */}
       {isModalOpen && selectedMember && typeof window !== "undefined" && createPortal(
         <div
           className="fixed inset-0 flex items-center justify-center"
@@ -489,7 +459,6 @@ export default function Team() {
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-4 right-4 text-black hover:text-gray-300 transition-colors"
@@ -502,7 +471,6 @@ export default function Team() {
               ×
             </button>
 
-            {/* Profile Image */}
             <div className="relative mb-4 rounded-full overflow-hidden " style={{ width: "200px", height: "200px" }}>
               <Image
                 src={selectedMember.image}
@@ -513,7 +481,6 @@ export default function Team() {
               />
             </div>
 
-            {/* Name */}
             <h3
               className="p-4 mb-2"
               style={{
@@ -530,7 +497,6 @@ export default function Team() {
               {selectedMember.name}
             </h3>
 
-            {/* Experience  */}
             <div className="space-y-1 mb-4" style={{ fontFamily: "Inter, sans-serif", width: "100%" }}>
               <div style={{ textAlign: "left" }}>
                 <span style={{ 

@@ -16,11 +16,9 @@ export default function ProjectDetail({ project }) {
   const galleryItemsRef = useRef([]);
   const hasAnimatedRef = useRef(false);
 
-  // Animate content only once on initial mount
   useEffect(() => {
     if (!containerRef.current || hasAnimatedRef.current) return;
 
-    // Animate content on mount
     gsap.fromTo(
       contentRef.current?.children || [],
       {
@@ -38,7 +36,7 @@ export default function ProjectDetail({ project }) {
         }
       }
     );
-  }, []); // Only run once on mount
+  }, []);
 
   if (!project) {
     return (
