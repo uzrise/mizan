@@ -28,7 +28,6 @@ const ProjectCard = memo(({ project }) => {
             height={427}
             className="object-cover w-full h-full"
             sizes="(max-width: 768px) 100vw, 457px"
-            unoptimized
             priority={false}
           />
         </div>

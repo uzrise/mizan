@@ -389,7 +389,6 @@ export default function ProjectShowcase({ initialProjects = [] }) {
                     src={project.image || '/images/projects/1.jpg'}
                     alt={safeTranslate(project?.titleKey) || 'Project'}
                     fill
-                    unoptimized
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 256px, (max-width: 1024px) 256px, 548px"
                   />
