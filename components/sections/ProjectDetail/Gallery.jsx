@@ -46,10 +46,12 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     }
   }, []);
 
-
   const validImages = useMemo(() => {
     return project?.images?.filter(img => img && img.trim() !== '') || [];
   }, [project?.images]);
+
+  // Limit the horizontally scrollable gallery to at most 6 images; lightbox still uses all images
+  const visibleImages = useMemo(() => validImages.slice(0, 6), [validImages]);
 
   const prevImage = useCallback(() => {
     if (validImages.length === 0) return;
@@ -229,7 +231,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
   useEffect(() => {
     const section = gallerySectionRef.current;
     const container = galleryContainerRef.current;
-    if (!section || !container || validImages.length === 0) return;
+    if (!section || !container || visibleImages.length === 0) return;
 
     const items = galleryItemsRef.current.filter(Boolean);
     if (items.length === 0) return;
@@ -337,9 +339,9 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
       }
       gsap.set(container, { willChange: 'auto', x: 0 });
     };
-  }, [validImages, gallerySectionRef, galleryContainerRef, galleryItemsRef]);
+  }, [visibleImages, gallerySectionRef, galleryContainerRef, galleryItemsRef]);
 
-  if (validImages.length === 0) {
+  if (visibleImages.length === 0) {
     return null;
   }
 
@@ -362,7 +364,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
             WebkitOverflowScrolling: 'touch',
           }}
         >
-          {validImages.map((image, index) => {
+          {visibleImages.map((image, index) => {
             if (!image || image.trim() === '') return null;
             
             const imageUrl = formatImageUrl(image);

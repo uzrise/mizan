@@ -64,11 +64,11 @@ export default function CarouselWithBackground({ project }) {
   return (
     <section
       className="relative overflow-hidden isolate"
-      style={{ height: '416px', backgroundColor: '#1a3a2a' }}
+      style={{ height: '416px', backgroundColor: '#02352D' }}
     >
       <div
         className="absolute inset-0 w-full h-full"
-        style={{ backgroundColor: '#1a3a2a' }}
+        style={{ backgroundColor: '#02352D' }}
       />
 
       <div className="absolute top-6 left-4 sm:left-6 lg:left-8 z-30">
