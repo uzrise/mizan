@@ -73,13 +73,17 @@ export async function generateMetadata({ params }) {
 
 export default async function ProjectPage({ params }) {
   const { slug } = await params;
-  const { getProject } = await import('@/lib/strapi');
+  const { getProject, getProjects } = await import('@/lib/strapi');
   
-  const project = await getProject(slug, 'RU');
+  // Fetch both current project and all projects for carousel
+  const [project, allProjects] = await Promise.all([
+    getProject(slug, 'RU'),
+    getProjects('RU')
+  ]);
   
   return (
     <main className="min-h-screen bg-white">
-      <ProjectPageClient slug={slug} initialProject={project} />
+      <ProjectPageClient slug={slug} initialProject={project} initialProjects={allProjects} />
     </main>
   );
 }

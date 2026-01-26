@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import ProjectDetail from '@/components/sections/ProjectDetail';
 import { useProject } from '@/hooks/useProjects';
 
-export default function ProjectPageClient({ slug, initialProject }) {
+export default function ProjectPageClient({ slug, initialProject, initialProjects = [] }) {
   const { project } = useProject(slug, initialProject);
 
   if (!project) {
@@ -20,6 +20,6 @@ export default function ProjectPageClient({ slug, initialProject }) {
     notFound();
   }
 
-  return <ProjectDetail project={project} />;
+  return <ProjectDetail project={project} initialProjects={initialProjects} />;
 }
 

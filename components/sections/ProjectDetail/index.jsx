@@ -8,7 +8,7 @@ import Gallery from './Gallery';
 import Specifications from './Specifications';
 import CarouselWithBackground from './CarouselWithBackground';
 
-export default function ProjectDetail({ project }) {
+export default function ProjectDetail({ project, initialProjects = [] }) {
   const containerRef = useRef(null);
   const contentRef = useRef(null);
   const gallerySectionRef = useRef(null);
@@ -61,7 +61,7 @@ export default function ProjectDetail({ project }) {
         galleryItemsRef={galleryItemsRef}
       />
       <Specifications project={project} />
-      <CarouselWithBackground project={project} />
+      <CarouselWithBackground project={project} initialProjects={initialProjects} />
     </>
   );
 }

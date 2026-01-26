@@ -7,11 +7,16 @@ import { useTranslation } from '@/contexts/TranslationContext';
 import { formatImageUrl } from '@/utils/imageUtils';
 import { useProjects } from '@/hooks/useProjects';
 
-export default function CarouselWithBackground({ project }) {
+export default function CarouselWithBackground({ project, initialProjects = [] }) {
   const { t, safeTranslate } = useTranslation();
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isAnimating, setIsAnimating] = React.useState(false);
-  const { projects: allProjects } = useProjects();
+  const { projects: clientProjects } = useProjects();
+
+  // Prioritize server-fetched initialProjects over client-fetched projects
+  const allProjects = initialProjects && initialProjects.length > 0 
+    ? initialProjects 
+    : clientProjects;
 
   const showcaseProjects = React.useMemo(() => {
     return allProjects?.slice(0, 4) || [];
@@ -73,7 +78,7 @@ export default function CarouselWithBackground({ project }) {
 
       <div className="absolute top-6 left-4 sm:left-6 lg:left-8 z-30">
         <p 
-          className="text-white mb-1"
+          className="text-white mb-1 transition-all duration-300"
           style={{
             fontWeight: 400,
             fontSize: '12px',
@@ -81,10 +86,12 @@ export default function CarouselWithBackground({ project }) {
             letterSpacing: '-0.02em',
           }}
         >
-          {t('projects.generalPlanSubtitle') || 'General Plan'}
+          {validImages[currentIndex]?.project?.locationKey 
+            ? safeTranslate(validImages[currentIndex].project.locationKey)
+            : ''}
         </p>
         <h2 
-          className="text-white"
+          className="text-white transition-all duration-300"
           style={{
             fontWeight: 600,
             fontSize: '16px',
@@ -92,7 +99,9 @@ export default function CarouselWithBackground({ project }) {
             letterSpacing: '-0.02em',
           }}
         >
-          {t('projects.generalPlan')}
+          {validImages[currentIndex]?.project?.titleKey 
+            ? safeTranslate(validImages[currentIndex].project.titleKey)
+            : t('projects.gallery')}
         </h2>
       </div>
 
