@@ -6,7 +6,6 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Register ScrollTrigger plugin
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -15,22 +14,22 @@ const STATISTICS_DATA = [
   {
     value: 18,
     labelKey: 'stats.completed',
-    image: '/images/stats/1.png', // Apartment buildings
+    image: '/images/stats/1.png',
   },
   {
     value: 32,
     labelKey: 'stats.currentProjects',
-    image: '/images/stats/2.jpg', // Construction site
+    image: '/images/stats/2.jpg',
   },
   {
     value: 120,
     labelKey: 'stats.builtKm2',
-    image: '/images/stats/3.jpg', // Office interior
+    image: '/images/stats/3.jpg',
   },
   {
     value: 3,
     labelKey: 'stats.yearsExperience',
-    image: '/images/stats/4.jpg', // Office space
+    image: '/images/stats/4.jpg',
   },
 ];
 
@@ -51,9 +50,8 @@ export default function Statistics() {
           if (entry.isIntersecting && !hasAnimated) {
             setHasAnimated(true);
             
-            // Animate each number
             statistics.forEach((stat, index) => {
-              const duration = 2000; // 2 seconds
+              const duration = 2000;
               const steps = 60;
               const increment = stat.value / steps;
               const stepDuration = duration / steps;
@@ -73,7 +71,6 @@ export default function Statistics() {
                 });
 
                 if (currentStep >= steps) {
-                  // Ensure final value is exact
                   setAnimatedValues((prev) => {
                     const newValues = [...prev];
                     newValues[index] = stat.value;
@@ -87,7 +84,7 @@ export default function Statistics() {
         });
       },
       {
-        threshold: 0.3, // Trigger when 30% of the section is visible
+        threshold: 0.3,
       }
     );
 
@@ -103,17 +100,12 @@ export default function Statistics() {
     };
   }, [hasAnimated, statistics]);
 
-  // ScrollTrigger for positioning Statistics over ProjectShowcase
-  // Bu faqat ProjectShowcase scroll masofasiga qadar ishlaydi va boshqa sectionlarga ta'sir qilmaydi
-  // Mobile da bu effect o'chiriladi
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
-    // Mobile da ScrollTrigger effect-ni o'chirish
-    const isMobile = window.innerWidth < 1024; // lg breakpoint
+    const isMobile = window.innerWidth < 1024;
     if (isMobile) {
-      // Mobile da normal holatda qoldirish
       gsap.set(section, {
         marginTop: '0px',
         zIndex: 1,
@@ -132,11 +124,10 @@ export default function Statistics() {
         }
 
         const viewportHeight = window.innerHeight;
-        const totalProjects = 4; // ProjectShowcase-dagi projectlar soni
+        const totalProjects = 4;
         const scrollMultiplier = 0.3;
         const projectShowcaseScrollDistance = viewportHeight * totalProjects * scrollMultiplier;
 
-        // Calculate ProjectShowcase section end position
         const projectShowcaseStart = projectShowcaseSection.offsetTop;
         const projectShowcaseEnd = projectShowcaseStart + projectShowcaseScrollDistance;
 
@@ -146,37 +137,27 @@ export default function Statistics() {
           end: () => `+=${projectShowcaseScrollDistance}`,
           scrub: true,
           invalidateOnRefresh: true,
-          refreshPriority: 1, // Higher priority - refresh before AwardsAndPartners
+          refreshPriority: 1,
           onUpdate: (self) => {
             const progress = self.progress;
-            // ProjectShowcase scroll davomida Statistics-ni ustiga chiqaradi
-            // Scroll tugagandan keyin normal holatga qaytadi
             const negativeMargin = -projectShowcaseScrollDistance * (1 - progress);
             gsap.set(section, {
               marginTop: `${negativeMargin}px`,
             });
           },
           onLeave: () => {
-            // ProjectShowcase scroll tugagandan keyin Statistics normal holatga qaytadi
-            // Va keyingi sectionlarga ta'sir qilmasligi uchun marginTop 0 qilamiz
-            gsap.set(section, {
-              marginTop: '0px',
-              clearProps: 'marginTop', // Clear props to prevent conflicts
-            });
-            // Ensure AwardsAndPartners is not affected by refreshing its ScrollTrigger
-            setTimeout(() => {
-              ScrollTrigger.refresh();
-            }, 0);
-          },
-          onEnterBack: () => {
-            // Orqaga scroll qilganda yana negative margin qo'llanadi
-            gsap.set(section, {
-              marginTop: `-${projectShowcaseScrollDistance}px`,
+            requestAnimationFrame(() => {
+              gsap.set(section, {
+                marginTop: '0px',
+                clearProps: 'marginTop',
+              });
+              requestAnimationFrame(() => {
+                ScrollTrigger.refresh();
+              });
             });
           },
         });
 
-        // Initial positioning - faqat ProjectShowcase scroll masofasiga qadar
         gsap.set(section, {
           marginTop: `-${projectShowcaseScrollDistance}px`,
           zIndex: 20,
@@ -188,11 +169,9 @@ export default function Statistics() {
 
     const timer = setTimeout(checkAndInit, 200);
 
-    // Handle window resize
     const handleResize = () => {
       const currentIsMobile = window.innerWidth < 1024;
       if (currentIsMobile && scrollTrigger) {
-        // Mobile ga o'tsa ScrollTrigger-ni o'chirish
         scrollTrigger.kill();
         scrollTrigger = null;
         gsap.set(section, {
@@ -215,7 +194,6 @@ export default function Statistics() {
       if (scrollTrigger) {
         scrollTrigger.kill();
       }
-      // Cleanup - marginTop-ni tozalash
       if (section) {
         gsap.set(section, {
           marginTop: '0px',
@@ -235,7 +213,6 @@ export default function Statistics() {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-4">
-          {/* Left side - 2 cards side by side */}
           <div className="flex flex-row gap-2 sm:gap-4 w-full lg:w-auto justify-center lg:justify-start overflow-x-auto lg:overflow-visible scrollbar-hide">
             {statistics.slice(0, 2).map((stat, index) => (
               <div
@@ -246,7 +223,6 @@ export default function Statistics() {
                   borderTopRightRadius: '200px',
                 }}
               >
-                {/* Background Image */}
                 <div className="absolute inset-0">
                   <Image
                     src={stat.image}
@@ -257,7 +233,6 @@ export default function Statistics() {
                   />
                 </div>
                 
-                {/* Gradient overlay with backdrop filter - image visible at top, white at bottom merging with section */}
                 <div 
                   className="absolute inset-0"
                   style={{
@@ -266,7 +241,6 @@ export default function Statistics() {
                   }}
                 />
                 
-                {/* Content - positioned at bottom with padding */}
                 <div 
                   className="relative h-full flex flex-col items-center justify-end text-center p-3 sm:p-4 md:p-5 lg:p-6"
                 >
@@ -310,7 +284,6 @@ export default function Statistics() {
             ))}
           </div>
 
-          {/* Center Logo */}
           <div className="w-full sm:w-[200px] lg:w-[280px] flex items-center justify-center px-4 lg:px-8 py-4 lg:py-0">
             <Image
               src="/images/logo_gray.png"
@@ -321,7 +294,6 @@ export default function Statistics() {
             />
           </div>
 
-          {/* Right side - 2 cards side by side */}
           <div className="flex flex-row gap-2 sm:gap-4 w-full lg:w-auto justify-center lg:justify-start overflow-x-auto lg:overflow-visible scrollbar-hide">
             {statistics.slice(2, 4).map((stat, index) => (
               <div
@@ -332,7 +304,6 @@ export default function Statistics() {
                   borderTopRightRadius: '200px',
                 }}
               >
-                {/* Background Image */}
                 <div className="absolute inset-0">
                   <Image
                     src={stat.image}
@@ -343,7 +314,6 @@ export default function Statistics() {
                   />
                 </div>
                 
-                {/* Gradient overlay with backdrop filter - image visible through overlay */}
                 <div 
                   className="absolute inset-0"
                   style={{
@@ -351,7 +321,6 @@ export default function Statistics() {
                   }}
                 />
                 
-                {/* Content - positioned at bottom with padding */}
                 <div 
                   className="relative h-full flex flex-col items-center justify-end text-center p-3 sm:p-4 md:p-5 lg:p-6"
                 >

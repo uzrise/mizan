@@ -1,19 +1,23 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState, useEffect, useRef, startTransition } from 'react';
 import { getTranslation, safeTranslate as safeTranslateUtil } from '@/translations';
 
 const TranslationContext = createContext();
 
 export function TranslationProvider({ children }) {
-  // Default to RU on both server and first client render to avoid hydration mismatch.
   const [language, setLanguage] = useState('RU');
+  const hasHydrated = useRef(false);
 
-  // After mount, sync with any saved preference.
   useEffect(() => {
-    const savedLang = localStorage.getItem('language');
-    if (savedLang && ['RU', 'EN', 'UZ', 'TR'].includes(savedLang)) {
-      setLanguage(savedLang);
+    if (!hasHydrated.current) {
+      hasHydrated.current = true;
+      const savedLang = localStorage.getItem('language');
+      if (savedLang && ['RU', 'EN', 'UZ', 'TR'].includes(savedLang) && savedLang !== 'RU') {
+        startTransition(() => {
+          setLanguage(savedLang);
+        });
+      }
     }
   }, []);
 

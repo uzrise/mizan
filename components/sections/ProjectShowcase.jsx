@@ -19,7 +19,6 @@ export default function ProjectShowcase({ initialProjects = [] }) {
   const projectRefs = useRef([]);
   const { projects: clientProjects, loading: clientLoading, error } = useProjects();
 
-  // Prioritize server-fetched initialProjects over client-fetched projects (like Portfolio does)
   const projectsToUse = initialProjects && initialProjects.length > 0 
     ? initialProjects 
     : clientProjects;
@@ -107,12 +106,6 @@ export default function ProjectShowcase({ initialProjects = [] }) {
             transform: 'translateZ(0)',
             backfaceVisibility: 'hidden',
             willChange: 'transform'
-          });
-        },
-        onEnterBack: () => {
-          gsap.set(container, { 
-            transform: 'translateZ(0)',
-            backfaceVisibility: 'hidden'
           });
         },
         onUpdate: (self) => {
