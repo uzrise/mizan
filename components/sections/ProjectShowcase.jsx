@@ -17,11 +17,14 @@ export default function ProjectShowcase({ initialProjects = [] }) {
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
   const projectRefs = useRef([]);
-  const { projects: allProjects, loading, error } = useProjects();
+  const { projects: clientProjects, loading: clientLoading, error } = useProjects();
 
-  const projectsToUse = allProjects && allProjects.length > 0 
-    ? allProjects 
-    : initialProjects;
+  // Prioritize server-fetched initialProjects over client-fetched projects (like Portfolio does)
+  const projectsToUse = initialProjects && initialProjects.length > 0 
+    ? initialProjects 
+    : clientProjects;
+
+  const loading = initialProjects && initialProjects.length > 0 ? false : clientLoading;
 
   const projects = projectsToUse?.slice(0, 4) || [];
 
