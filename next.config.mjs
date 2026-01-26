@@ -19,9 +19,12 @@ const nextConfig = {
         port: '1337',
         pathname: '/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'admin.mizanarchitect.uz',
+        pathname: '/uploads/**',
+      },
     ],
-    // Allow localhost for development
-    domains: ['localhost'],
   },
   // Performance optimizations
   reactStrictMode: true,
