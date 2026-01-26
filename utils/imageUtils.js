@@ -10,6 +10,16 @@ const LOCAL_PUBLIC_PATHS = [
   '/window.svg'
 ];
 
+// Simple blur placeholder - gray background
+export const BLUR_DATA_URL = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBEQCEAwEPwAB//9k=';
+
+// Check if image should skip Next.js optimization (only for localhost in development)
+export function shouldSkipOptimization(imageUrl) {
+  if (!imageUrl) return false;
+  // Only skip optimization for localhost URLs (development)
+  return imageUrl.includes('localhost:1337');
+}
+
 export function formatImageUrl(image) {
   if (!image || image.trim() === '') return '';
   

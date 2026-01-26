@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { formatImageUrl } from '@/utils/imageUtils';
+import { formatImageUrl, shouldSkipOptimization, BLUR_DATA_URL } from '@/utils/imageUtils';
 
 export default function Hero({ project }) {
   const { safeTranslate } = useTranslation();
@@ -17,10 +17,12 @@ export default function Hero({ project }) {
             src={imageUrl}
             alt={safeTranslate(project?.titleKey)}
             fill
-            unoptimized={imageUrl.includes('localhost:1337')}
+            unoptimized={shouldSkipOptimization(imageUrl)}
             className="object-cover"
             sizes="100vw"
             priority
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
             onError={(e) => {
               console.error('Hero image failed to load:', imageUrl);
             }}

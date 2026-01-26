@@ -4,7 +4,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { formatImageUrl } from '@/utils/imageUtils';
+import { formatImageUrl, shouldSkipOptimization, BLUR_DATA_URL } from '@/utils/imageUtils';
 import { useProjects } from '@/hooks/useProjects';
 
 export default function CarouselWithBackground({ project, initialProjects = [] }) {
@@ -160,7 +160,9 @@ export default function CarouselWithBackground({ project, initialProjects = [] }
                       className="object-contain"
                       sizes={isCenter ? '596px' : '427px'}
                       priority={index <= 2}
-                      unoptimized={imageUrl.includes('localhost:1337')}
+                      unoptimized={shouldSkipOptimization(imageUrl)}
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
                       onError={(e) => {
                         console.error('Carousel image failed to load:', imageUrl);
                       }}

@@ -6,7 +6,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { formatImageUrl } from '@/utils/imageUtils';
+import { formatImageUrl, shouldSkipOptimization, BLUR_DATA_URL } from '@/utils/imageUtils';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -394,7 +394,10 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 640px) 85vw, (max-width: 768px) 70vw, (max-width: 1024px) 60vw, 50vw"
-                  unoptimized={imageUrl.includes('localhost:1337')}
+                  unoptimized={shouldSkipOptimization(imageUrl)}
+                  priority={index < 2}
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
                   onError={(e) => {
                     console.error('Image failed to load:', imageUrl);
                     e.target.style.display = 'none';
@@ -490,7 +493,9 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                       className="object-contain"
                       sizes="90vw"
                       priority
-                      unoptimized={currentImageUrl?.includes('localhost:1337')}
+                      unoptimized={shouldSkipOptimization(currentImageUrl)}
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
                       onError={(e) => {
                         console.error('Lightbox image failed to load:', currentImageUrl);
                       }}
@@ -525,7 +530,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                           index === currentImageIndex ? 'opacity-100' : 'opacity-70 hover:opacity-90'
                         }`}
                         sizes="64px"
-                        unoptimized={thumbnailUrl.includes('localhost:1337')}
+                        unoptimized={shouldSkipOptimization(thumbnailUrl)}
                         onError={(e) => {
                           console.error('Thumbnail failed to load:', thumbnailUrl);
                         }}
