@@ -6,6 +6,9 @@ import AwardsAndPartners from "@/components/sections/AwardsAndPartners";
 import Team from "@/components/sections/Team";
 import { getProjects } from "@/lib/strapi";
 
+// Revalidate data every 60 seconds
+export const revalidate = 60;
+
 export default async function Home() {
   const initialProjects = await getProjects('RU');
 

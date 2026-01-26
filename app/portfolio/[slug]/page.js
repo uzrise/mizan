@@ -2,6 +2,9 @@ import { notFound } from 'next/navigation';
 import ProjectPageClient from './ProjectPageClient';
 import { getAllProjects } from '@/lib/strapi';
 
+// Revalidate data every 60 seconds
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   try {
     const projects = await getAllProjects();
