@@ -19,11 +19,16 @@ export default function ProjectShowcase({ initialProjects = [] }) {
   const projectRefs = useRef([]);
   const { projects: clientProjects, loading: clientLoading, error } = useProjects();
 
-  const projectsToUse = initialProjects && initialProjects.length > 0 
-    ? initialProjects 
-    : clientProjects;
+  // Prefer client-side projects (which react to language changes)
+  // and fall back to server-fetched initialProjects only if client data
+  // is not yet available.
+  const hasClientProjects = clientProjects && clientProjects.length > 0;
 
-  const loading = initialProjects && initialProjects.length > 0 ? false : clientLoading;
+  const projectsToUse = hasClientProjects
+    ? clientProjects
+    : (initialProjects || []);
+
+  const loading = !hasClientProjects && clientLoading;
 
   const projects = projectsToUse?.slice(0, 4) || [];
 
