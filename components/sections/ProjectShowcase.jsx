@@ -1,12 +1,14 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslation } from '@/contexts/TranslationContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useProjects } from '@/hooks/useProjects';
+import { transformProject } from '@/lib/strapi';
+import { isConstantsProject } from '@/utils/projectUtils';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -19,13 +21,26 @@ export default function ProjectShowcase({ initialProjects = [] }) {
   const projectRefs = useRef([]);
   const { projects: clientProjects, loading: clientLoading, error } = useProjects();
 
+  // Transform initialProjects based on current language
+  // This ensures texts update when language changes
+  const transformedInitialProjects = useMemo(() => {
+    if (!initialProjects || initialProjects.length === 0) {
+      return null;
+    }
+    return initialProjects.map(project => {
+      if (isConstantsProject(project)) {
+        return project;
+      }
+      return transformProject(project, language);
+    });
+  }, [initialProjects, language]);
+
   // Prioritize server-fetched initialProjects over client-fetched projects
-  // This ensures data from Strapi is used when available
-  const projectsToUse = initialProjects && initialProjects.length > 0 
-    ? initialProjects 
+  const projectsToUse = transformedInitialProjects && transformedInitialProjects.length > 0 
+    ? transformedInitialProjects 
     : clientProjects;
 
-  const loading = initialProjects && initialProjects.length > 0 ? false : clientLoading;
+  const loading = transformedInitialProjects && transformedInitialProjects.length > 0 ? false : clientLoading;
 
   const projects = projectsToUse?.slice(0, 4) || [];
 
