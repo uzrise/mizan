@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useProjects } from '@/hooks/useProjects';
 import { transformProject } from '@/lib/strapi';
 import { isConstantsProject } from '@/utils/projectUtils';
+import { formatImageUrl, shouldSkipOptimization, BLUR_DATA_URL } from '@/utils/imageUtils';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -370,11 +371,15 @@ export default function ProjectShowcase({ initialProjects = [] }) {
                   }}
                 >
                   <Image
-                    src={project.image || '/images/projects/1.jpg'}
+                    src={formatImageUrl(project.image) || '/images/projects/1.jpg'}
                     alt={safeTranslate(project?.titleKey) || 'Project'}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 256px, (max-width: 1024px) 256px, 548px"
+                    placeholder="blur"
+                    blurDataURL={BLUR_DATA_URL}
+                    priority
+                    unoptimized={shouldSkipOptimization(formatImageUrl(project.image) || '')}
                   />
                   
                   <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
