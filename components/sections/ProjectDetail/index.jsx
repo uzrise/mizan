@@ -61,7 +61,7 @@ export default function ProjectDetail({ project, initialProjects = [] }) {
         galleryItemsRef={galleryItemsRef}
       />
       <Specifications project={project} />
-      <CarouselWithBackground project={project} initialProjects={initialProjects} />
+      {/* <CarouselWithBackground project={project} initialProjects={initialProjects} /> */}
     </>
   );
 }
