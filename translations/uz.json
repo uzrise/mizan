@@ -15,7 +15,7 @@
     "title": "Bizning loyihalarimiz",
     "description": "Mizan Architecture’da biz yirik va murakkab loyihalarni yaratamiz. Har bir loyihada innovatsion yondashuv, ilg‘or texnologiyalar va estetik uyg‘unlik birlashgan.   Portfolio orqali bizning amalga oshirgan ishlarimizni, ijodiy yondashuvimizni va mijozlarimiz bilan hamkorligimiz natijalarini ko‘rishingiz mumkin.",
     "all": "Hammasi",
-    "exterior": "Eksterer",
+    "exterior": "Eksteryer",
     "interior": "Interyer",
     "backToPortfolio": "Portfolioga qaytish",
     "viewProject": "Loyihani ko'rish"
@@ -303,7 +303,7 @@
     "leadDesigner": "Urban dizayner",
     "architectVisualizer": "Vizualizator",
     "constructionEngineer": "Arxitektor",
-    "interiorDesigner": "Architect Designer",
+    "interiorDesigner": "Arxitektor Designer",
     "role": "Rol",
     "experience": "Tajriba",
     "years": "yil",

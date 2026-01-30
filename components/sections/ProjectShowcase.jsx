@@ -368,7 +368,7 @@ export default function ProjectShowcase({ initialProjects = [] }) {
                   <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
                   
                   <h3 
-                    className="absolute bottom-0 left-0 right-0 px-3 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6 text-white uppercase text-sm sm:text-base md:text-xl lg:text-2xl"
+                    className="absolute bottom-0 left-0 right-0 px-3 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6 text-white uppercase text-sm sm:text-base md:text-xl"
                     style={{
                       fontFamily: 'var(--font-inter), Inter, sans-serif',
                       fontWeight: 500,
