@@ -11,6 +11,13 @@ export default function IntroAnimation() {
   useEffect(() => {
     if (!overlayRef.current || !logoRef.current) return;
 
+    // Til o'zgarganda (locale nav) intro qayta ishlamasin — faqat birinchi marta
+    if (typeof window !== 'undefined' && window.__introComplete === true) {
+      overlayRef.current.style.display = 'none';
+      if (logoRef.current) logoRef.current.style.display = 'none';
+      return;
+    }
+
     let cancelled = false;
 
     // Disable scroll during intro animation

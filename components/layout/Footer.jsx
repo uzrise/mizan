@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Footer() {
-  const { language, changeLanguage, t } = useTranslation();
+  const { language, locale, changeLanguage, t } = useTranslation();
   const languages = ['RU', 'EN', 'UZ', 'TR'];
 
   return (
@@ -17,7 +17,7 @@ export default function Footer() {
             {/* Left Side - Logo and Navigation */}
             <div>
               <div className="mb-8">
-                <Link href="/">
+                <Link href={`/${locale}`}>
                   <Image
                     src="/images/logo_green.png"
                     alt="Mizan Logo"
@@ -58,7 +58,7 @@ export default function Footer() {
             {/* Right Side - Contact and Language */}
             <div className="flex flex-col items-start md:items-end">
               <Link
-                href="/contact"
+                href={`/${locale}/contact`}
                 className="text-[#1a3a2a] font-medium text-base mb-6 hover:underline flex items-center gap-2 cursor-pointer"
               >
                 {t('nav.contact')}

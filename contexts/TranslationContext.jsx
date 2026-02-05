@@ -1,25 +1,45 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, useRef, startTransition } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import { getTranslation, safeTranslate as safeTranslateUtil } from '@/translations';
 
 const TranslationContext = createContext();
 
-export function TranslationProvider({ children }) {
-  const [language, setLanguage] = useState('RU');
+const localeToLanguage = { ru: 'RU', en: 'EN', uz: 'UZ', tr: 'TR' };
+const languageToLocale = { RU: 'ru', EN: 'en', UZ: 'uz', TR: 'tr' };
+
+export function TranslationProvider({ children, initialLocale = 'ru' }) {
+  const pathname = usePathname();
+  const langFromUrl = pathname?.split('/')[1]?.toLowerCase();
+  const initialLang = localeToLanguage[initialLocale] || localeToLanguage[langFromUrl] || 'RU';
+  const [language, setLanguage] = useState(initialLang);
   const hasHydrated = useRef(false);
+  const prevPathnameRef = useRef(pathname);
 
   useEffect(() => {
-    if (!hasHydrated.current) {
+    if (prevPathnameRef.current !== pathname) {
+      prevPathnameRef.current = pathname;
+      const locale = langFromUrl && ['ru', 'en', 'uz', 'tr'].includes(langFromUrl) ? langFromUrl : initialLocale;
+      const lang = localeToLanguage[locale] || 'RU';
+      queueMicrotask(() => setLanguage(lang));
+    }
+  }, [pathname, initialLocale, langFromUrl]);
+
+  useEffect(() => {
+    if (!hasHydrated.current && typeof window !== 'undefined') {
       hasHydrated.current = true;
       const savedLang = localStorage.getItem('language');
-      if (savedLang && ['RU', 'EN', 'UZ', 'TR'].includes(savedLang) && savedLang !== 'RU') {
-        startTransition(() => {
-          setLanguage(savedLang);
-        });
+      if (savedLang && ['RU', 'EN', 'UZ', 'TR'].includes(savedLang)) {
+        const currentLocale = pathname?.split('/')[1]?.toLowerCase();
+        if (!currentLocale || !['ru', 'en', 'uz', 'tr'].includes(currentLocale)) {
+          queueMicrotask(() => setLanguage(savedLang));
+        }
       }
     }
-  }, []);
+  }, [pathname]);
+
+  const locale = languageToLocale[language] || 'ru';
 
   const changeLanguage = (lang) => {
     setLanguage(lang);
@@ -37,7 +57,7 @@ export function TranslationProvider({ children }) {
   };
 
   return (
-    <TranslationContext.Provider value={{ language, changeLanguage, t, safeTranslate }}>
+    <TranslationContext.Provider value={{ language, locale, changeLanguage, t, safeTranslate }}>
       {children}
     </TranslationContext.Provider>
   );

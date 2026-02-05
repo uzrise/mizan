@@ -8,7 +8,7 @@ import { formatImageUrl, shouldSkipOptimization, BLUR_DATA_URL } from '@/utils/i
 import { useProjects } from '@/hooks/useProjects';
 
 export default function CarouselWithBackground({ project, initialProjects = [] }) {
-  const { t, safeTranslate } = useTranslation();
+  const { t, locale, safeTranslate } = useTranslation();
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isAnimating, setIsAnimating] = React.useState(false);
   const { projects: clientProjects } = useProjects();
@@ -135,7 +135,7 @@ export default function CarouselWithBackground({ project, initialProjects = [] }
               return (
                 <Link
                   key={uniqueKey}
-                  href={`/portfolio/${projectItem?.slug}`}
+                  href={`/${locale}/portfolio/${projectItem?.slug}`}
                   className="shrink-0 flex items-center justify-center"
                   style={{ 
                     width: `${itemWidth}px`,

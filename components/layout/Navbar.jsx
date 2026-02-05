@@ -9,7 +9,7 @@ import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { language, changeLanguage, t } = useTranslation();
+  const { language, locale, changeLanguage, t } = useTranslation();
   const [showLogo, setShowLogo] = useState(() => {
     // Initialize state based on intro completion status
     return typeof window !== 'undefined' && window.__introComplete === true;
@@ -151,7 +151,7 @@ export default function Navbar() {
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           >
             {showLogo ? (
-              <Link href="/" className="block w-[160px] sm:w-[190px] md:w-[220px] h-[24px] sm:h-[28px] md:h-[32px]">
+              <Link href={`/${locale}`} className="block w-[160px] sm:w-[190px] md:w-[220px] h-[24px] sm:h-[28px] md:h-[32px]">
                 <Image
                   src="/images/logo.svg"
                   alt="Mizan Logo"
@@ -237,35 +237,35 @@ export default function Navbar() {
             {/* Navigation Links - Chap tomonda vertical */}
             <nav className="flex flex-col w-fit gap-6 flex-1 pt-10">
               <Link
-                href="/"
+                href={`/${locale}`}
                 onClick={() => setIsMenuOpen(false)}
                 className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2 cursor-pointer"
               >
                 {t('nav.home')}
               </Link>
               <Link
-                href="/portfolio"
+                href={`/${locale}/portfolio`}
                 onClick={() => setIsMenuOpen(false)}
                 className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2 cursor-pointer"
               >
                 {t('nav.portfolio')}
               </Link>
               <Link
-                href="/durability"
+                href={`/${locale}/durability`}
                 onClick={() => setIsMenuOpen(false)}
                 className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2 cursor-pointer"
               >
                 {t('nav.durability')}
               </Link>
               <Link
-                href="/about"
+                href={`/${locale}/about`}
                 onClick={() => setIsMenuOpen(false)}
                 className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2 cursor-pointer"
               >
                 {t('nav.about')}
               </Link>
               <Link
-                href="/contact"
+                href={`/${locale}/contact`}
                 onClick={() => setIsMenuOpen(false)}
                 className="text-white text-xl font-medium hover:text-[#fbbf24] transition-colors py-2 flex items-center gap-2 cursor-pointer"
               >

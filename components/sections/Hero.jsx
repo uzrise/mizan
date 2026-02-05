@@ -6,9 +6,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 
+// Til o'zgarganda Hero qayta mount bo'ladi — rasm allaqachon yuklangan bo'lsa yashil ko'rinmasin
+const getHeroImageAlreadyLoaded = () =>
+  typeof window !== 'undefined' && !!window.__heroImageLoaded;
+
 export default function Hero() {
-  const { t } = useTranslation();
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const { t, locale } = useTranslation();
+  const [imageLoaded, setImageLoaded] = useState(getHeroImageAlreadyLoaded);
 
   return (
     <section
@@ -30,7 +34,10 @@ export default function Hero() {
               placeholder="blur"
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAuMB9o8zWZ4AAAAASUVORK5CYII="
               sizes="100vw"
-              onLoadingComplete={() => setImageLoaded(true)}
+              onLoadingComplete={() => {
+                if (typeof window !== 'undefined') window.__heroImageLoaded = true;
+                setImageLoaded(true);
+              }}
               className={`object-cover object-center transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             />
             {/* Fallback gradient overlay */}
@@ -57,7 +64,7 @@ export default function Hero() {
             <p className="text-base sm:text-lg md:text-xl text-white/95 mb-4 sm:mb-0 max-w-full sm:max-w-[860px]">
               {t('hero.description')}
             </p>
-            <Link href="/portfolio">
+            <Link href={`/${locale}/portfolio`}>
               <Button className="w-full sm:w-auto shrink-0">
                 {t('hero.cta')}
               </Button>

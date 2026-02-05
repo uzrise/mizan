@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 const ProjectCard = memo(({ project }) => {
-  const { t, safeTranslate } = useTranslation();
+  const { t, locale, safeTranslate } = useTranslation();
 
   return (
     <div
@@ -16,7 +16,7 @@ const ProjectCard = memo(({ project }) => {
       style={{ opacity: 0, transform: "translateY(40px) scale(0.9)" }}
     >
       <Link
-        href={`/portfolio/${project.slug}`}
+        href={`/${locale}/portfolio/${project.slug}`}
         className="relative block overflow-hidden"
       >
         <div className="relative overflow-hidden w-full aspect-457/427">

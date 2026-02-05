@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function BackButton() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   return (
     <Link
-      href="/portfolio"
+      href={`/${locale}/portfolio`}
       className="inline-flex items-center gap-2 text-[#1a3a2a] hover:text-[#fbbf24] transition-colors mb-8 md:mb-12 group"
     >
       <svg

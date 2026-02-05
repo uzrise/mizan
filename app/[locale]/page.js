@@ -6,17 +6,20 @@ import AwardsAndPartners from "@/components/sections/AwardsAndPartners";
 import Team from "@/components/sections/Team";
 import { getProjects } from "@/lib/strapi";
 
-// Revalidate data every 60 seconds
 export const revalidate = 60;
 
-export default async function Home() {
-  const initialProjects = await getProjects('RU');
+const localeToLang = { ru: 'RU', en: 'EN', uz: 'UZ', tr: 'TR' };
+
+export default async function Home({ params }) {
+  const { locale } = await params;
+  const lang = localeToLang[locale?.toLowerCase()] || 'RU';
+  const initialProjects = await getProjects(lang);
 
   return (
     <main className="min-h-screen">
       <Hero />
       <div className="space-y-24">
-        <ProjectShowcase initialProjects={initialProjects} />   
+        <ProjectShowcase initialProjects={initialProjects} />
         <Statistics />
         <CompanyValues />
         <div style={{ backgroundColor: "#00382F" }}>

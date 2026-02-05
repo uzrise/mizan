@@ -16,7 +16,7 @@ if (typeof window !== 'undefined') {
 }
 
 export default function ProjectShowcase({ initialProjects = [] }) {
-  const { t, language, safeTranslate } = useTranslation();
+  const { t, language, locale, safeTranslate } = useTranslation();
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
   const projectRefs = useRef([]);
@@ -361,7 +361,7 @@ export default function ProjectShowcase({ initialProjects = [] }) {
               }}
               className="group relative shrink-0"
             >
-              <Link href={`/portfolio/${project.slug}`}>
+              <Link href={`/${locale}/portfolio/${project.slug}`}>
                 <div
                   data-project-image
                   className="relative rounded-lg overflow-hidden bg-gray-200 shadow-lg cursor-pointer"
