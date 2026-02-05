@@ -43,7 +43,7 @@ export async function generateMetadata({ params }) {
       type: 'website',
       images: [
         {
-          url: '/opengraph-image',
+          url: '/IMG_7634.png',
           width: 1200,
           height: 630,
           alt: 'Mizan Architecture',
@@ -54,7 +54,7 @@ export async function generateMetadata({ params }) {
       card: 'summary_large_image',
       title: seo.title,
       description: seo.description,
-      images: ['/opengraph-image'],
+      images: ['/IMG_7634.png'],
     },
   };
 }
