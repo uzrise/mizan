@@ -1,90 +1,89 @@
 {
   "nav": {
     "home": "Home",
-    "portfolio": "Portfolio",
-    "durability": "Durability",
+    "portfolio": "Our Projects",
+    "durability": "Why Mizan?",
     "about": "About Us",
     "contact": "Contact"
   },
   "hero": {
-    "title": "Expanding the Boundaries of Innovative Architecture",
-    "description": "Mizan Architecture creates modern, aesthetic, and functional spaces. We transform your ideas into thoughtful and sustainable solutions.",
-    "description2": "",
-    "cta": "Learn More"
+    "title": "Expanding the boundaries of innovative architecture",
+    "description": "We turn your ideas into real and sustainable solutions. Mizan — shaping the future through design!",
+    "cta": "Learn more"
   },
   "portfolio": {
-    "title": "Portfolio",
-    "description": "At Mizan Architecture, we create modern and innovative architectural solutions. Each project combines technology, sustainability, and aesthetics, providing our clients with high quality and reliable results. We strictly monitor the budget and effectively manage expenses at all stages of work.",
+    "title": "Our Projects",
+    "description": "At Mizan Architecture, we create large-scale and complex projects. Each project combines an innovative approach, advanced technologies, and aesthetic harmony. Through our portfolio, you can explore our completed works, creative vision, and successful collaboration with clients.",
     "all": "All",
     "exterior": "Exterior",
     "interior": "Interior",
-    "backToPortfolio": "Back to Portfolio",
-    "viewProject": "View Project"
+    "backToPortfolio": "Back to portfolio",
+    "viewProject": "View project"
   },
   "projects": {
-    "details": "Project Details",
+    "details": "Project details",
     "gallery": "Gallery",
     "category": "Category",
     "client": "Client",
     "architecture": "Architecture",
     "status": "Status",
-    "team": "Project Team",
+    "team": "Project team",
     "location": "Location",
     "year": "Year",
     "area": "Area",
     "typeOfWork": "Type of work",
-    "generalPlan": "General Plan - Construction",
-    "generalPlanSubtitle": "General Plan",
-    "generalPlanDescription": "Details showing the general plan and construction process of the project.",
+    "generalPlan": "Master plan – Construction",
+    "generalPlanSubtitle": "Master Plan",
+    "generalPlanDescription": "The overall project plan and details of the construction process.",
     "sketch": "Sketch",
     "subtitle": "Subtitle",
-    "projectDescription": "Project Description",
-    "idea": "Project Idea",
-    "technicalParameters": "Technical Parameters",
+    "projectDescription": "Project description",
+    "idea": "Project idea",
+    "technicalParameters": "Technical parameters",
     "exterior": "Exterior",
-    "visualSymbols": "Visual Symbols",
-    "numberOfFloors": "Number of Floors",
+    "visualSymbols": "Visual symbols",
+    "numberOfFloors": "Number of floors",
     "functions": "Functions",
     "services": "Services",
-    "internalZoneSeparation": "Internal Zone Separation",
+    "internalZoneSeparation": "Internal zone separation",
     "defaultTeam": "MIZAN Architecture Team",
     "specifications": {
       "externalFacadeInspiration": "External facade inspiration",
-      "arkFortressSilhouette": "Ark fortress silhouette",
+      "arkFortressSilhouette": "Ark Fortress silhouette",
       "visualSymbols": "Visual symbols",
       "crescentMoonAndStars": "Crescent moon and 12 stars (based on the flag of Uzbekistan)",
       "numberOfFloors": "Number of floors",
-      "threeFloors": "3 (1, 2, -1 technical floor)",
+      "threeFloors": "3 (1, 2, −1 technical floor)",
       "functions": "Functions",
       "departureArrivalTechnicalZones": "Departure / arrival / technical zones",
       "services": "Services",
-      "servicesList": "Duty Free, Recreation area, Toilets, Passport control",
+      "servicesList": "Duty Free, lounge areas, restrooms, passport control",
       "internalZoneAllocation": "Internal zone allocation",
       "fullFunctionalPlanning": "Based on full functional planning"
     },
     "defaultDescription": "Project description will be added soon.",
-    "defaultApproach": "Project approach and concept will be added soon.",
-    "defaultTechnicalParams": "Technical parameters will be added soon.",
+    "defaultApproach": "This structure, reminiscent of the historical significance of the city of Bukhara, has been designed as a modern airport while also serving as an important landmark representing tourism, culture, and Islamic heritage. The concept embodies a modern style harmoniously blended with dreams, virtue, national pride, and Islamic values.",
+    "defaultTechnicalParams": "Note: as this project is conceptual, some area measurements are not specified separately.",
     "airport": {
       "title": "BUKHARA AIRPORT",
       "subtitle": "Modern airport",
       "location": "Bukhara",
-      "description": "A modern airport terminal design combining functionality with architectural elegance.",
-      "details": "A state-of-the-art airport terminal featuring sustainable design principles and advanced passenger flow optimization.",
-      "category": "Airport, Commercial object",
-      "client": "Jamoat Ishlari, Aeroport",
+      "description": "The concept of the new Bukhara International Airport aims to reflect the city's religious, cultural, and historical heritage through modern architecture. The project is visually and conceptually inspired by the crescent moon and 12 stars on the national flag of the Republic of Uzbekistan, as well as Bukhara's historical title \"Qubbat al-Islam\" — \"The Dome of Islam.\" The building facade is inspired by the ancient Ark fortress in a modern form, expressing regional identity. The airport building is functionally zoned: each floor of the terminal is carefully designed for comfortable passenger flow management.",
+      "details": "A modern airport terminal equipped with sustainable design principles and advanced passenger flow optimization.",
+      "category": "Airport, commercial facility",
+      "client": "Public works, airport authority",
       "status": "In progress",
-      "area": "211, 2, -1 sq.m",
+      "area": "211, 2, −1 sq.m",
       "typeOfWork": "Full functional design",
-      "idea": "Creating a modern airport terminal with focus on functionality and aesthetics.",
-      "technicalParams": "Area: 211, 2, -1 sq.m. Modern security and passenger flow management systems.",
+      "idea": "To create a modern airport terminal focused on functionality and aesthetics.",
+      "technicalParams": "Area: 211, 2, −1 sq.m. Modern security and passenger management systems.",
       "architecture": "Mizan Architecture Team",
       "team": "Mizan Architecture Team",
-      "exterior": "Modern facade using glass and metal",
-      "visualSymbols": "Aviation and movement symbolism",
-      "numberOfFloors": "3 floors (1, 2, -1 technical floor)",
-      "functions": "Departure/arrival zones, technical zones",
-      "services": "Duty Free, Recreation area, Toilets, Passport control",
+      "exterior": "Modern facade with glass and metal",
+      "visualSymbols": "Aviation and movement symbols",
+      "numberOfFloors": "3 floors (1, 2, −1 technical floor)",
+      "functions": "Departure/arrival areas, technical zones",
+      "services": "Duty Free, lounge areas, restrooms, passport control",
       "internalZoneSeparation": "Based on full functional planning"
     },
     "businessCenter": {
@@ -265,46 +264,42 @@
     }
   },
   "stats": {
-    "completed": "COMPLETED",
-    "currentProjects": "CURRENT PROJECTS",
+    "completed": "completed projects",
+    "currentProjects": "ongoing projects",
     "builtKm2": "BUILT KM²",
-    "yearsExperience": "YEARS OF EXPERIENCE"
+    "yearsExperience": "years of experience"
   },
   "values": {
     "innovative": {
       "title": "Innovative",
-      "description": "Architectural firms create unique and creative projects that combine aesthetics with functionality. We approach each project individually, offering modern and innovative solutions."
+      "description": "Architecture is about creating unique and creative projects that combine aesthetics and functionality. We approach each project individually and offer modern, innovative solutions."
     },
     "economical": {
-      "title": "Economical",
-      "description": "Ensuring budget execution and effective cost management is one of the most important aspects of a successful architectural firm. Proper planning maintains a balance between quality and cost."
+      "title": "Cost-effective",
+      "description": "Budget adherence and efficient cost management are among the most important aspects of architecture. Through proper planning, we ensure a balance between quality and value."
     },
     "sustainability": {
-      "title": "Sustainability",
-      "description": "Environmental responsibility and sustainability are key areas of activity for modern architectural firms. Special attention is paid to energy-efficient projects and the use of durable materials."
+      "title": "Sustainable",
+      "description": "In today's climate conditions, creating environmentally safe and eco-friendly projects is a responsibility. We prioritize energy-efficient solutions and durable, high-quality materials."
     },
     "clientOriented": {
-      "title": "Client-Oriented",
-      "description": "Client satisfaction is a key factor in the success of architectural projects. Firms understand client needs and offer individual solutions that meet both individual and corporate expectations."
+      "title": "Client-oriented",
+      "description": "Architecture transforms clients' visions into reality while ensuring their comfort. Our team deeply analyzes client needs and offers effective solutions for both individual and corporate expectations."
     }
   },
   "sections": {
     "awards": "Awards",
-    "partners": "Our Partners",
+    "partners": "Our partners",
     "team": "Team"
   },
-  "awards": {
-    "internationalAwards": "International Awards"
-  },
-  "footer": {
-    "copyright": "© 2025 Mizan Architecture. All rights reserved."
-  },
+  "awards": { "internationalAwards": "International awards" },
+  "footer": { "copyright": "© 2025 Mizan Architecture. All rights reserved." },
   "team": {
-    "chiefArchitect": "Chief Architect",
-    "leadDesigner": "Lead Designer",
-    "architectVisualizer": "Architect-Visualizer",
-    "constructionEngineer": "Construction Engineer",
-    "interiorDesigner": "Interior Designer",
+    "chiefArchitect": "Architect",
+    "leadDesigner": "Urban designer",
+    "architectVisualizer": "Visualizer",
+    "constructionEngineer": "Architect engineer",
+    "interiorDesigner": "Interior designer",
     "role": "Role",
     "experience": "Experience",
     "years": "years",
@@ -312,28 +307,26 @@
   },
   "contact": {
     "hero": {
-      "title": "Contact Us",
-      "description": "We are always ready to answer your questions and discuss your projects. Contact us in any convenient way: fill out the form, call or visit our office. We are open to cooperation and ready to help you bring your ideas to life.",
-      "description2":""
-
-    
+      "title": "Get in touch with us",
+      "description": "To contact us, please fill out the form below or use the provided contact details. We are ready to respond to any inquiries, project ideas, or cooperation proposals.",
+      "description2": "We look forward to working with you and adding value to your projects!"
     },
     "info": {
-      "title": "Contact Information",
-      "description": "We are always ready to answer your questions and discuss your projects. Contact us in any convenient way.",
+      "title": "Trust us with your project!",
+      "description": "Our office is located in Tashkent, but we implement projects all across Uzbekistan 🙂",
       "office": {
         "title": "Office",
-        "address": "Tashkent, Shaykhontakhur district, Zulfiyakhonum street, 62",
-        "phone": "+998 71 200-00-00",
-        "imageAlt": "Mizan Architecture Office"
+        "address": "98 Mahtumkuli Street, Yashnabad District, Tashkent",
+        "phone": "Monday–Friday: 09:00–18:00",
+        "imageAlt": "Mizan Architecture office"
       },
       "contact": {
         "title": "Contact",
-        "phone": "+998 77 004-07-70",
-        "email": "arch.mizan@gmail.com"
+        "phone": "+998 (77) 066-07-70",
+        "email": "info@mizanarchitect.uz"
       },
       "social": {
-        "title": "Social Networks",
+        "title": "Our social media",
         "telegram": {
           "label": "Telegram",
           "url": "https://t.me/mizanarchitect"
@@ -345,97 +338,97 @@
       }
     },
     "form": {
-      "title": "Send a Request",
-      "description": "Fill out the form below and we will contact you soon.",
-      "name": "Name",
-      "surname": "Surname",
+      "title": "Submit an application",
+      "description": "Fill out the application and briefly describe the task. Our specialist will contact you within 1 business day!",
+      "name": "First name",
+      "surname": "Last name",
       "email": "Email",
-      "phone": "Phone Number",
+      "phone": "Phone number",
       "message": "Message",
-      "disclaimer": "We will respond within 1 business day",
-      "submit": "Send Request"
+      "disclaimer": "Our specialist will contact you within 1 business day!",
+      "submit": "Submit application"
     },
     "vacancies": {
       "title": "Vacancies",
-      "subtitle": "New Available Now",
+      "subtitle": "Be among the first to apply!",
       "apply": "Apply",
-      "salaryFrom": "from",
-      "salaryPerMonth": "so'm per month",
+      "salaryFrom": "salary",
+      "salaryPerMonth": "starting per month",
       "job1": {
-        "title": "Estimator",
-        "location": "Tashkent, Shaykhontakhur district"
+        "title": "Intern designer",
+        "location": "Tashkent, Shaykhontohur District"
       },
       "job2": {
-        "title": "Office Manager",
-        "location": "Tashkent, Shaykhontakhur district"
+        "title": "Office manager",
+        "location": "Tashkent, Shaykhontohur District"
       },
       "job3": {
-        "title": "Receptionist/Administrator",
-        "location": "Tashkent, Shaykhontakhur district"
+        "title": "Interior designer",
+        "location": "Tashkent, Shaykhontohur District"
       },
       "job4": {
-        "title": "UI/UX Designer",
-        "location": "Tashkent, Shaykhontakhur district"
+        "title": "UI/UX designer",
+        "location": "Tashkent, Shaykhontohur District"
       }
-    }
-  },
-  "about": {
-    "hero": {
-      "title": "Every space is a contribution to the development of society.",
-      "paragraph1": "Every space is a contribution to the development of society.",
-      "paragraph2": "We look at architecture, combining creativity and technical precision. In each project, we pay attention to details and create solutions that really work.",
-      "paragraph3": "We strive to become an international architectural Bureau, creating sustainable and aesthetic projects. Our goal is to build objects that will serve people today and become a legacy for future generations.",
-      "imageAlt": "About Us - Mizan Architecture"
     },
-    "content": {
-      "leftColumn": "We strive to change the world of architecture. Combining creativity and technical knowledge, we bring fresh, innovative perspectives to every project. The attention to detail and thoroughness that we apply at all stages of our projects make us a reliable partner in the industry.",
-      "rightColumn": "We are developing in the field of office design, housing construction, focused on sustainability. Preserving natural and technological perfection, we strive to create structures that will serve as the embodiment of future generations.",
-      "centertColumn": ""
-    },
-    "team": {
-      "title": "Team",
-      "description": "Our team consists of creative and experienced architects, engineers, and designers who specialize in various architectural disciplines. Each team member makes a unique contribution to our projects, helping us exceed client expectations with individual solutions.",
-      "values": {
-        "innovation": {
-          "title": "INNOVATION",
-          "description": "We constantly seek new approaches, use advanced technologies and materials to create unique and functional spaces."
-        },
-        "quality": {
-          "title": "QUALITY",
-          "description": "We guarantee the highest quality of execution for each project, observing all standards and norms."
-        },
-        "sustainability": {
-          "title": "SUSTAINABILITY",
-          "description": "We ensure environmental responsibility and durability of our solutions, integrating principles of sustainable development."
-        },
-        "clientFocus": {
-          "title": "CLIENT FOCUS",
-          "description": "We listen to client needs, offering individual solutions and building long-term partnerships."
+    "about": {
+      "hero": {
+        "title": "We offer reliable solutions instead of beautiful mistakes.",
+        "paragraph1": "The main aspect of our activity is not just beautiful visual representations, but solid and technically sound project solutions that pass expert review successfully and are implemented flawlessly on the construction site.",
+        "paragraph2": "We analyze technical requirements, site conditions, budget and deadlines in depth, so that each project is not only aesthetically expressive, but above all reliable, economically justified and safe.",
+        "paragraph3": "We strive to make a difference in the world of architecture",
+        "paragraph4": "Combining our creativity and technical knowledge, we bring fresh, innovative perspectives to every project. Attention and thoroughness at all stages of our projects make us a reliable partner in the industry.",
+        "imageAlt": "About Us - Mizan Architecture"
+      },
+      "content": {
+        "leftColumn": "We strive to make a difference in the world of architecture",
+        "rightColumn": "Combining our creativity and technical knowledge, we bring fresh, innovative perspectives to every project. Attention and thoroughness at all stages of our projects make us a reliable partner in the industry.",
+        "centertColumn": "We aim to become a global architecture office creating sustainability-oriented projects. Striving for aesthetic and technical perfection, we work to create structures that will serve as a legacy for future generations."
+      },
+      "team": {
+        "title": "Our team",
+        "description": "Our team consists of creative and experienced architects, engineers, and designers who specialize in various architectural disciplines. Each team member makes a unique contribution to our projects, helping us exceed client expectations with individual solutions!",
+        "values": {
+          "innovation": {
+            "title": "INNOVATION",
+            "description": "We use advanced technologies in our architectural designs to create projects that shape the future."
+          },
+          "quality": {
+            "title": "QUALITY",
+            "description": "We strive for excellence at every stage of each project, creating long-term value."
+          },
+          "sustainability": {
+            "title": "SUSTAINABILITY",
+            "description": "We create eco-friendly projects and use natural resources efficiently."
+          },
+          "clientFocus": {
+            "title": "CLIENT-FOCUSED",
+            "description": "We focus on achieving maximum client satisfaction and offer solutions that fully meet their needs."
+          }
         }
       }
-    }
-  },
-  "durability": {
-    "hero": {
-      "title": "Mizan and Durability",
-      "description": "At Mizan, we place durability at the core of our work. We adhere to principles of ecological, social, and economic durability, striving to minimize our environmental footprint and create projects that benefit society.",
-      "description2": ""
     },
-    "content": {
-      "block1": {
-        "title": "Our Approach to Durable Design",
-        "description": "We strive to use durable materials, energy-efficient solutions, and environmentally friendly construction processes in every project. Our approach to durable design includes careful analysis of building life cycles and integration of renewable energy sources.",
-        "imageAlt": "Durable Design"
+    "durability": {
+      "hero": {
+        "title": "Mizan is Sustainability",
+        "description": "Our team identifies potential risks during the design process and focuses on addressing them. This ensures your construction process is free from revisions, schedule delays, and unexpected costs."
       },
-      "block2": {
-        "title": "Contribution to Society",
-        "description": "Our durable solutions benefit communities, promote healthy living environments, and contribute to local development. We design buildings that are not only functional but also improve people's quality of life.",
-        "imageAlt": "Contribution to Society"
-      },
-      "block3": {
-        "title": "Durable Solutions for Our Clients",
-        "description": "We focus on providing energy-efficient, durable, and environmentally responsible buildings that offer long-term benefits to our clients. Our solutions help reduce operating costs and minimize environmental impact.",
-        "imageAlt": "Durable Solutions for Clients"
+      "content": {
+        "block1": {
+          "title": "Mizan is Eco-friendly solutions",
+          "description": "We apply an eco-friendly construction approach in our projects. Materials used are recyclable, sourced locally, and contribute to economic development. We also maximize natural light and energy use to ensure efficiency in all our projects.",
+          "imageAlt": "Durable design"
+        },
+        "block2": {
+          "title": "Mizan is Community",
+          "description": "At Mizan, we create solutions that not only benefit the environment but also add value and convenience for society. We design facilities that prioritize human health, improve quality of life, and serve local communities. We create projects aimed at eco-friendly infrastructure and expanding green areas in our cities, preserving natural resources.",
+          "imageAlt": "Contribution to society"
+        },
+        "block3": {
+          "title": "Mizan is Cost-efficiency",
+          "description": "We put economic sustainability first in the projects we offer to our clients. Offering energy-efficient, durable buildings with low carbon footprint, we ensure not only environmental but also economic benefits. Using efficient construction technologies, we help our clients make responsible decisions that are beneficial for today and future generations.",
+          "imageAlt": "Durable solutions for clients"
+        }
       }
     }
   }

@@ -25,7 +25,7 @@ const inter = Inter({
   weight: ["400", "500", "600", "700"],
 });
 
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+const rawSiteUrl = "https://mizanarchitect.uz";
 const siteUrl = rawSiteUrl
   ? rawSiteUrl.startsWith("http")
     ? rawSiteUrl
