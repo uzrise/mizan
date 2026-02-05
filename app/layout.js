@@ -48,9 +48,8 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
+        url: "/IMG_7634.png",
+        type: "image/png",
         alt: "Mizan Architecture",
       },
     ],
@@ -60,7 +59,7 @@ export const metadata = {
     title: "Mizan Architecture - Расширяя границы инновационной архитектуры",
     description:
       "Mizan Architecture создаёт современные, эстетичные и функциональные пространства. Мы превращаем ваши идеи в продуманные и устойчивые решения.",
-    images: ["/opengraph-image"],
+    images: ["/IMG_7634.png"],
   },
   icons: {
     icon: [
