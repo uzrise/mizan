@@ -19,7 +19,7 @@ export default function Navbar() {
   const menuOverlayRef = useRef(null);
   const menuContentRef = useRef(null);
 
-  const languages = ['RU', 'EN', 'UZ', 'TR'];
+  const languages = ['UZ', 'EN', 'TR', 'RU'];
 
   useEffect(() => {
     // Listen for intro animation complete event
@@ -114,7 +114,7 @@ export default function Navbar() {
 
   return (
     <nav 
-      className="fixed top-0 left-0 right-0 z-50 bg-transparent text-white transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 bg-transparent text-white transition-all duration-200"
       style={{
         backdropFilter: isMenuOpen ? 'none' : (isScrolled ? 'blur(10px)' : 'none'),
         backgroundColor: isMenuOpen ? 'transparent' : (isScrolled ? 'rgba(0, 0, 0, 0.1)' : 'transparent'),
@@ -122,28 +122,26 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16 md:h-20">
-          {/* Hamburger Menu Button - Menu overlay ichida ko'rinadi */}
-          {!isMenuOpen && (
-            <Button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              icon={
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              }
-              className="!w-[44px] !h-[44px] !min-w-[44px] !min-h-[44px] !p-0 !gap-0"
-              variant="primary"
-              aria-label="Toggle menu"
-            />
-          )}
+          {/* Hamburger Menu Button - doim ko'rinadi */}
+          <Button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            icon={
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            }
+            className="!w-[44px] !h-[44px] !min-w-[44px] !min-h-[44px] !p-0 !gap-0 relative z-[51]"
+            variant="primary"
+            aria-label="Toggle menu"
+          />
 
           {/* Logo - Markazda */}
           <div

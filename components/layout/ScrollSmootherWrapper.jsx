@@ -48,9 +48,10 @@ export default function ScrollSmootherWrapper({ children }) {
         smootherRef.current = ScrollSmoother.create({
           wrapper: wrapper,
           content: content,
-          smooth: 1,
+          smooth: 0.8,
           effects: true,
           smoothTouch: 0.1,
+          normalizeScroll: true,
         });
         window.ScrollSmootherInstance = smootherRef.current;
         wrapper.classList.add('scroll-smoother-active');

@@ -298,7 +298,7 @@
     "team": "Ekip"
   },
   "awards": { "internationalAwards": "Uluslararası ödüller" },
-  "footer": { "copyright": "© 2025 Mizan Architecture. Tüm hakları saklıdır." },
+  "footer": { "copyright": "Mizan Architecture. Tüm hakları saklıdır." },
   "team": {
     "chiefArchitect": "Mimar",
     "leadDesigner": "Kentsel tasarımcı",
@@ -375,65 +375,65 @@
         "title": "UI/UX tasarımcı",
         "location": "Taşkent, Şeyhantahur İlçesi"
       }
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Güzel hatalar yerine güvenilir çözümler sunuyoruz.",
+      "paragraph1": "Faaliyetimizin temel yönü, sadece güzel görsel tasvirler değil, başarıyla ekspertizden geçen ve inşaat sahasında kusursuz uygulanan sağlam ve teknik olarak temellendirilmiş proje çözümleridir.",
+      "paragraph2": "Teknik gereksinimleri, saha koşullarını, bütçeyi ve son tarihleri derinlemesine analiz ediyoruz, böylece her proje sadece estetik açıdan ifadeli değil, öncelikle güvenilir, ekonomik olarak haklı ve güvenli oluyor.",
+      "paragraph3": "Mimarlık dünyasında fark yaratmaya çalışıyoruz",
+      "paragraph4": "Yaratıcılığımızı ve teknik bilgimizi birleştirerek her projeye taze, yenilikçi bakış açıları getiriyoruz. Projelerimizin tüm aşamalarındaki dikkat ve titizlik bizi sektörde güvenilir bir ortak yapar.",
+      "imageAlt": "Hakkımızda - Mizan Architecture"
     },
-    "about": {
-      "hero": {
-        "title": "Güzel hatalar yerine güvenilir çözümler sunuyoruz.",
-        "paragraph1": "Faaliyetimizin temel yönü, sadece güzel görsel tasvirler değil, başarıyla ekspertizden geçen ve inşaat sahasında kusursuz uygulanan sağlam ve teknik olarak temellendirilmiş proje çözümleridir.",
-        "paragraph2": "Teknik gereksinimleri, saha koşullarını, bütçeyi ve son tarihleri derinlemesine analiz ediyoruz, böylece her proje sadece estetik açıdan ifadeli değil, öncelikle güvenilir, ekonomik olarak haklı ve güvenli oluyor.",
-        "paragraph3": "Mimarlık dünyasında fark yaratmaya çalışıyoruz",
-        "paragraph4": "Yaratıcılığımızı ve teknik bilgimizi birleştirerek her projeye taze, yenilikçi bakış açıları getiriyoruz. Projelerimizin tüm aşamalarındaki dikkat ve titizlik bizi sektörde güvenilir bir ortak yapar.",
-        "imageAlt": "Hakkımızda - Mizan Architecture"
-      },
-      "content": {
-        "leftColumn": "Mimarlık dünyasında fark yaratmaya çalışıyoruz",
-        "rightColumn": "Yaratıcılığımızı ve teknik bilgimizi birleştirerek her projeye taze, yenilikçi bakış açıları getiriyoruz. Projelerimizin tüm aşamalarındaki dikkat ve titizlik bizi sektörde güvenilir bir ortak yapar.",
-        "centertColumn": "Sürdürülebilirliğe yönelik projeler yaratan küresel bir mimarlık ofisi olmayı hedefliyoruz. Estetik ve teknik mükemmelliğe ulaşarak gelecek nesiller için miras olarak hizmet edecek yapılar oluşturmaya çalışıyoruz."
-      },
-      "team": {
-        "title": "Ekibimiz",
-        "description": "Ekibimiz çeşitli mimari disiplinlerde uzmanlaşmış yaratıcı ve deneyimli mimarlar, mühendisler ve tasarımcılardan oluşmaktadır. Her ekip üyesi bireysel çözümlerle müşteri beklentilerini aşmamıza yardımcı olarak projelerimize benzersiz katkılar sağlar!",
-        "values": {
-          "innovation": {
-            "title": "YENİLİK",
-            "description": "Mimari tasarımlarımızda geleceği şekillendiren projeler oluşturmak için ileri teknolojiler kullanıyoruz."
-          },
-          "quality": {
-            "title": "KALİTE",
-            "description": "Her projemizin her aşamasında mükemmelliğe ulaşarak uzun vadeli değer yaratıyoruz."
-          },
-          "sustainability": {
-            "title": "SÜRDÜRÜLEBİLİRLİK",
-            "description": "Çevre dostu projeler oluşturuyor ve doğal kaynakları verimli kullanıyoruz."
-          },
-          "clientFocus": {
-            "title": "MÜŞTERİ ODAKLI",
-            "description": "Maksimum müşteri memnuniyetine ulaşmaya odaklanıyor ve ihtiyaçlarına tam uygun çözümler sunuyoruz."
-          }
+    "content": {
+      "leftColumn": "Mimarlık dünyasında fark yaratmaya çalışıyoruz",
+      "rightColumn": "Yaratıcılığımızı ve teknik bilgimizi birleştirerek her projeye taze, yenilikçi bakış açıları getiriyoruz. Projelerimizin tüm aşamalarındaki dikkat ve titizlik bizi sektörde güvenilir bir ortak yapar.",
+      "centertColumn": "Sürdürülebilirliğe yönelik projeler yaratan küresel bir mimarlık ofisi olmayı hedefliyoruz. Estetik ve teknik mükemmelliğe ulaşarak gelecek nesiller için miras olarak hizmet edecek yapılar oluşturmaya çalışıyoruz."
+    },
+    "team": {
+      "title": "Ekibimiz",
+      "description": "Ekibimiz çeşitli mimari disiplinlerde uzmanlaşmış yaratıcı ve deneyimli mimarlar, mühendisler ve tasarımcılardan oluşmaktadır. Her ekip üyesi bireysel çözümlerle müşteri beklentilerini aşmamıza yardımcı olarak projelerimize benzersiz katkılar sağlar!",
+      "values": {
+        "innovation": {
+          "title": "YENİLİK",
+          "description": "Mimari tasarımlarımızda geleceği şekillendiren projeler oluşturmak için ileri teknolojiler kullanıyoruz."
+        },
+        "quality": {
+          "title": "KALİTE",
+          "description": "Her projemizin her aşamasında mükemmelliğe ulaşarak uzun vadeli değer yaratıyoruz."
+        },
+        "sustainability": {
+          "title": "SÜRDÜRÜLEBİLİRLİK",
+          "description": "Çevre dostu projeler oluşturuyor ve doğal kaynakları verimli kullanıyoruz."
+        },
+        "clientFocus": {
+          "title": "MÜŞTERİ ODAKLI",
+          "description": "Maksimum müşteri memnuniyetine ulaşmaya odaklanıyor ve ihtiyaçlarına tam uygun çözümler sunuyoruz."
         }
       }
+    }
+  },
+  "durability": {
+    "hero": {
+      "title": "Mizan Sürdürülebilirliktir",
+      "description": "Ekibimiz tasarım sürecinde potansiyel riskleri belirleyerek bunların giderilmesine odaklanır. Bu, inşaat sürecinizin revizyonlardan, takvim gecikmelerinden ve beklenmedik maliyetlerden arınmış olmasını sağlar."
     },
-    "durability": {
-      "hero": {
-        "title": "Mizan Sürdürülebilirliktir",
-        "description": "Ekibimiz tasarım sürecinde potansiyel riskleri belirleyerek bunların giderilmesine odaklanır. Bu, inşaat sürecinizin revizyonlardan, takvim gecikmelerinden ve beklenmedik maliyetlerden arınmış olmasını sağlar."
+    "content": {
+      "block1": {
+        "title": "Mizan Eko-dostu çözümlerdir",
+        "description": "Projelerimizde çevre dostu bir inşaat yaklaşımı uyguluyoruz. Kullanılan malzemeler geri dönüştürülebilir, yerel kaynaklardan temin edilir ve ekonomik kalkınmaya katkıda bulunur. Tüm projelerimizde verimlilik sağlamak için doğal ışık ve enerji kullanımını da en üst düzeye çıkarıyoruz.",
+        "imageAlt": "Dayanıklı tasarım"
       },
-      "content": {
-        "block1": {
-          "title": "Mizan Eko-dostu çözümlerdir",
-          "description": "Projelerimizde çevre dostu bir inşaat yaklaşımı uyguluyoruz. Kullanılan malzemeler geri dönüştürülebilir, yerel kaynaklardan temin edilir ve ekonomik kalkınmaya katkıda bulunur. Tüm projelerimizde verimlilik sağlamak için doğal ışık ve enerji kullanımını da en üst düzeye çıkarıyoruz.",
-          "imageAlt": "Dayanıklı tasarım"
-        },
-        "block2": {
-          "title": "Mizan Topluluktur",
-          "description": "Mizan'da sadece çevreye fayda sağlayan değil, aynı zamanda toplum için değer ve konfor ekleyen çözümler yaratıyoruz. İnsan sağlığını ön planda tutan, yaşam kalitesini artıran ve yerel topluluklara hizmet eden tesisler tasarlıyoruz. Eko-dostu altyapıya ve şehirlerimizdeki yeşil alanların genişletilmesine, doğal kaynakların korunmasına yönelik projeler oluşturuyoruz.",
-          "imageAlt": "Topluma katkı"
-        },
-        "block3": {
-          "title": "Mizan Ekonomikliktir",
-          "description": "Müşterilerimize sunduğumuz projelerde ekonomik sürdürülebilirliği ön plana koyuyoruz. Düşük karbon ayak izi ile enerji verimli, dayanıklı binalar sunarak sadece çevresel değil ekonomik fayda da sağlıyoruz. Verimli inşaat teknolojileri kullanarak müşterilerimize bugün ve gelecek nesiller için faydalı olan sorumlu kararlar almada yardımcı oluyoruz.",
-          "imageAlt": "Müşteriler için dayanıklı çözümler"
-        }
+      "block2": {
+        "title": "Mizan Topluluktur",
+        "description": "Mizan'da sadece çevreye fayda sağlayan değil, aynı zamanda toplum için değer ve konfor ekleyen çözümler yaratıyoruz. İnsan sağlığını ön planda tutan, yaşam kalitesini artıran ve yerel topluluklara hizmet eden tesisler tasarlıyoruz. Eko-dostu altyapıya ve şehirlerimizdeki yeşil alanların genişletilmesine, doğal kaynakların korunmasına yönelik projeler oluşturuyoruz.",
+        "imageAlt": "Topluma katkı"
+      },
+      "block3": {
+        "title": "Mizan Ekonomikliktir",
+        "description": "Müşterilerimize sunduğumuz projelerde ekonomik sürdürülebilirliği ön plana koyuyoruz. Düşük karbon ayak izi ile enerji verimli, dayanıklı binalar sunarak sadece çevresel değil ekonomik fayda da sağlıyoruz. Verimli inşaat teknolojileri kullanarak müşterilerimize bugün ve gelecek nesiller için faydalı olan sorumlu kararlar almada yardımcı oluyoruz.",
+        "imageAlt": "Müşteriler için dayanıklı çözümler"
       }
     }
   }

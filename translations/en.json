@@ -298,7 +298,7 @@
     "team": "Team"
   },
   "awards": { "internationalAwards": "International awards" },
-  "footer": { "copyright": "© 2025 Mizan Architecture. All rights reserved." },
+  "footer": { "copyright": "Mizan Architecture. All rights reserved." },
   "team": {
     "chiefArchitect": "Architect",
     "leadDesigner": "Urban designer",
@@ -375,65 +375,65 @@
         "title": "UI/UX designer",
         "location": "Tashkent, Shaykhontohur District"
       }
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "We offer reliable solutions instead of beautiful mistakes.",
+      "paragraph1": "The main aspect of our activity is not just beautiful visual representations, but solid and technically sound project solutions that pass expert review successfully and are implemented flawlessly on the construction site.",
+      "paragraph2": "We analyze technical requirements, site conditions, budget and deadlines in depth, so that each project is not only aesthetically expressive, but above all reliable, economically justified and safe.",
+      "paragraph3": "We strive to make a difference in the world of architecture",
+      "paragraph4": "Combining our creativity and technical knowledge, we bring fresh, innovative perspectives to every project. Attention and thoroughness at all stages of our projects make us a reliable partner in the industry.",
+      "imageAlt": "About Us - Mizan Architecture"
     },
-    "about": {
-      "hero": {
-        "title": "We offer reliable solutions instead of beautiful mistakes.",
-        "paragraph1": "The main aspect of our activity is not just beautiful visual representations, but solid and technically sound project solutions that pass expert review successfully and are implemented flawlessly on the construction site.",
-        "paragraph2": "We analyze technical requirements, site conditions, budget and deadlines in depth, so that each project is not only aesthetically expressive, but above all reliable, economically justified and safe.",
-        "paragraph3": "We strive to make a difference in the world of architecture",
-        "paragraph4": "Combining our creativity and technical knowledge, we bring fresh, innovative perspectives to every project. Attention and thoroughness at all stages of our projects make us a reliable partner in the industry.",
-        "imageAlt": "About Us - Mizan Architecture"
-      },
-      "content": {
-        "leftColumn": "We strive to make a difference in the world of architecture",
-        "rightColumn": "Combining our creativity and technical knowledge, we bring fresh, innovative perspectives to every project. Attention and thoroughness at all stages of our projects make us a reliable partner in the industry.",
-        "centertColumn": "We aim to become a global architecture office creating sustainability-oriented projects. Striving for aesthetic and technical perfection, we work to create structures that will serve as a legacy for future generations."
-      },
-      "team": {
-        "title": "Our team",
-        "description": "Our team consists of creative and experienced architects, engineers, and designers who specialize in various architectural disciplines. Each team member makes a unique contribution to our projects, helping us exceed client expectations with individual solutions!",
-        "values": {
-          "innovation": {
-            "title": "INNOVATION",
-            "description": "We use advanced technologies in our architectural designs to create projects that shape the future."
-          },
-          "quality": {
-            "title": "QUALITY",
-            "description": "We strive for excellence at every stage of each project, creating long-term value."
-          },
-          "sustainability": {
-            "title": "SUSTAINABILITY",
-            "description": "We create eco-friendly projects and use natural resources efficiently."
-          },
-          "clientFocus": {
-            "title": "CLIENT-FOCUSED",
-            "description": "We focus on achieving maximum client satisfaction and offer solutions that fully meet their needs."
-          }
+    "content": {
+      "leftColumn": "We strive to make a difference in the world of architecture",
+      "rightColumn": "Combining our creativity and technical knowledge, we bring fresh, innovative perspectives to every project. Attention and thoroughness at all stages of our projects make us a reliable partner in the industry.",
+      "centertColumn": "We aim to become a global architecture office creating sustainability-oriented projects. Striving for aesthetic and technical perfection, we work to create structures that will serve as a legacy for future generations."
+    },
+    "team": {
+      "title": "Our team",
+      "description": "Our team consists of creative and experienced architects, engineers, and designers who specialize in various architectural disciplines. Each team member makes a unique contribution to our projects, helping us exceed client expectations with individual solutions!",
+      "values": {
+        "innovation": {
+          "title": "INNOVATION",
+          "description": "We use advanced technologies in our architectural designs to create projects that shape the future."
+        },
+        "quality": {
+          "title": "QUALITY",
+          "description": "We strive for excellence at every stage of each project, creating long-term value."
+        },
+        "sustainability": {
+          "title": "SUSTAINABILITY",
+          "description": "We create eco-friendly projects and use natural resources efficiently."
+        },
+        "clientFocus": {
+          "title": "CLIENT-FOCUSED",
+          "description": "We focus on achieving maximum client satisfaction and offer solutions that fully meet their needs."
         }
       }
+    }
+  },
+  "durability": {
+    "hero": {
+      "title": "Mizan is Sustainability",
+      "description": "Our team identifies potential risks during the design process and focuses on addressing them. This ensures your construction process is free from revisions, schedule delays, and unexpected costs."
     },
-    "durability": {
-      "hero": {
-        "title": "Mizan is Sustainability",
-        "description": "Our team identifies potential risks during the design process and focuses on addressing them. This ensures your construction process is free from revisions, schedule delays, and unexpected costs."
+    "content": {
+      "block1": {
+        "title": "Mizan is Eco-friendly solutions",
+        "description": "We apply an eco-friendly construction approach in our projects. Materials used are recyclable, sourced locally, and contribute to economic development. We also maximize natural light and energy use to ensure efficiency in all our projects.",
+        "imageAlt": "Durable design"
       },
-      "content": {
-        "block1": {
-          "title": "Mizan is Eco-friendly solutions",
-          "description": "We apply an eco-friendly construction approach in our projects. Materials used are recyclable, sourced locally, and contribute to economic development. We also maximize natural light and energy use to ensure efficiency in all our projects.",
-          "imageAlt": "Durable design"
-        },
-        "block2": {
-          "title": "Mizan is Community",
-          "description": "At Mizan, we create solutions that not only benefit the environment but also add value and convenience for society. We design facilities that prioritize human health, improve quality of life, and serve local communities. We create projects aimed at eco-friendly infrastructure and expanding green areas in our cities, preserving natural resources.",
-          "imageAlt": "Contribution to society"
-        },
-        "block3": {
-          "title": "Mizan is Cost-efficiency",
-          "description": "We put economic sustainability first in the projects we offer to our clients. Offering energy-efficient, durable buildings with low carbon footprint, we ensure not only environmental but also economic benefits. Using efficient construction technologies, we help our clients make responsible decisions that are beneficial for today and future generations.",
-          "imageAlt": "Durable solutions for clients"
-        }
+      "block2": {
+        "title": "Mizan is Community",
+        "description": "At Mizan, we create solutions that not only benefit the environment but also add value and convenience for society. We design facilities that prioritize human health, improve quality of life, and serve local communities. We create projects aimed at eco-friendly infrastructure and expanding green areas in our cities, preserving natural resources.",
+        "imageAlt": "Contribution to society"
+      },
+      "block3": {
+        "title": "Mizan is Cost-efficiency",
+        "description": "We put economic sustainability first in the projects we offer to our clients. Offering energy-efficient, durable buildings with low carbon footprint, we ensure not only environmental but also economic benefits. Using efficient construction technologies, we help our clients make responsible decisions that are beneficial for today and future generations.",
+        "imageAlt": "Durable solutions for clients"
       }
     }
   }

@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   const { language, locale, changeLanguage, t } = useTranslation();
-  const languages = ['RU', 'EN', 'UZ', 'TR'];
+  const languages = ['UZ', 'EN', 'TR', 'RU'];
 
   return (
     <>
@@ -100,15 +100,15 @@ export default function Footer() {
         <div className="absolute right-0 top-0 bottom-0 w-px bg-gray-200"></div>
       </div>
 
-      {/* Yellow Footer Section - Copyright */}
+      {/* Green Footer Section - Copyright */}
       <footer
         id="contact"
-        className="bg-[#fbbf24] h-[42px] flex items-center justify-center"
+        className="bg-[#00382F] h-[42px] flex items-center justify-center"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center">
-            <p className="text-[#1a3a2a] text-sm md:text-base text-center">
-              {t('footer.copyright')}
+            <p className="text-white text-sm md:text-base text-center">
+              © {new Date().getFullYear()} {t('footer.copyright')}
             </p>
           </div>
         </div>
