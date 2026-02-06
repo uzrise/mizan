@@ -393,6 +393,7 @@ export default function Team() {
                     alt={member.name}
                     width={160}
                     height={160}
+                    unoptimized={true}
                     className="object-cover w-full h-full"
                   />
                 </div>
@@ -476,6 +477,7 @@ export default function Team() {
                 src={selectedMember.image}
                 alt={selectedMember.name}
                 width={200}
+                unoptimized={true}
                 height={200}
                 className="object-cover w-full h-full"
               />
