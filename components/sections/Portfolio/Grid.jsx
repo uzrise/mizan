@@ -11,27 +11,26 @@ const ProjectCard = memo(({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef = useRef(null);
 
-  // Loyihaning barcha rasmlari (images array yoki faqat bitta image)
-  const images = project.images && project.images.length > 1 
-    ? project.images.filter(img => img && img.trim() !== '')
-    : [project.image];
+  const defaultImage = project.image || project.images?.[0] || '';
+  const slideshowImages = project.images?.filter(img => img && img.trim() !== '') || [];
+  const displayImages = isHovered && slideshowImages.length > 0
+    ? slideshowImages
+    : [defaultImage].filter(Boolean);
 
-  // Hover boshlaganda slideshow ishga tushadi
   const startSlideshow = useCallback(() => {
-    if (images.length <= 1) return;
+    if (slideshowImages.length <= 1) return;
     
     intervalRef.current = setInterval(() => {
-      setCurrentImageIndex(prev => (prev + 1) % images.length);
-    }, 1200); // Har 1.2 sekundda rasm almashadi
-  }, [images.length]);
+      setCurrentImageIndex(prev => (prev + 1) % slideshowImages.length);
+    }, 1200);
+  }, [slideshowImages.length]);
 
-  // Hover tugaganda slideshow to'xtaydi
   const stopSlideshow = useCallback(() => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
-    setCurrentImageIndex(0); // Birinchi rasmga qaytadi
+    queueMicrotask(() => setCurrentImageIndex(0));
   }, []);
 
   useEffect(() => {
@@ -56,10 +55,8 @@ const ProjectCard = memo(({ project }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Rasm qismi - hover da lift, shadow va slideshow */}
-        <div className="relative overflow-hidden w-full aspect-457/427 rounded-lg transition-all duration-500 ease-out group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-black/10">
-          {/* Barcha rasmlar - fade transition bilan */}
-          {images.map((img, index) => (
+        <div className="relative overflow-hidden w-full aspect-457/427 transition-all duration-500 ease-out group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-black/10">
+          {displayImages.map((img, index) => (
             <Image
               key={index}
               src={img}
@@ -74,10 +71,9 @@ const ProjectCard = memo(({ project }) => {
             />
           ))}
           
-          {/* Rasm indikatorlari (agar 2+ rasm bo'lsa) */}
-          {images.length > 1 && (
+          {isHovered && displayImages.length > 1 && (
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {images.map((_, index) => (
+              {displayImages.map((_, index) => (
                 <div
                   key={index}
                   className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
@@ -91,7 +87,6 @@ const ProjectCard = memo(({ project }) => {
           )}
         </div>
 
-        {/* Matn qismi - oddiy, hover ta'siri yo'q */}
         <div className="mt-4 px-1">
           <div className="flex items-center gap-2 flex-wrap">
             <h3 

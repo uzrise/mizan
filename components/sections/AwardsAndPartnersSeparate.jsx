@@ -351,7 +351,6 @@ export default function AwardsAndPartnersSeparate() {
               refreshPriority: 0,
               onUpdate: (self) => {
                 const progress = self.progress;
-                // Partners section-ni Awards pin space ustiga chiqaradi
                 const negativeMargin = -awardsScrollDistance * (1 - progress);
                 gsap.set(partnersSection, {
                   marginTop: `${negativeMargin}px`,
@@ -359,19 +358,16 @@ export default function AwardsAndPartnersSeparate() {
                 });
               },
               onLeave: () => {
-                // Awards scroll tugagandan keyin Partners normal holatga qaytadi
                 gsap.set(partnersSection, {
                   marginTop: '0px',
                   clearProps: 'marginTop',
                   zIndex: 1,
                 });
-                // Partners ScrollTrigger-ni refresh qilish
                 setTimeout(() => {
                   ScrollTrigger.refresh();
                 }, 0);
               },
               onEnterBack: () => {
-                // Orqaga scroll qilganda yana negative margin qo'llanadi
                 gsap.set(partnersSection, {
                   marginTop: `-${awardsScrollDistance}px`,
                   zIndex: 20,
@@ -379,7 +375,6 @@ export default function AwardsAndPartnersSeparate() {
               },
             });
 
-            // Initial positioning - Partners Awards pin space ustida
             gsap.set(partnersSection, {
               marginTop: `-${awardsScrollDistance}px`,
               zIndex: 20,
@@ -525,7 +520,6 @@ export default function AwardsAndPartnersSeparate() {
       if (overlayScrollTrigger) {
         overlayScrollTrigger.kill();
       }
-      // Cleanup - Partners section marginTop-ni tozalash
       if (partnersSection) {
         gsap.set(partnersSection, {
           marginTop: '0px',

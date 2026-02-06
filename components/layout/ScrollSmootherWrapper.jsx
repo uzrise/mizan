@@ -87,10 +87,8 @@ export default function ScrollSmootherWrapper({ children }) {
     };
   }, [isMobile]);
 
-  // Route o'zgarganda scroll to top
   useEffect(() => {
     if (isMobile) {
-      // Mobile'da oddiy scroll
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -98,15 +96,12 @@ export default function ScrollSmootherWrapper({ children }) {
     const scrollToTop = () => {
       const smoother = window.ScrollSmootherInstance || (window.ScrollSmoother?.get && window.ScrollSmoother.get());
       if (smoother) {
-        // ScrollSmoother ishlatilganda
         smoother.scrollTo(0, true);
       } else {
-        // Oddiy scroll
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     };
 
-    // Kichik delay bilan scroll to top (sahifa yuklangandan keyin)
     const timer = setTimeout(() => {
       scrollToTop();
     }, 100);

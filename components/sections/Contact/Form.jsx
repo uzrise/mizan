@@ -33,14 +33,7 @@ export default function Form() {
 
   return (
     <section className="relative w-full bg-[#F3F3F3] py-16 md:py-24">
-      {/* Geometric pattern separator */}
-      <div 
-        className="absolute top-0 left-0 right-0 h-1 opacity-10"
-        style={{
-          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, #fbbf24 10px, #fbbf24 20px)`,
-        }}
-      />
-
+    
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           {/* Title */}

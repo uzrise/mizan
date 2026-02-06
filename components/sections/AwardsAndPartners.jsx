@@ -321,7 +321,7 @@ export default function AwardsAndPartners() {
           if (partnersNeedsScroll) {
             // Only add gap if awards section exists and needs scrolling
             if (awardsNeedsScroll) {
-              gapScrollDistance = viewportHeight * 0.3; // Gap uchun scroll masofa (Partners ko'rinishi uchun)
+              gapScrollDistance = viewportHeight * 0.3;
             }
             partnersScrollDistance = partners.length * scrollDistancePerItem;
           }
@@ -348,7 +348,6 @@ export default function AwardsAndPartners() {
             scrub: 1,
             refreshPriority: 0, // Lower priority - refresh after Statistics
             onEnter: () => {
-              // Pin boshlanganda bo'sh joyni dinamik boshqarish
               setTimeout(() => {
                 const pinSpacer = section.nextElementSibling;
                 if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
@@ -358,27 +357,22 @@ export default function AwardsAndPartners() {
               }, 0);
             },
             onLeave: () => {
-              // Pin tugaganda pinSpacer-ni to'liq yopish
               setTimeout(() => {
                 const pinSpacer = section.nextElementSibling;
                 if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
-                  // To'liq yopish - height va margin-larni 0 qilish
                   pinSpacer.style.height = '0';
                   pinSpacer.style.marginTop = '0';
                   pinSpacer.style.marginBottom = '0';
                   pinSpacer.style.paddingTop = '0';
                   pinSpacer.style.paddingBottom = '0';
-                  // Team section-ga yetib kelganda bo'sh joy qoldirmaslik uchun
                   pinSpacer.style.overflow = 'hidden';
                 }
               }, 0);
             },
             onEnterBack: () => {
-              // Orqaga scroll qilganda pinSpacer-ni qayta tiklash
               setTimeout(() => {
                 const pinSpacer = section.nextElementSibling;
                 if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
-                  // ScrollTrigger avtomatik height-ni tiklaydi, biz faqat margin-larni boshqaramiz
                   pinSpacer.style.marginTop = '0';
                   pinSpacer.style.marginBottom = '0';
                   pinSpacer.style.overflow = 'visible';
@@ -388,16 +382,13 @@ export default function AwardsAndPartners() {
             onUpdate: (self) => {
               const progress = self.progress;
 
-              // PinSpacer height-ni dinamik boshqarish
               const pinSpacer = section.nextElementSibling;
               if (pinSpacer && pinSpacer.classList.contains('pin-spacer')) {
-                // Progress 1 ga yetganda (pin tugaganda) height-ni kamaytirish
                 if (progress >= 0.99) {
                   pinSpacer.style.height = '0';
                   pinSpacer.style.marginTop = '0';
                   pinSpacer.style.marginBottom = '0';
                 } else {
-                  // Normal holatda ScrollTrigger height-ni boshqaradi
                   pinSpacer.style.marginTop = '0';
                   pinSpacer.style.marginBottom = '0';
                 }
@@ -507,7 +498,7 @@ export default function AwardsAndPartners() {
         backgroundColor: "#00382F",
         overscrollBehaviorX: "none",
         overscrollBehaviorY: "auto",
-        marginBottom: 0, // Bo'sh joy qoldirmaslik uchun
+        marginBottom: 0,
       }}
     >
       <div

@@ -78,7 +78,6 @@ export default function Navbar() {
     if (!menuOverlayRef.current || !menuContentRef.current) return;
 
     if (isMenuOpen) {
-      // Menu ochilganda - tepadan pastga smooth tushish
       gsap.set(menuOverlayRef.current, { display: 'flex' });
       gsap.fromTo(
         menuOverlayRef.current,
@@ -91,7 +90,6 @@ export default function Navbar() {
         { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }
       );
     } else if (menuOverlayRef.current) {
-      // Menu yopilganda - smooth animatsiya
       gsap.to(menuContentRef.current, {
         y: -50,
         opacity: 0,
@@ -122,7 +120,6 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16 md:h-20">
-          {/* Hamburger Menu Button - doim ko'rinadi */}
           <Button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             icon={
@@ -143,7 +140,6 @@ export default function Navbar() {
             aria-label="Toggle menu"
           />
 
-          {/* Logo - Markazda */}
           <div
             ref={logoContainerRef}
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -167,7 +163,6 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Language Selector - Desktop only, mobile da menu ichida */}
           <div className="hidden sm:flex items-center gap-1 sm:gap-2 ml-auto z-10">
             {languages.map((lang) => (
               <button
@@ -199,7 +194,6 @@ export default function Navbar() {
           height: '100vh',
         }}
       >
-        {/* Menu Content - Alohida container, lekin orqa fon bir xil */}
         <div
           ref={menuContentRef}
           className="h-full w-full flex flex-col relative"
@@ -207,9 +201,7 @@ export default function Navbar() {
             setIsMenuOpen(false)
           }}
         >
-          {/* Container for content */}
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col relative">
-            {/* Menu Button - Navbar bilan bir xil joyda */}
             <div className="pt-4">
               <Button
                 onClick={() => setIsMenuOpen(false)}
@@ -232,7 +224,6 @@ export default function Navbar() {
               />
             </div>
 
-            {/* Navigation Links - Chap tomonda vertical */}
             <nav className="flex flex-col w-fit gap-6 flex-1 pt-10">
               <Link
                 href={`/${locale}`}
@@ -282,7 +273,6 @@ export default function Navbar() {
               </Link>
             </nav>
 
-            {/* Language Selector - Pastda o'ng tomonda */}
             <div className="flex items-center gap-2 justify-end pb-8">
               {languages.map((lang) => (
                 <button

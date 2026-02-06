@@ -52,7 +52,6 @@ export default function Info() {
       </div>
 
       <div className="container mx-auto relative z-10">
-        {/* Main Flex Container - Card + Image */}
         <div className="flex flex-col lg:flex-row items-stretch gap-6 lg:gap-9">
 
           {/* Glass Card with Contact Info */}
@@ -151,7 +150,7 @@ export default function Info() {
           </div>
 
           {/* Office Image - 550x400 at 1440px */}
-          <div className="relative w-full lg:w-[550px] h-[300px] sm:h-[350px] lg:h-[400px] shrink-0 overflow-hidden">
+          {/* <div className="relative w-full lg:w-[550px] h-[300px] sm:h-[350px] lg:h-[400px] shrink-0 overflow-hidden">
             <Image
               src="/images/contact-us2.png"
               alt={t('contact.info.office.imageAlt')}
@@ -159,7 +158,7 @@ export default function Info() {
               className="object-cover"
               priority
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

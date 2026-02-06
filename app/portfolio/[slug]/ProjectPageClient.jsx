@@ -4,8 +4,16 @@ import { notFound } from 'next/navigation';
 import ProjectDetail from '@/components/sections/ProjectDetail';
 import { useProject } from '@/hooks/useProjects';
 
-export default function ProjectPageClient({ slug, initialProject, initialProjects = [] }) {
-  const { project } = useProject(slug, initialProject);
+export default function ProjectPageClient({ slug, initialProject, initialProjects = [], serverStrapiFailed = false }) {
+  const { project, loading } = useProject(slug, initialProject);
+
+  if (loading && !project) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-gray-500 text-lg">Yuklanmoqda…</div>
+      </div>
+    );
+  }
 
   if (!project) {
     notFound();

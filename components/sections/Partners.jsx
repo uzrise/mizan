@@ -55,7 +55,6 @@ export default function Partners() {
           };
 
           const viewportHeight = window.innerHeight;
-          // Har bir partner uchun scroll masofa
           const scrollDistancePerPartner = viewportHeight * 0.05;
           const totalScrollDistance = partners.length * scrollDistancePerPartner;
 

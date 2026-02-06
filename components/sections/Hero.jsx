@@ -6,7 +6,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 
-// Til o'zgarganda Hero qayta mount bo'ladi — rasm allaqachon yuklangan bo'lsa yashil ko'rinmasin
 const getHeroImageAlreadyLoaded = () =>
   typeof window !== 'undefined' && !!window.__heroImageLoaded;
 

@@ -62,13 +62,31 @@ export async function generateMetadata({ params }) {
 export default async function ProjectPage({ params }) {
   const { slug, locale } = await params;
   const lang = localeToLang[locale?.toLowerCase()] || 'RU';
-  const [project, allProjects] = await Promise.all([
-    getProject(slug, lang),
-    getProjects(lang),
-  ]);
+
+  let project = null;
+  let allProjects = [];
+  let serverStrapiFailed = false;
+
+  try {
+    const [projectData, projectsData] = await Promise.all([
+      getProject(slug, lang),
+      getProjects(lang),
+    ]);
+    project = projectData;
+    allProjects = projectsData || [];
+  } catch (err) {
+    console.warn('Portfolio slug: server fetch failed, client will retry', err?.message);
+    serverStrapiFailed = true;
+  }
+
   return (
     <main className="min-h-screen bg-white">
-      <ProjectPageClient slug={slug} initialProject={project} initialProjects={allProjects || []} />
+      <ProjectPageClient
+        slug={slug}
+        initialProject={project}
+        initialProjects={allProjects}
+        serverStrapiFailed={serverStrapiFailed}
+      />
     </main>
   );
 }

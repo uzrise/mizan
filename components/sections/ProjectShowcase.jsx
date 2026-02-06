@@ -15,12 +15,19 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function ProjectShowcase({ initialProjects = [] }) {
+export default function ProjectShowcase({ initialProjects = [], serverStrapiFailed = false }) {
   const { t, language, locale, safeTranslate } = useTranslation();
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
   const projectRefs = useRef([]);
-  const { projects: clientProjects, loading: clientLoading, error } = useProjects();
+  const { projects: clientProjects, loading: clientLoading, error, refetch } = useProjects();
+
+  // When server had Strapi error, retry once on client
+  useEffect(() => {
+    if (serverStrapiFailed && refetch) {
+      refetch();
+    }
+  }, [serverStrapiFailed, refetch]);
 
   // Transform initialProjects based on current language
   // This ensures texts update when language changes
@@ -36,12 +43,15 @@ export default function ProjectShowcase({ initialProjects = [] }) {
     });
   }, [initialProjects, language]);
 
-  // Prioritize server-fetched initialProjects over client-fetched projects
-  const projectsToUse = transformedInitialProjects && transformedInitialProjects.length > 0 
-    ? transformedInitialProjects 
-    : clientProjects;
+  // When server Strapi failed: prefer client-fetched projects (retry result) when ready; else show fallback
+  // Otherwise: prefer server initialProjects, then client
+  const projectsToUse = serverStrapiFailed
+    ? (clientProjects?.length > 0 && !clientLoading ? clientProjects : transformedInitialProjects) ?? clientProjects ?? []
+    : (transformedInitialProjects && transformedInitialProjects.length > 0 ? transformedInitialProjects : clientProjects);
 
-  const loading = transformedInitialProjects && transformedInitialProjects.length > 0 ? false : clientLoading;
+  const loading = serverStrapiFailed
+    ? (clientLoading && !(clientProjects?.length > 0))
+    : (transformedInitialProjects && transformedInitialProjects.length > 0 ? false : clientLoading);
 
   const projects = projectsToUse?.slice(0, 4) || [];
 

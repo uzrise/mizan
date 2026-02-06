@@ -127,8 +127,6 @@ export default function Awards() {
           };
 
           const viewportHeight = window.innerHeight;
-          // Har bir award uchun bir viewport height scroll masofa
-          // Bu har bir scroll qilganda keyingi award ko'rinishini ta'minlaydi
           const scrollDistancePerAward = viewportHeight* 0.05;
           const totalScrollDistance = awards.length * scrollDistancePerAward;
 

@@ -11,7 +11,6 @@ export default function IntroAnimation() {
   useEffect(() => {
     if (!overlayRef.current || !logoRef.current) return;
 
-    // Til o'zgarganda (locale nav) intro qayta ishlamasin — faqat birinchi marta
     if (typeof window !== 'undefined' && window.__introComplete === true) {
       overlayRef.current.style.display = 'none';
       if (logoRef.current) logoRef.current.style.display = 'none';
@@ -115,12 +114,9 @@ export default function IntroAnimation() {
           const deltaX = navbarCenterX - currentCenterX;
           const deltaY = navbarCenterY - currentCenterY;
           
-          // Responsive scale calculation - logolar bir xil bo'lishi uchun scale 1.0
           const isMobile = window.innerWidth < 640;
           const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024;
           
-          // Intro va Navbar logolar bir xil o'lchamda bo'lishi kerak
-          // Shuning uchun scaleFactor = 1.0 (hech qanday o'zgarish yo'q)
           const scaleFactor = 1.0;
 
           // Move logo to navbar position

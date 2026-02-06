@@ -25,6 +25,14 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
   const lightboxImageRef = useRef(null);
   const imageWrapperRef = useRef(null);
 
+  const restoreBodyAndSmoother = useCallback(() => {
+    document.body.style.overflow = '';
+    const smoother = window.ScrollSmootherInstance || (window.ScrollSmoother?.get && window.ScrollSmoother.get());
+    if (smoother) {
+      smoother.paused(false);
+    }
+  }, []);
+
   const openLightbox = useCallback((index) => {
     setCurrentImageIndex(index);
     setLightboxOpen(true);
@@ -35,16 +43,15 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     if (smoother) {
       smoother.paused(true);
     }
+    if (typeof window !== 'undefined' && window.history) {
+      window.history.pushState({ galleryLightbox: true }, '', window.location.href);
+    }
   }, []);
 
   const closeLightbox = useCallback(() => {
     setLightboxOpen(false);
-    document.body.style.overflow = '';
-    const smoother = window.ScrollSmootherInstance || (window.ScrollSmoother?.get && window.ScrollSmoother.get());
-    if (smoother) {
-      smoother.paused(false);
-    }
-  }, []);
+    restoreBodyAndSmoother();
+  }, [restoreBodyAndSmoother]);
 
   const validImages = useMemo(() => {
     return project?.images?.filter(img => img && img.trim() !== '') || [];
@@ -140,6 +147,21 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
   }, []);
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const handlePopState = () => {
+      closeLightbox();
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [lightboxOpen, closeLightbox]);
+
+  useEffect(() => {
+    return () => {
+      restoreBodyAndSmoother();
+    };
+  }, [restoreBodyAndSmoother]);
 
   useEffect(() => {
     if (!lightboxOpen) return;
@@ -498,9 +520,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
               </div>
             </div>
 
-            {/* Hover zone - pastki qismda hover qilganda panel ko'rinadi */}
             <div className="absolute bottom-0 left-0 right-0 h-32 z-20 group/panel">
-              {/* Panel - odatda yashirin, hover da ko'rinadi */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent pb-4 pt-6 overflow-visible opacity-0 translate-y-4 group-hover/panel:opacity-100 group-hover/panel:translate-y-0 transition-all duration-300 ease-out">
                 <div className="w-full max-w-5xl mx-auto overflow-x-auto overflow-y-visible scrollbar-hide px-4 py-2" style={{ WebkitOverflowScrolling: 'touch', minHeight: 'fit-content' }}>
                   <div className="flex gap-2 justify-center flex-nowrap min-w-max py-1 items-center">

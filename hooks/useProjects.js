@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { getAllProjects, getProjectBySlug, transformProject } from '@/lib/strapi';
 import { isConstantsProject } from '@/utils/projectUtils';
@@ -29,6 +29,10 @@ async function fetchAllProjectsCached() {
     return projectsCachePromise;
   }
 
+  return doFetchAllProjects();
+}
+
+function doFetchAllProjects() {
   // Fetch and cache
   // getAllProjects() should always return data (either from Strapi or constants fallback)
   projectsCachePromise = getAllProjects()
@@ -45,6 +49,13 @@ async function fetchAllProjectsCached() {
     });
 
   return projectsCachePromise;
+}
+
+/** Invalidate projects cache so next fetch gets fresh data (e.g. client retry after server error) */
+function invalidateProjectsCache() {
+  projectsCache = null;
+  projectsCacheTime = null;
+  projectsCachePromise = null;
 }
 
 async function fetchProjectBySlugCached(slug) {
@@ -69,30 +80,34 @@ export function useProjects() {
   const [error, setError] = useState(null);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
-  useEffect(() => {
-    async function fetchProjects() {
-      try {
-        setLoading(true);
-        setIsInitialLoad(true);
-        const data = await fetchAllProjectsCached();
-        if (data && data.length > 0) {
-          setRawProjects(data);
-          setError(null);
-        } else {
-          setError(new Error('No projects available'));
-          setRawProjects(null);
-        }
-      } catch (err) {
-        console.error('Error fetching projects:', err);
-        setError(err);
+  const fetchProjects = async (invalidateCache = false) => {
+    try {
+      setLoading(true);
+      if (invalidateCache) invalidateProjectsCache();
+      const data = await fetchAllProjectsCached();
+      if (data && data.length > 0) {
+        setRawProjects(data);
+        setError(null);
+      } else {
+        setError(new Error('No projects available'));
         setRawProjects(null);
-      } finally {
-        setLoading(false);
-        setIsInitialLoad(false);
       }
+    } catch (err) {
+      console.error('Error fetching projects:', err);
+      setError(err);
+      setRawProjects(null);
+    } finally {
+      setLoading(false);
+      setIsInitialLoad(false);
     }
+  };
 
-    fetchProjects();
+  const refetch = useCallback(() => {
+    fetchProjects(true);
+  }, []);
+
+  useEffect(() => {
+    fetchProjects(false);
   }, []);
 
   const projects = useMemo(() => {
@@ -107,7 +122,7 @@ export function useProjects() {
     });
   }, [rawProjects, language]);
 
-  return { projects, loading: isInitialLoad && loading, error };
+  return { projects, loading: isInitialLoad && loading, error, refetch };
 }
 
 export function useProject(slug, initialProject = null) {

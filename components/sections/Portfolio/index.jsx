@@ -97,8 +97,6 @@ export default function Portfolio({ initialProjects = null }) {
     if (window.__introComplete) {
       animateInitialContent();
     } else {
-      // Portfolio sahifasiga to'g'ridan-to'g'ri kirilganda ham animatsiya ishlashi uchun
-      // Intro bo'lmasa, qisqa delay dan keyin animatsiyani ishga tushiramiz
       const timer = setTimeout(() => {
         if (!window.__introComplete) {
           animateInitialContent();
