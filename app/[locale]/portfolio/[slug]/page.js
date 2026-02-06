@@ -1,6 +1,5 @@
-import { notFound } from 'next/navigation';
 import ProjectPageClient from '@/app/portfolio/[slug]/ProjectPageClient';
-import { getProject, getProjects } from '@/lib/strapi';
+import { getAllProjectsForPortfolio, getProject, getProjects } from '@/lib/strapi';
 import { getTranslation } from '@/translations';
 import { supportedLocales } from '@/lib/getSeoMetadata';
 
@@ -10,7 +9,7 @@ const localeToLang = { ru: 'RU', en: 'EN', uz: 'UZ', tr: 'TR' };
 
 export async function generateStaticParams() {
   try {
-    const projects = await getProjects('RU');
+    const projects = await getAllProjectsForPortfolio('RU');
     if (!projects || projects.length === 0) return [];
     const slugs = projects
       .filter((p) => p && p.slug)
