@@ -12,7 +12,7 @@ const ProjectCard = memo(({ project }) => {
   const intervalRef = useRef(null);
 
   const defaultImage = project.image || project.images?.[0] || '';
-  const slideshowImages = project.images?.filter(img => img && img.trim() !== '') || [];
+  const slideshowImages = (project.images?.filter(img => img && img.trim() !== '') || []).slice(0, 5);
   const displayImages = isHovered && slideshowImages.length > 0
     ? slideshowImages
     : [defaultImage].filter(Boolean);
