@@ -21,6 +21,7 @@ export default function Hero({ project }) {
             className="object-cover"
             sizes="100vw"
             priority
+            fetchPriority="high"
             placeholder="blur"
             blurDataURL={BLUR_DATA_URL}
             onError={(e) => {

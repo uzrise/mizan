@@ -57,6 +57,38 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     return project?.images?.filter(img => img && img.trim() !== '') || [];
   }, [project?.images]);
 
+  // When lightbox opens, preload all gallery images sequentially in the background so next/prev feel instant
+  useEffect(() => {
+    if (!lightboxOpen || validImages.length === 0) return;
+    const urls = validImages.map((img) => formatImageUrl(img)).filter(Boolean);
+    if (urls.length === 0) return;
+    let index = 0;
+    const loadNext = () => {
+      if (index >= urls.length) return;
+      const img = new window.Image();
+      img.onload = loadNext;
+      img.onerror = loadNext;
+      img.src = urls[index++];
+    };
+    loadNext();
+  }, [lightboxOpen, validImages]);
+
+  // Preload adjacent images (±1, ±2) when currentImageIndex changes for instant next/prev
+  useEffect(() => {
+    if (!lightboxOpen || validImages.length === 0) return;
+    const adjacentOffsets = [-2, -1, 1, 2];
+    adjacentOffsets.forEach((offset) => {
+      const idx = (currentImageIndex + offset + validImages.length) % validImages.length;
+      if (idx !== currentImageIndex && validImages[idx]) {
+        const url = formatImageUrl(validImages[idx]);
+        if (url) {
+          const img = new window.Image();
+          img.src = url;
+        }
+      }
+    });
+  }, [lightboxOpen, currentImageIndex, validImages]);
+
   // Limit the horizontally scrollable gallery to at most 6 images; lightbox still uses all images
   const visibleImages = useMemo(() => validImages.slice(0, 6), [validImages]);
 

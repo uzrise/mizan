@@ -4,6 +4,10 @@ import { memo, useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { formatImageUrl } from '@/utils/imageUtils';
+
+// Track preloaded hero images globally to avoid duplicate preloads across cards
+const preloadedHeroImages = new Set();
 
 const ProjectCard = memo(({ project }) => {
   const { t, locale, safeTranslate } = useTranslation();
@@ -42,6 +46,22 @@ const ProjectCard = memo(({ project }) => {
     return () => stopSlideshow();
   }, [isHovered, startSlideshow, stopSlideshow]);
 
+  // Preload slug page hero image on hover for faster page load
+  const preloadHeroImage = useCallback(() => {
+    const heroImageSrc = project.image || project.images?.[0];
+    if (!heroImageSrc) return;
+    const url = formatImageUrl(heroImageSrc);
+    if (!url || preloadedHeroImages.has(url)) return;
+    preloadedHeroImages.add(url);
+    const img = new window.Image();
+    img.src = url;
+  }, [project.image, project.images]);
+
+  const handleMouseEnter = useCallback(() => {
+    setIsHovered(true);
+    preloadHeroImage();
+  }, [preloadHeroImage]);
+
   return (
     <div
       key={project.id}
@@ -52,7 +72,7 @@ const ProjectCard = memo(({ project }) => {
       <Link
         href={`/${locale}/portfolio/${project.slug}`}
         className="group relative block"
-        onMouseEnter={() => setIsHovered(true)}
+        onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="relative overflow-hidden w-full aspect-457/427 transition-all duration-500 ease-out group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-black/10">
