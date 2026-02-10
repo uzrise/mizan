@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useState, useEffect, useRef, useCallback } from 'react';
+import { memo, useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
@@ -34,20 +34,27 @@ const ProjectCard = memo(({ project }) => {
   
   // Use medium format for card images (faster loading)
   const defaultImage = imageFormats?.medium || imageFormats?.small || project.image || project.images?.[0] || '';
-  const slideshowImages = (project.images?.filter(img => img && img.trim() !== '') || []).slice(0, 5);
+  
+  // Memoize slideshowImages to stabilize reference for React Compiler
+  const slideshowImages = useMemo(
+    () => (project.images?.filter(img => img && img.trim() !== '') || []).slice(0, 5),
+    [project.images]
+  );
+  
+  const slideshowCount = slideshowImages.length;
   
   // Build display images with medium format preference
-  const displayImages = isHovered && slideshowImages.length > 0
+  const displayImages = isHovered && slideshowCount > 0
     ? slideshowImages.map((_, idx) => getFormatUrl(idx, 'medium', project.images, imagesFormats) || slideshowImages[idx])
     : [formatImageUrl(defaultImage)].filter(Boolean);
 
   const startSlideshow = useCallback(() => {
-    if (slideshowImages.length <= 1) return;
+    if (slideshowCount <= 1) return;
     
     intervalRef.current = setInterval(() => {
-      setCurrentImageIndex(prev => (prev + 1) % slideshowImages.length);
+      setCurrentImageIndex(prev => (prev + 1) % slideshowCount);
     }, 1200);
-  }, [slideshowImages.length]);
+  }, [slideshowCount]);
 
   const stopSlideshow = useCallback(() => {
     if (intervalRef.current) {

@@ -4,6 +4,9 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { shouldSkipOptimization, BLUR_DATA_URL } from '@/utils/imageUtils';
 
+// Delay before showing spinner (ms) - prevents flash for cached images
+const SPINNER_DELAY = 250;
+
 /**
  * Image component with timeout and retry functionality
  * Prevents browser from hanging indefinitely on slow/failed image loads
@@ -30,63 +33,68 @@ export default function ImageWithTimeout({
   className = '',
   ...props
 }) {
-  const [status, setStatus] = useState('loading'); // 'loading' | 'loaded' | 'error' | 'timeout'
+  // Use key-based reset pattern instead of useEffect setState
+  // Track the original src to detect changes and reset state
+  const [trackedSrc, setTrackedSrc] = useState(src);
+  const [status, setStatus] = useState('pending'); // 'pending' | 'loading' | 'loaded' | 'error' | 'timeout'
   const [retryCount, setRetryCount] = useState(0);
   const [currentSrc, setCurrentSrc] = useState(src);
   const timeoutRef = useRef(null);
-  const abortControllerRef = useRef(null);
+  const spinnerDelayRef = useRef(null);
 
-  // Reset state when src changes
-  useEffect(() => {
-    setStatus('loading');
+  // Reset state when src changes - using derived state pattern
+  if (src !== trackedSrc) {
+    setTrackedSrc(src);
+    setStatus('pending'); // Start as pending, not loading
     setRetryCount(0);
     setCurrentSrc(src);
-  }, [src]);
+  }
 
-  // Setup timeout
+  // Setup spinner delay and timeout
   useEffect(() => {
-    if (status !== 'loading') return;
+    if (status !== 'pending' && status !== 'loading') return;
 
-    // Clear any existing timeout
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
+    // Clear any existing timers
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (spinnerDelayRef.current) clearTimeout(spinnerDelayRef.current);
+
+    // Show spinner only after delay (avoids flash for cached images)
+    if (status === 'pending') {
+      spinnerDelayRef.current = setTimeout(() => {
+        setStatus('loading');
+      }, SPINNER_DELAY);
     }
 
-    // Set new timeout
+    // Set timeout for error state
     timeoutRef.current = setTimeout(() => {
-      if (status === 'loading') {
-        console.warn(`Image timeout after ${timeout}ms:`, currentSrc);
-        setStatus('timeout');
-        onLoadError?.({ type: 'timeout', src: currentSrc });
-      }
+      console.warn(`Image timeout after ${timeout}ms:`, currentSrc);
+      setStatus('timeout');
+      onLoadError?.({ type: 'timeout', src: currentSrc });
     }, timeout);
 
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (spinnerDelayRef.current) clearTimeout(spinnerDelayRef.current);
     };
   }, [status, timeout, currentSrc, onLoadError]);
 
   const handleLoad = useCallback(() => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (spinnerDelayRef.current) clearTimeout(spinnerDelayRef.current);
     setStatus('loaded');
     onLoadSuccess?.();
   }, [onLoadSuccess]);
 
   const handleError = useCallback((e) => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (spinnerDelayRef.current) clearTimeout(spinnerDelayRef.current);
     
     console.error('Image failed to load:', currentSrc);
     
     // Try fallback if available
     if (fallbackSrc && currentSrc !== fallbackSrc) {
       setCurrentSrc(fallbackSrc);
-      setStatus('loading');
+      setStatus('pending');
       return;
     }
     
@@ -98,19 +106,20 @@ export default function ImageWithTimeout({
     if (retryCount >= maxRetries) return;
     
     setRetryCount(prev => prev + 1);
-    setStatus('loading');
+    setStatus('pending');
     // Add cache-busting query param for retry
-    const separator = currentSrc.includes('?') ? '&' : '?';
+    const separator = src.includes('?') ? '&' : '?';
     setCurrentSrc(`${src}${separator}_retry=${Date.now()}`);
-  }, [retryCount, maxRetries, src, currentSrc]);
+  }, [retryCount, maxRetries, src]);
 
   const isError = status === 'error' || status === 'timeout';
+  const isLoading = status === 'loading'; // Only show spinner after delay
   const canRetry = retryCount < maxRetries;
 
   return (
     <div className={`relative ${props.fill ? 'w-full h-full' : ''}`}>
-      {/* Loading skeleton */}
-      {status === 'loading' && (
+      {/* Loading skeleton - only shown after SPINNER_DELAY */}
+      {isLoading && (
         <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-lg flex items-center justify-center z-10">
           <div className="flex flex-col items-center gap-2">
             <svg 
@@ -168,11 +177,11 @@ export default function ImageWithTimeout({
         </div>
       )}
 
-      {/* Actual image */}
+      {/* Actual image - visible immediately for cached, fades in for new */}
       <Image
         src={currentSrc}
         alt={alt}
-        className={`${className} ${status === 'loaded' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
+        className={`${className} ${status === 'loaded' || status === 'pending' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-200`}
         onLoad={handleLoad}
         onError={handleError}
         unoptimized={shouldSkipOptimization(currentSrc)}
@@ -187,6 +196,8 @@ export default function ImageWithTimeout({
 /**
  * Lightweight version without retry UI - just handles timeout gracefully
  * Use this for thumbnails and less critical images
+ * 
+ * Uses internal wrapper with key-based reset to avoid useEffect setState issues
  */
 export function ImageWithTimeoutSimple({
   src,
@@ -196,16 +207,37 @@ export function ImageWithTimeoutSimple({
   className = '',
   ...props
 }) {
-  const [timedOut, setTimedOut] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const timeoutRef = useRef(null);
+  // Use key to force remount when src changes - cleanest pattern for React Compiler
+  return (
+    <ImageWithTimeoutSimpleInner
+      key={src}
+      src={src}
+      alt={alt}
+      timeout={timeout}
+      onTimeout={onTimeout}
+      className={className}
+      {...props}
+    />
+  );
+}
 
+// Internal component that handles single image lifecycle
+function ImageWithTimeoutSimpleInner({
+  src,
+  alt,
+  timeout,
+  onTimeout,
+  className = '',
+  ...props
+}) {
+  const [timedOut, setTimedOut] = useState(false);
+  const timeoutRef = useRef(null);
+  const loadedRef = useRef(false);
+
+  // Setup timeout - runs once on mount (key change causes remount)
   useEffect(() => {
-    setTimedOut(false);
-    setLoaded(false);
-    
     timeoutRef.current = setTimeout(() => {
-      if (!loaded) {
+      if (!loadedRef.current) {
         setTimedOut(true);
         onTimeout?.();
       }
@@ -214,12 +246,12 @@ export function ImageWithTimeoutSimple({
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [src, timeout, loaded, onTimeout]);
+  }, [timeout, onTimeout]);
 
-  const handleLoad = () => {
+  const handleLoad = useCallback(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setLoaded(true);
-  };
+    loadedRef.current = true;
+  }, []);
 
   if (timedOut) {
     return (
@@ -231,6 +263,8 @@ export function ImageWithTimeoutSimple({
     );
   }
 
+  // No spinner for simple version - just show image directly
+  // Browser cache handles instant display for cached images
   return (
     <Image
       src={src}
