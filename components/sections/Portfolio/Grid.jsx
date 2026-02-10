@@ -5,10 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { formatImageUrl } from '@/utils/imageUtils';
-import { ImageWithTimeoutSimple } from '@/components/common/ImageWithTimeout';
-
-// Track preloaded hero images globally to avoid duplicate preloads across cards
-const preloadedHeroImages = new Set();
+import { ImageWithTimeoutSimple, preloadImage } from '@/components/common/ImageWithTimeout';
 
 /**
  * Get the best available URL for a specific format
@@ -73,16 +70,15 @@ const ProjectCard = memo(({ project }) => {
     return () => stopSlideshow();
   }, [isHovered, startSlideshow, stopSlideshow]);
 
-  // Preload slug page hero image on hover for faster page load (use large format)
+  // Preload slug page hero image on hover for faster page load (use medium format - same as Hero)
   const preloadHeroImage = useCallback(() => {
-    // Prefer large format for hero preload
-    const heroImageSrc = imageFormats?.large || imageFormats?.medium || project.image || project.images?.[0];
+    // Prefer medium format for hero preload (same format used in Hero component)
+    const heroImageSrc = imageFormats?.medium || imageFormats?.large || project.image || project.images?.[0];
     if (!heroImageSrc) return;
     const url = formatImageUrl(heroImageSrc);
-    if (!url || preloadedHeroImages.has(url)) return;
-    preloadedHeroImages.add(url);
-    const img = new window.Image();
-    img.src = url;
+    if (url) {
+      preloadImage(url); // Uses global cache from ImageWithTimeout
+    }
   }, [project.image, project.images, imageFormats]);
 
   const handleMouseEnter = useCallback(() => {

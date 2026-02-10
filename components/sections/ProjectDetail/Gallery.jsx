@@ -6,7 +6,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { formatImageUrl, shouldSkipOptimization, BLUR_DATA_URL, getImageUrl } from '@/utils/imageUtils';
+import { formatImageUrl, shouldSkipOptimization, getImageUrl } from '@/utils/imageUtils';
 import ImageWithTimeout, { ImageWithTimeoutSimple } from '@/components/common/ImageWithTimeout';
 
 if (typeof window !== 'undefined') {
@@ -23,14 +23,22 @@ if (typeof window !== 'undefined') {
  */
 function getFormatUrl(index, format, images, imagesFormats) {
   const formats = imagesFormats?.[index];
+  
+  // For 'full' format, return original image URL directly
+  if (format === 'full') {
+    return formatImageUrl(images[index]);
+  }
+  
   if (formats && formats[format]) {
     return formatImageUrl(formats[format]);
   }
+  
   // Fallback chain for lightbox: large -> medium -> full
   if (format === 'large' && formats) {
     if (formats.large) return formatImageUrl(formats.large);
     if (formats.medium) return formatImageUrl(formats.medium);
   }
+  
   // Fallback to full URL
   return formatImageUrl(images[index]);
 }
@@ -84,17 +92,17 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
   // Get imagesFormats from project (contains thumbnail, small, medium, large URLs)
   const imagesFormats = project?.imagesFormats || [];
 
-  // Preload large image for current index and mark as loaded
-  const preloadLargeImage = useCallback((index) => {
+  // Preload original (full) image for current index and mark as loaded
+  const preloadFullImage = useCallback((index) => {
     if (loadedLargeImages.has(index)) return;
-    const largeUrl = getFormatUrl(index, 'large', validImages, imagesFormats);
-    if (!largeUrl) return;
+    const fullUrl = getFormatUrl(index, 'full', validImages, imagesFormats);
+    if (!fullUrl) return;
     
     const img = new window.Image();
     img.onload = () => {
       setLoadedLargeImages(prev => new Set([...prev, index]));
     };
-    img.src = largeUrl;
+    img.src = fullUrl;
   }, [validImages, imagesFormats, loadedLargeImages]);
 
   // When lightbox opens, preload current + adjacent images in PARALLEL (not sequential)
@@ -102,17 +110,17 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     if (!lightboxOpen || validImages.length === 0) return;
     
     // Preload current image first
-    preloadLargeImage(currentImageIndex);
+    preloadFullImage(currentImageIndex);
     
     // Preload adjacent images (±1, ±2) in parallel
     const adjacentOffsets = [-2, -1, 1, 2];
     adjacentOffsets.forEach((offset) => {
       const idx = (currentImageIndex + offset + validImages.length) % validImages.length;
       if (idx !== currentImageIndex) {
-        preloadLargeImage(idx);
+        preloadFullImage(idx);
       }
     });
-  }, [lightboxOpen, currentImageIndex, validImages.length, preloadLargeImage]);
+  }, [lightboxOpen, currentImageIndex, validImages.length, preloadFullImage]);
 
   // Reset loaded images when lightbox closes
   useEffect(() => {
@@ -560,16 +568,16 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                 }}
               >
                 {(() => {
-                  // Thumbnail-first UX: show thumbnail/medium immediately, then large when loaded
-                  const isLargeLoaded = loadedLargeImages.has(currentImageIndex);
+                  // Thumbnail-first UX: show medium immediately, then original (full) when loaded
+                  const isFullLoaded = loadedLargeImages.has(currentImageIndex);
                   const thumbnailUrl = getFormatUrl(currentImageIndex, 'medium', validImages, imagesFormats);
-                  const largeUrl = getFormatUrl(currentImageIndex, 'large', validImages, imagesFormats);
-                  const displayUrl = isLargeLoaded ? largeUrl : thumbnailUrl;
+                  const fullUrl = getFormatUrl(currentImageIndex, 'full', validImages, imagesFormats);
+                  const displayUrl = isFullLoaded ? fullUrl : thumbnailUrl;
                   
                   return (
                     <>
-                      {/* Show thumbnail/medium first (instant) */}
-                      {!isLargeLoaded && (
+                      {/* Show medium first (instant) */}
+                      {!isFullLoaded && (
                         <Image
                           src={thumbnailUrl}
                           alt={`${safeTranslate(project?.titleKey)} - Image ${currentImageIndex + 1}`}
@@ -578,24 +586,22 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                           sizes="90vw"
                           priority
                           unoptimized={shouldSkipOptimization(thumbnailUrl)}
-                          placeholder="blur"
-                          blurDataURL={BLUR_DATA_URL}
                         />
                       )}
-                      {/* Show large image when loaded (smooth transition) */}
+                      {/* Show original (full) image when loaded (smooth transition) */}
                       <Image
-                        src={largeUrl}
+                        src={fullUrl}
                         alt={`${safeTranslate(project?.titleKey)} - Image ${currentImageIndex + 1}`}
                         fill
-                        className={`object-contain transition-opacity duration-300 ${isLargeLoaded ? 'opacity-100' : 'opacity-0'}`}
+                        className={`object-contain transition-opacity duration-300 ${isFullLoaded ? 'opacity-100' : 'opacity-0'}`}
                         sizes="90vw"
                         priority
-                        unoptimized={shouldSkipOptimization(largeUrl)}
+                        unoptimized={shouldSkipOptimization(fullUrl)}
                         onLoad={() => {
                           setLoadedLargeImages(prev => new Set([...prev, currentImageIndex]));
                         }}
                         onError={(e) => {
-                          console.error('Lightbox image failed to load:', largeUrl);
+                          console.error('Lightbox image failed to load:', fullUrl);
                         }}
                       />
                     </>

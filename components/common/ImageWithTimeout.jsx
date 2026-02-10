@@ -12,6 +12,21 @@ const SPINNER_DELAY = 250;
 const loadedImagesCache = new Set();
 
 /**
+ * Preload an image and add it to the global cache
+ * Use this to preload images before they're needed (e.g., on hover)
+ */
+export function preloadImage(src) {
+  if (!src || typeof window === 'undefined') return;
+  if (loadedImagesCache.has(src)) return; // Already cached
+  
+  const img = new window.Image();
+  img.onload = () => {
+    loadedImagesCache.add(src);
+  };
+  img.src = src;
+}
+
+/**
  * Image component with timeout and retry functionality
  * Prevents browser from hanging indefinitely on slow/failed image loads
  * 
