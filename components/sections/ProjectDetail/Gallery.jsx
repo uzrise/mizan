@@ -6,10 +6,33 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { formatImageUrl, shouldSkipOptimization, BLUR_DATA_URL } from '@/utils/imageUtils';
+import { formatImageUrl, shouldSkipOptimization, BLUR_DATA_URL, getImageUrl } from '@/utils/imageUtils';
+import ImageWithTimeout, { ImageWithTimeoutSimple } from '@/components/common/ImageWithTimeout';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
+}
+
+/**
+ * Get the best available URL for a specific format
+ * @param {number} index - Image index
+ * @param {string} format - 'thumbnail' | 'small' | 'medium' | 'large' | 'full'
+ * @param {string[]} images - Array of full image URLs
+ * @param {Array} imagesFormats - Array of format objects
+ * @returns {string} - Best available URL
+ */
+function getFormatUrl(index, format, images, imagesFormats) {
+  const formats = imagesFormats?.[index];
+  if (formats && formats[format]) {
+    return formatImageUrl(formats[format]);
+  }
+  // Fallback chain for lightbox: large -> medium -> full
+  if (format === 'large' && formats) {
+    if (formats.large) return formatImageUrl(formats.large);
+    if (formats.medium) return formatImageUrl(formats.medium);
+  }
+  // Fallback to full URL
+  return formatImageUrl(images[index]);
 }
 
 export default function Gallery({ project, gallerySectionRef, galleryContainerRef, galleryItemsRef }) {
@@ -21,6 +44,7 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [loadedLargeImages, setLoadedLargeImages] = useState(new Set()); // Track which large images are loaded
   const lightboxRef = useRef(null);
   const lightboxImageRef = useRef(null);
   const imageWrapperRef = useRef(null);
@@ -57,37 +81,45 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     return project?.images?.filter(img => img && img.trim() !== '') || [];
   }, [project?.images]);
 
-  // When lightbox opens, preload all gallery images sequentially in the background so next/prev feel instant
-  useEffect(() => {
-    if (!lightboxOpen || validImages.length === 0) return;
-    const urls = validImages.map((img) => formatImageUrl(img)).filter(Boolean);
-    if (urls.length === 0) return;
-    let index = 0;
-    const loadNext = () => {
-      if (index >= urls.length) return;
-      const img = new window.Image();
-      img.onload = loadNext;
-      img.onerror = loadNext;
-      img.src = urls[index++];
-    };
-    loadNext();
-  }, [lightboxOpen, validImages]);
+  // Get imagesFormats from project (contains thumbnail, small, medium, large URLs)
+  const imagesFormats = project?.imagesFormats || [];
 
-  // Preload adjacent images (±1, ±2) when currentImageIndex changes for instant next/prev
+  // Preload large image for current index and mark as loaded
+  const preloadLargeImage = useCallback((index) => {
+    if (loadedLargeImages.has(index)) return;
+    const largeUrl = getFormatUrl(index, 'large', validImages, imagesFormats);
+    if (!largeUrl) return;
+    
+    const img = new window.Image();
+    img.onload = () => {
+      setLoadedLargeImages(prev => new Set([...prev, index]));
+    };
+    img.src = largeUrl;
+  }, [validImages, imagesFormats, loadedLargeImages]);
+
+  // When lightbox opens, preload current + adjacent images in PARALLEL (not sequential)
   useEffect(() => {
     if (!lightboxOpen || validImages.length === 0) return;
+    
+    // Preload current image first
+    preloadLargeImage(currentImageIndex);
+    
+    // Preload adjacent images (±1, ±2) in parallel
     const adjacentOffsets = [-2, -1, 1, 2];
     adjacentOffsets.forEach((offset) => {
       const idx = (currentImageIndex + offset + validImages.length) % validImages.length;
-      if (idx !== currentImageIndex && validImages[idx]) {
-        const url = formatImageUrl(validImages[idx]);
-        if (url) {
-          const img = new window.Image();
-          img.src = url;
-        }
+      if (idx !== currentImageIndex) {
+        preloadLargeImage(idx);
       }
     });
-  }, [lightboxOpen, currentImageIndex, validImages]);
+  }, [lightboxOpen, currentImageIndex, validImages.length, preloadLargeImage]);
+
+  // Reset loaded images when lightbox closes
+  useEffect(() => {
+    if (!lightboxOpen) {
+      setLoadedLargeImages(new Set());
+    }
+  }, [lightboxOpen]);
 
   // Limit the horizontally scrollable gallery to at most 6 images; lightbox still uses all images
   const visibleImages = useMemo(() => validImages.slice(0, 6), [validImages]);
@@ -421,7 +453,8 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
           {visibleImages.map((image, index) => {
             if (!image || image.trim() === '') return null;
             
-            const imageUrl = formatImageUrl(image);
+            // Use medium format for gallery strip (faster loading)
+            const imageUrl = getFormatUrl(index, 'medium', validImages, imagesFormats);
             
             return (
               <div
@@ -442,20 +475,16 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                 className={`relative shrink-0 w-[85vw] sm:w-[70vw] md:w-[60vw] lg:w-[50vw] aspect-16/10 md:aspect-4/3 rounded-lg overflow-hidden shadow-2xl cursor-pointer group ${isMobile ? 'snap-center' : ''}`}
                 style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
               >
-                <Image
+                <ImageWithTimeout
                   src={imageUrl}
                   alt={`${safeTranslate(project?.titleKey)} - Image ${index + 1}`}
                   fill
+                  timeout={15000}
+                  maxRetries={2}
+                  showRetryButton={true}
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 640px) 85vw, (max-width: 768px) 70vw, (max-width: 1024px) 60vw, 50vw"
-                  unoptimized={shouldSkipOptimization(imageUrl)}
                   priority={index < 2}
-                  placeholder="blur"
-                  blurDataURL={BLUR_DATA_URL}
-                  onError={(e) => {
-                    console.error('Image failed to load:', imageUrl);
-                    e.target.style.display = 'none';
-                  }}
                   style={{ pointerEvents: 'none' }}
                 />
             </div>
@@ -531,22 +560,45 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                 }}
               >
                 {(() => {
-                  const currentImageUrl = formatImageUrl(validImages[currentImageIndex]);
+                  // Thumbnail-first UX: show thumbnail/medium immediately, then large when loaded
+                  const isLargeLoaded = loadedLargeImages.has(currentImageIndex);
+                  const thumbnailUrl = getFormatUrl(currentImageIndex, 'medium', validImages, imagesFormats);
+                  const largeUrl = getFormatUrl(currentImageIndex, 'large', validImages, imagesFormats);
+                  const displayUrl = isLargeLoaded ? largeUrl : thumbnailUrl;
+                  
                   return (
-                    <Image
-                      src={currentImageUrl}
-                      alt={`${safeTranslate(project?.titleKey)} - Image ${currentImageIndex + 1}`}
-                      fill
-                      className="object-contain"
-                      sizes="90vw"
-                      priority
-                      unoptimized={shouldSkipOptimization(currentImageUrl)}
-                      placeholder="blur"
-                      blurDataURL={BLUR_DATA_URL}
-                      onError={(e) => {
-                        console.error('Lightbox image failed to load:', currentImageUrl);
-                      }}
-                    />
+                    <>
+                      {/* Show thumbnail/medium first (instant) */}
+                      {!isLargeLoaded && (
+                        <Image
+                          src={thumbnailUrl}
+                          alt={`${safeTranslate(project?.titleKey)} - Image ${currentImageIndex + 1}`}
+                          fill
+                          className="object-contain"
+                          sizes="90vw"
+                          priority
+                          unoptimized={shouldSkipOptimization(thumbnailUrl)}
+                          placeholder="blur"
+                          blurDataURL={BLUR_DATA_URL}
+                        />
+                      )}
+                      {/* Show large image when loaded (smooth transition) */}
+                      <Image
+                        src={largeUrl}
+                        alt={`${safeTranslate(project?.titleKey)} - Image ${currentImageIndex + 1}`}
+                        fill
+                        className={`object-contain transition-opacity duration-300 ${isLargeLoaded ? 'opacity-100' : 'opacity-0'}`}
+                        sizes="90vw"
+                        priority
+                        unoptimized={shouldSkipOptimization(largeUrl)}
+                        onLoad={() => {
+                          setLoadedLargeImages(prev => new Set([...prev, currentImageIndex]));
+                        }}
+                        onError={(e) => {
+                          console.error('Lightbox image failed to load:', largeUrl);
+                        }}
+                      />
+                    </>
                   );
                 })()}
               </div>
@@ -558,7 +610,8 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
                   <div className="flex gap-2 justify-center flex-nowrap min-w-max py-1 items-center">
                     {validImages.map((image, index) => {
                       if (!image || image.trim() === '') return null;
-                      const thumbnailUrl = formatImageUrl(image);
+                      // Use thumbnail format for lightbox thumbnail strip (fastest)
+                      const thumbnailUrl = getFormatUrl(index, 'thumbnail', validImages, imagesFormats);
                       return (
                       <button
                         key={index}

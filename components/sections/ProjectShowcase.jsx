@@ -9,7 +9,8 @@ import Link from 'next/link';
 import { useProjects } from '@/hooks/useProjects';
 import { transformProject } from '@/lib/strapi';
 import { isConstantsProject } from '@/utils/projectUtils';
-import { formatImageUrl, shouldSkipOptimization, BLUR_DATA_URL } from '@/utils/imageUtils';
+import { formatImageUrl } from '@/utils/imageUtils';
+import ImageWithTimeout from '@/components/common/ImageWithTimeout';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -380,17 +381,26 @@ export default function ProjectShowcase({ initialProjects = [], serverStrapiFail
                     height: 'clamp(200px, 50vw, 466px)',
                   }}
                 >
-                  <Image
-                    src={formatImageUrl(project.image) || '/images/projects/1.jpg'}
-                    alt={safeTranslate(project?.titleKey) || 'Project'}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 256px, (max-width: 1024px) 256px, 548px"
-                    placeholder="blur"
-                    blurDataURL={BLUR_DATA_URL}
-                    priority
-                    unoptimized={shouldSkipOptimization(formatImageUrl(project.image) || '')}
-                  />
+                  {(() => {
+                    // Use medium format for showcase cards (faster loading)
+                    const imageFormats = project?.imageFormats;
+                    const imageUrl = formatImageUrl(
+                      imageFormats?.medium || imageFormats?.large || project.image
+                    ) || '/images/projects/1.jpg';
+                    return (
+                      <ImageWithTimeout
+                        src={imageUrl}
+                        alt={safeTranslate(project?.titleKey) || 'Project'}
+                        fill
+                        timeout={15000}
+                        maxRetries={2}
+                        showRetryButton={false}
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 256px, (max-width: 1024px) 256px, 548px"
+                        priority
+                      />
+                    );
+                  })()}
                   
                   <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
                   

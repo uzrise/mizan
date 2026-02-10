@@ -5,9 +5,22 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { formatImageUrl } from '@/utils/imageUtils';
+import { ImageWithTimeoutSimple } from '@/components/common/ImageWithTimeout';
 
 // Track preloaded hero images globally to avoid duplicate preloads across cards
 const preloadedHeroImages = new Set();
+
+/**
+ * Get the best available URL for a specific format
+ */
+function getFormatUrl(index, format, images, imagesFormats) {
+  const formats = imagesFormats?.[index];
+  if (formats && formats[format]) {
+    return formatImageUrl(formats[format]);
+  }
+  // Fallback to full URL
+  return formatImageUrl(images?.[index] || '');
+}
 
 const ProjectCard = memo(({ project }) => {
   const { t, locale, safeTranslate } = useTranslation();
@@ -15,11 +28,18 @@ const ProjectCard = memo(({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef = useRef(null);
 
-  const defaultImage = project.image || project.images?.[0] || '';
+  // Get formats arrays
+  const imagesFormats = project?.imagesFormats || [];
+  const imageFormats = project?.imageFormats;
+  
+  // Use medium format for card images (faster loading)
+  const defaultImage = imageFormats?.medium || imageFormats?.small || project.image || project.images?.[0] || '';
   const slideshowImages = (project.images?.filter(img => img && img.trim() !== '') || []).slice(0, 5);
+  
+  // Build display images with medium format preference
   const displayImages = isHovered && slideshowImages.length > 0
-    ? slideshowImages
-    : [defaultImage].filter(Boolean);
+    ? slideshowImages.map((_, idx) => getFormatUrl(idx, 'medium', project.images, imagesFormats) || slideshowImages[idx])
+    : [formatImageUrl(defaultImage)].filter(Boolean);
 
   const startSlideshow = useCallback(() => {
     if (slideshowImages.length <= 1) return;
@@ -46,16 +66,17 @@ const ProjectCard = memo(({ project }) => {
     return () => stopSlideshow();
   }, [isHovered, startSlideshow, stopSlideshow]);
 
-  // Preload slug page hero image on hover for faster page load
+  // Preload slug page hero image on hover for faster page load (use large format)
   const preloadHeroImage = useCallback(() => {
-    const heroImageSrc = project.image || project.images?.[0];
+    // Prefer large format for hero preload
+    const heroImageSrc = imageFormats?.large || imageFormats?.medium || project.image || project.images?.[0];
     if (!heroImageSrc) return;
     const url = formatImageUrl(heroImageSrc);
     if (!url || preloadedHeroImages.has(url)) return;
     preloadedHeroImages.add(url);
     const img = new window.Image();
     img.src = url;
-  }, [project.image, project.images]);
+  }, [project.image, project.images, imageFormats]);
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true);
@@ -77,12 +98,13 @@ const ProjectCard = memo(({ project }) => {
       >
         <div className="relative overflow-hidden w-full aspect-457/427 transition-all duration-500 ease-out group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-black/10">
           {displayImages.map((img, index) => (
-            <Image
+            <ImageWithTimeoutSimple
               key={index}
               src={img}
               alt={`${safeTranslate(project?.titleKey) || 'Project'} - ${index + 1}`}
               width={457}
               height={427}
+              timeout={12000}
               className={`absolute inset-0 object-cover w-full h-full transition-all duration-500 ease-out group-hover:scale-105 ${
                 index === currentImageIndex ? 'opacity-100' : 'opacity-0'
               }`}

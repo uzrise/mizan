@@ -1,32 +1,38 @@
 'use client';
 
-import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { formatImageUrl, shouldSkipOptimization, BLUR_DATA_URL } from '@/utils/imageUtils';
+import { formatImageUrl } from '@/utils/imageUtils';
+import ImageWithTimeout from '@/components/common/ImageWithTimeout';
 
 export default function Hero({ project }) {
   const { safeTranslate } = useTranslation();
 
-  const imageUrl = formatImageUrl(project?.image);
+  // Use large format if available, fallback to medium, then original
+  const imageFormats = project?.imageFormats;
+  const imageUrl = formatImageUrl(
+    imageFormats?.large || imageFormats?.medium || project?.image
+  );
+  
+  // Medium format as fallback for faster retry
+  const fallbackUrl = imageFormats?.medium 
+    ? formatImageUrl(imageFormats.medium) 
+    : undefined;
 
   return (
     <section className="relative h-[60vh] min-h-[400px] md:h-[72vh] bg-[#1a3a2a] overflow-hidden">
       <div className="absolute inset-0 w-full h-full">
         <div className="relative w-full h-full">
-          <Image
+          <ImageWithTimeout
             src={imageUrl}
             alt={safeTranslate(project?.titleKey)}
             fill
-            unoptimized={shouldSkipOptimization(imageUrl)}
+            fallbackSrc={fallbackUrl}
+            timeout={20000}
+            maxRetries={2}
             className="object-cover"
             sizes="100vw"
             priority
             fetchPriority="high"
-            placeholder="blur"
-            blurDataURL={BLUR_DATA_URL}
-            onError={(e) => {
-              console.error('Hero image failed to load:', imageUrl);
-            }}
           />
         </div>
       </div>

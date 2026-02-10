@@ -4,7 +4,8 @@ import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { formatImageUrl, shouldSkipOptimization, BLUR_DATA_URL } from '@/utils/imageUtils';
+import { formatImageUrl } from '@/utils/imageUtils';
+import ImageWithTimeout from '@/components/common/ImageWithTimeout';
 import { useProjects } from '@/hooks/useProjects';
 
 export default function CarouselWithBackground({ project, initialProjects = [] }) {
@@ -27,9 +28,14 @@ export default function CarouselWithBackground({ project, initialProjects = [] }
     showcaseProjects.forEach((proj) => {
       if (proj?.images && Array.isArray(proj.images) && proj.images.length > 0) {
         const firstImage = proj.images.find(img => img && img.trim() !== '');
-        if (firstImage && proj?.slug) {
+        // Get medium format if available for faster loading
+        const imagesFormats = proj?.imagesFormats || [];
+        const firstFormat = imagesFormats[0];
+        const imageUrl = firstFormat?.medium || firstFormat?.large || firstImage;
+        
+        if (imageUrl && proj?.slug) {
           imagesWithProjects.push({
-            image: firstImage,
+            image: imageUrl,
             project: proj,
           });
         }
@@ -153,19 +159,16 @@ export default function CarouselWithBackground({ project, initialProjects = [] }
                       transform: isCenter ? 'scale(1)' : 'scale(0.95)',
                     }}
                   >
-                    <Image
+                    <ImageWithTimeout
                       src={imageUrl}
                       alt={`${safeTranslate(projectItem?.titleKey)} - Image ${index + 1}`}
                       fill
+                      timeout={15000}
+                      maxRetries={2}
+                      showRetryButton={false}
                       className="object-contain"
                       sizes={isCenter ? '596px' : '427px'}
                       priority={index <= 2}
-                      unoptimized={shouldSkipOptimization(imageUrl)}
-                      placeholder="blur"
-                      blurDataURL={BLUR_DATA_URL}
-                      onError={(e) => {
-                        console.error('Carousel image failed to load:', imageUrl);
-                      }}
                     />
                   </div>
                 </Link>
