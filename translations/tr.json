@@ -300,6 +300,10 @@
   "awards": { "internationalAwards": "Uluslararası ödüller" },
   "footer": { "copyright": "Mizan Architecture. Tüm hakları saklıdır." },
   "team": {
+    "founder": "MIZAN'ın Kurucusu",
+    "headOfInteriorDesign": "İç Mekân Tasarım Bölümü Başkanı",
+    "headOf3DVisualization": "3D Görselleştirme Bölümü Başkanı",
+    "headOfUrbanPlanning": "Şehir Planlama Dairesi Başkanı",
     "chiefArchitect": "Mimar",
     "leadDesigner": "Kentsel tasarımcı",
     "architectVisualizer": "Görselleştirici",

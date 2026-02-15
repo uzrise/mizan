@@ -13,6 +13,39 @@ if (typeof window !== "undefined") {
 const teamMembers = [
   {
     id: 1,
+    name: "Jahongir Ikromov",
+    roleKey: "team.founder",
+    image: "/images/team/11.png",
+    experience: "17+",
+    phone: "",
+  },
+  {
+    id: 2,
+    name: "Aziz Muxamedov",
+    roleKey: "team.headOfInteriorDesign",
+    image: "/images/team/8.png",
+    experience: "17+",
+    phone: "",
+  },
+  {
+    id: 3,
+    name: "Davron Jo’rayev",
+    roleKey: "team.headOf3DVisualization",
+    image: "/images/team/9.png",
+    experience: "17+",
+    phone: "",
+  },
+  {
+    id: 4,
+    name: "Shaxboz Umataliyev",
+    roleKey: "team.chiefArchitect",
+    image: "/images/team/10.png",
+    experience: "8+",
+    phone: "",
+  },
+ 
+  {
+    id: 5,
     name: "Zafarjon Raxmatov",
     roleKey: "team.chiefArchitect",
     image: "/images/team/1.png",
@@ -23,9 +56,9 @@ const teamMembers = [
     phone: "",
   },
   {
-    id: 2,
+    id: 6,
     name: "Shahzod Rahmatov",
-    roleKey: "team.leadDesigner",
+    roleKey: "team.headOfUrbanPlanning",
     image: "/images/team/2.png",
     experience: "6+",
     
@@ -35,7 +68,7 @@ const teamMembers = [
     phone: "+998998771573",
   },
   {
-    id: 3,
+    id: 7,
     name: "Abdulla Abdullayev",
     roleKey: "team.interiorDesigner",
     image: "/images/team/3.png",
@@ -46,7 +79,7 @@ const teamMembers = [
     phone: "+998936343555",
   },
   {
-    id: 4,
+    id: 8,
     name: "Ibrohim Islomov",
     roleKey: "team.constructionEngineer",
     image: "/images/team/4.png",
@@ -57,7 +90,7 @@ const teamMembers = [
     phone: "+998997920007",
   },
   {
-    id: 5,
+    id: 9,
     name: "Ramziddin Muxutdinov",
     roleKey: "team.architectVisualizer",
     image: "/images/team/5.png",
@@ -68,7 +101,7 @@ const teamMembers = [
     phone: "+998909542611",
   },
   {
-    id: 6,
+    id: 10, 
     name: "Aziz Omonov",
     roleKey: "team.constructionEngineer",
     image: "/images/team/6.png",
@@ -79,7 +112,7 @@ const teamMembers = [
     phone: "+998946831191",
   },
   {
-    id: 7,
+    id: 11,
     name: "Xasan G’anixo’jayev",
     roleKey: "team.interiorDesigner",
     image: "/images/team/7.png",

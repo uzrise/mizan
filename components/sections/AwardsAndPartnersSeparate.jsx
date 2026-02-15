@@ -149,26 +149,8 @@ const partners = [
     bgColor: "",
     website: "https://primetower.uz/",
   },
-  {
-    id: 8,
-    name: "UZBEKISTAN AIRWAYS",
-    logo: "/images/partners/9.png",
-    width: 136,
-    height: 135,
-    hasBackground: true,
-    bgColor: "",
-    website: "https://www.uzairways.com/ru/bilety",
-  },
-  {
-    id: 9,
-    name: "ABOZOR",
-    logo: "/images/partners/8.png",
-    width: 122,
-    height: 144,
-    hasBackground: true,
-    bgColor: "",
-    website: "https://a-bozor.uz/",
-  },
+  
+
 
 ];
 

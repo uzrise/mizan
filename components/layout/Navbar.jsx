@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 import Image from 'next/image';
@@ -22,9 +22,18 @@ function useReducedBlur() {
   return reduceBlur;
 }
 
+// Client-only snapshot: server false, client true — hydration mos, setState yo‘q
+function useIsClient() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+}
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const { language, locale, changeLanguage, t } = useTranslation();
   const [showLogo, setShowLogo] = useState(() => {
     // Initialize state based on intro completion status
@@ -35,11 +44,6 @@ export default function Navbar() {
   const logoContainerRef = useRef(null);
   const menuOverlayRef = useRef(null);
   const menuContentRef = useRef(null);
-
-  // Portal faqat clientda, hydration tugagach — server/client HTML mos kelishi uchun
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const languages = ['UZ', 'EN', 'TR', 'RU'];
 

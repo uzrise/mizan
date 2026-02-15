@@ -300,6 +300,10 @@
   "awards": { "internationalAwards": "Международные награды" },
   "footer": { "copyright": "Mizan Architecture. Все права защищены." },
   "team": {
+    "founder": "Основатель MIZAN",
+    "headOfInteriorDesign": "Руководитель отдела дизайна интерьеров",
+    "headOf3DVisualization": "Руководитель отдела 3D-визуализации",
+    "headOfUrbanPlanning": "Начальник отдела градостроительства",
     "chiefArchitect": "Архитектор",
     "leadDesigner": "Урбан-дизайнер",
     "architectVisualizer": "Визуализатор",

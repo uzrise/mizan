@@ -300,6 +300,10 @@
   "awards": { "internationalAwards": "International awards" },
   "footer": { "copyright": "Mizan Architecture. All rights reserved." },
   "team": {
+    "founder": "Founder of MIZAN",
+    "headOfInteriorDesign": "Head of Interior Design",
+    "headOf3DVisualization": "Head of 3D Visualization",
+    "headOfUrbanPlanning": "Head of Urban Planning department",
     "chiefArchitect": "Architect",
     "leadDesigner": "Urban designer",
     "architectVisualizer": "Visualizer",

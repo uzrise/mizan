@@ -22,8 +22,8 @@ export default function Content() {
       imageAltKey: 'durability.content.block2.imageAlt',
       titleKey: 'durability.content.block2.title',
       descriptionKey: 'durability.content.block2.description',
-      width: 548,
-      height: 348,
+      width: 629,
+      height: 629,
     },
     {
       id: 3,
@@ -31,26 +31,14 @@ export default function Content() {
       imageAltKey: 'durability.content.block3.imageAlt',
       titleKey: 'durability.content.block3.title',
       descriptionKey: 'durability.content.block3.description',
-      width: 548,
-      height: 348,
+      width: 657,
+      height: 369,
     },
   ];
 
   return (
     <section className="relative w-full bg-transparent py-16 overflow-visible">
-      {/* Background Long Vector - extends into Hero (260px) and Footer (200px) */}
-      {/* <div 
-        className="absolute left-0 right-0 w-full pointer-events-none z-0"
-        style={{ top: '-260px', bottom: '-200px' }}
-      >
-        <Image
-          src="/images/bg-long-vector.png"
-          alt=""
-          fill
-          className="object-cover object-top"
-          priority
-        />
-      </div> */}
+
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-10 sm:gap-16 md:gap-20 lg:gap-[96px] relative z-10">
         {contentBlocks.map((block, index) => (
@@ -72,12 +60,12 @@ export default function Content() {
               />
             </div>
 
-            {/* Text Content */}
-            <div className="w-full md:w-[240px] text-[#161616]">
-              <h2 className="font-semibold text-[16px] leading-[115%] tracking-[-0.02em] mb-2 sm:mb-4">
+            {/* Text Content — ekran bo‘yicha kattaroq shrift */}
+            <div className="w-full md:w-[240px] lg:w-[300px] text-[#161616]">
+              <h2 className="font-semibold text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] leading-[115%] tracking-[-0.02em] mb-2 sm:mb-4">
                 {t(block.titleKey)}
               </h2>
-              <p className="font-inter font-normal text-[14px] leading-[130%] sm:leading-[115%] text-justify tracking-[-0.02em]">
+              <p className="font-inter font-normal text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] leading-[130%] sm:leading-[125%] md:leading-[120%] text-justify tracking-[-0.02em]">
                 {t(block.descriptionKey)}
               </p>
             </div>
