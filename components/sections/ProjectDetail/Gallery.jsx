@@ -6,8 +6,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { formatImageUrl, shouldSkipOptimization, getImageUrl } from '@/utils/imageUtils';
-import ImageWithTimeout, { ImageWithTimeoutSimple } from '@/components/common/ImageWithTimeout';
+import { FORCE_FULL_IMAGES, formatImageUrl, shouldSkipOptimization, getImageUrl } from '@/utils/imageUtils';
+import ImageWithTimeout, { ImageWithTimeoutSimple, preloadImage, isImageLoaded } from '@/components/common/ImageWithTimeout';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -26,6 +26,11 @@ function getFormatUrl(index, format, images, imagesFormats) {
   
   // For 'full' format, return original image URL directly
   if (format === 'full') {
+    return formatImageUrl(images[index]);
+  }
+
+  // Optional mode: force full images everywhere (heavier but max quality)
+  if (FORCE_FULL_IMAGES) {
     return formatImageUrl(images[index]);
   }
   
@@ -97,11 +102,17 @@ export default function Gallery({ project, gallerySectionRef, galleryContainerRe
     if (loadedLargeImages.has(index)) return;
     const fullUrl = getFormatUrl(index, 'full', validImages, imagesFormats);
     if (!fullUrl) return;
-    
-    const img = new window.Image();
-    img.onload = () => {
+
+    // If already loaded in this session (or previously), avoid re-preload work
+    if (isImageLoaded(fullUrl)) {
       setLoadedLargeImages(prev => new Set([...prev, index]));
-    };
+      return;
+    }
+
+    preloadImage(fullUrl);
+    // Mark as loaded when browser fires load event (best-effort)
+    const img = new window.Image();
+    img.onload = () => setLoadedLargeImages(prev => new Set([...prev, index]));
     img.src = fullUrl;
   }, [validImages, imagesFormats, loadedLargeImages]);
 

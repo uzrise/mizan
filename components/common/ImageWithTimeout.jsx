@@ -4,12 +4,58 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { shouldSkipOptimization, BLUR_DATA_URL } from '@/utils/imageUtils';
 
-// Delay before showing spinner (ms) - prevents flash for cached images
 const SPINNER_DELAY = 250;
 
-// Global cache to track successfully loaded images across component instances
-// This prevents showing loading state for already-loaded images
+const SESSION_CACHE_KEY = 'mizan_loaded_images';
+const SESSION_CACHE_MAX = 400; 
+
 const loadedImagesCache = new Set();
+
+function restoreCacheFromSession() {
+  if (typeof window === 'undefined') return;
+  try {
+    const raw = window.sessionStorage.getItem(SESSION_CACHE_KEY);
+    if (!raw) return;
+    const urls = JSON.parse(raw);
+    if (Array.isArray(urls)) urls.forEach((u) => u && loadedImagesCache.add(u));
+  } catch (_) {}
+}
+
+function persistLoadedUrl(src) {
+  if (!src || typeof window === 'undefined') return;
+  try {
+    const raw = window.sessionStorage.getItem(SESSION_CACHE_KEY);
+    let urls = [];
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) urls = parsed;
+    }
+    if (urls.includes(src)) return;
+    urls.push(src);
+    if (urls.length > SESSION_CACHE_MAX) urls = urls.slice(-SESSION_CACHE_MAX);
+    window.sessionStorage.setItem(SESSION_CACHE_KEY, JSON.stringify(urls));
+  } catch (_) {}
+}
+
+let sessionRestored = false;
+function ensureSessionRestored() {
+  if (typeof window === 'undefined' || sessionRestored) return;
+  sessionRestored = true;
+  restoreCacheFromSession();
+}
+
+export function isImageLoaded(src) {
+  if (!src || typeof window === 'undefined') return false;
+  ensureSessionRestored();
+  return loadedImagesCache.has(src);
+}
+
+export function markImageLoaded(src) {
+  if (!src || typeof window === 'undefined') return;
+  ensureSessionRestored();
+  loadedImagesCache.add(src);
+  persistLoadedUrl(src);
+}
 
 /**
  * Preload an image and add it to the global cache
@@ -17,11 +63,12 @@ const loadedImagesCache = new Set();
  */
 export function preloadImage(src) {
   if (!src || typeof window === 'undefined') return;
+  ensureSessionRestored();
   if (loadedImagesCache.has(src)) return; // Already cached
   
   const img = new window.Image();
   img.onload = () => {
-    loadedImagesCache.add(src);
+    markImageLoaded(src);
   };
   img.src = src;
 }
@@ -85,7 +132,8 @@ function ImageWithTimeoutInner({
   onRetry,
   ...props
 }) {
-  // Check if image was already loaded before (from global cache)
+  ensureSessionRestored();
+  // Check if image was already loaded before (from global cache or session)
   const isAlreadyLoaded = loadedImagesCache.has(src);
   
   const [status, setStatus] = useState(isAlreadyLoaded ? 'loaded' : 'pending');
@@ -123,9 +171,7 @@ function ImageWithTimeoutInner({
 
   const handleLoad = useCallback(() => {
     loadedRef.current = true;
-    // Add to global cache so future renders know it's loaded
-    loadedImagesCache.add(src);
-    
+    markImageLoaded(src);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     if (spinnerDelayRef.current) clearTimeout(spinnerDelayRef.current);
     setStatus('loaded');
@@ -268,9 +314,8 @@ function ImageWithTimeoutSimpleInner({
   className = '',
   ...props
 }) {
-  // Check if image was already loaded before (from global cache)
+  ensureSessionRestored();
   const isAlreadyLoaded = loadedImagesCache.has(src);
-  
   const [timedOut, setTimedOut] = useState(false);
   const timeoutRef = useRef(null);
   const loadedRef = useRef(isAlreadyLoaded);
@@ -294,8 +339,7 @@ function ImageWithTimeoutSimpleInner({
   const handleLoad = useCallback(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     loadedRef.current = true;
-    // Add to global cache
-    loadedImagesCache.add(src);
+    markImageLoaded(src);
   }, [src]);
 
   if (timedOut) {

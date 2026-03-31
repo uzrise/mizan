@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useProjects } from '@/hooks/useProjects';
 import { transformProject } from '@/lib/strapi';
 import { isConstantsProject } from '@/utils/projectUtils';
-import { formatImageUrl } from '@/utils/imageUtils';
+import { FORCE_FULL_IMAGES, formatImageUrl } from '@/utils/imageUtils';
 import ImageWithTimeout from '@/components/common/ImageWithTimeout';
 
 if (typeof window !== 'undefined') {
@@ -385,7 +385,9 @@ export default function ProjectShowcase({ initialProjects = [], serverStrapiFail
                     // Use medium format for showcase cards (faster loading)
                     const imageFormats = project?.imageFormats;
                     const imageUrl = formatImageUrl(
-                      imageFormats?.medium || imageFormats?.large || project.image
+                      FORCE_FULL_IMAGES
+                        ? project.image
+                        : (imageFormats?.medium || imageFormats?.large || project.image)
                     ) || '/images/projects/1.jpg';
                     return (
                       <ImageWithTimeout

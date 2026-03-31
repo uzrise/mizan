@@ -1,19 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { formatImageUrl, shouldSkipOptimization } from '@/utils/imageUtils';
+import { FORCE_FULL_IMAGES, formatImageUrl, shouldSkipOptimization } from '@/utils/imageUtils';
+import { isImageLoaded, markImageLoaded } from '@/components/common/ImageWithTimeout';
 
 
 // Inner component that resets when key changes
 function HeroImages({ mediumUrl, fullUrl, alt }) {
+  // IMPORTANT: initial render must match server HTML to avoid hydration mismatch.
+  // We only consult session/browser cache after mount.
   const [isFullLoaded, setIsFullLoaded] = useState(false);
+
+  useEffect(() => {
+    if (isImageLoaded(fullUrl)) {
+      setIsFullLoaded(true);
+    }
+  }, [fullUrl]);
 
   return (
     <>
       {/* Show medium first (instant from cache) */}
-      {!isFullLoaded && (
+      {!FORCE_FULL_IMAGES && !isFullLoaded && (
         <Image
           src={mediumUrl}
           alt={alt}
@@ -34,7 +43,10 @@ function HeroImages({ mediumUrl, fullUrl, alt }) {
         sizes="100vw"
         priority
         unoptimized={shouldSkipOptimization(fullUrl)}
-        onLoad={() => setIsFullLoaded(true)}
+        onLoad={() => {
+          markImageLoaded(fullUrl);
+          setIsFullLoaded(true);
+        }}
       />
     </>
   );

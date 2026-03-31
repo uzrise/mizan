@@ -4,7 +4,7 @@ import { memo, useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { formatImageUrl } from '@/utils/imageUtils';
+import { FORCE_FULL_IMAGES, formatImageUrl } from '@/utils/imageUtils';
 import { ImageWithTimeoutSimple, preloadImage } from '@/components/common/ImageWithTimeout';
 
 /**
@@ -12,6 +12,9 @@ import { ImageWithTimeoutSimple, preloadImage } from '@/components/common/ImageW
  */
 function getFormatUrl(index, format, images, imagesFormats) {
   const formats = imagesFormats?.[index];
+  if (FORCE_FULL_IMAGES) {
+    return formatImageUrl(images?.[index] || '');
+  }
   if (formats && formats[format]) {
     return formatImageUrl(formats[format]);
   }
@@ -30,7 +33,9 @@ const ProjectCard = memo(({ project }) => {
   const imageFormats = project?.imageFormats;
   
   // Use medium format for card images (faster loading)
-  const defaultImage = imageFormats?.medium || imageFormats?.small || project.image || project.images?.[0] || '';
+  const defaultImage = FORCE_FULL_IMAGES
+    ? (project.image || project.images?.[0] || '')
+    : (imageFormats?.medium || imageFormats?.small || project.image || project.images?.[0] || '');
   
   // Memoize slideshowImages to stabilize reference for React Compiler
   const slideshowImages = useMemo(
@@ -72,8 +77,10 @@ const ProjectCard = memo(({ project }) => {
 
   // Preload slug page hero image on hover for faster page load (use medium format - same as Hero)
   const preloadHeroImage = useCallback(() => {
-    // Prefer medium format for hero preload (same format used in Hero component)
-    const heroImageSrc = imageFormats?.medium || imageFormats?.large || project.image || project.images?.[0];
+    // Prefer medium for progressive mode; prefer full when forced-full mode is enabled
+    const heroImageSrc = FORCE_FULL_IMAGES
+      ? (project.image || project.images?.[0])
+      : (imageFormats?.medium || imageFormats?.large || project.image || project.images?.[0]);
     if (!heroImageSrc) return;
     const url = formatImageUrl(heroImageSrc);
     if (url) {

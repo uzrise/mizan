@@ -1,5 +1,9 @@
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
+// If true, always prefer full/original images (heavier, but maximum quality).
+// If false (default), components may load lower-quality first, then upgrade to full.
+export const FORCE_FULL_IMAGES = process.env.NEXT_PUBLIC_FORCE_FULL_IMAGES === 'true';
+
 const LOCAL_PUBLIC_PATHS = [
   '/images/',
   '/bg-',
